@@ -1,0 +1,7 @@
+﻿  stdafx.cpp
+  Reflection.cpp
+Reflection.cpp(19): warning C4474: 'printf' : too many arguments passed for format string
+  Reflection.cpp(19): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+  ActionTest.cpp
+  Generating Code...
+  Reflection.vcxproj -> C:\Users\idani\Documents\GitHub\NHTV\Reflection\Debug\Reflection.exe
