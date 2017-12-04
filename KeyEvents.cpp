@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "KeyEvents.h"
+#include <iostream>
 
 vector<function<void(Keyboard::Key)>> KeyDownEvent;
 vector<function<void(Keyboard::Key)>> KeyEvent;
@@ -29,7 +30,7 @@ void HandleInputEvents(Event sfEvent) {
 
 void HandleInputUpdate() {
 	for (size_t i = 0; i < pressedKeys.size(); i++) {
-		for (size_t e = 0; e < KeyDownEvent.size(); e++) {
+		for (size_t e = 0; e < KeyEvent.size(); e++) {
 			KeyEvent[e](pressedKeys[i]);
 		}
 	}
