@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <SFML/Graphics.hpp>
 #include "Window.h"
+#include <iostream>
 
 using namespace sf;
 using namespace std;
@@ -33,11 +34,11 @@ void sort_drawables_in_order() {
 	}
 
 	drawablesinorder.clear();
-	for (size_t i = drawableLayers.size() - 1; i >= 0; i--) {
+	for (int i = drawableLayers.size() - 1; i >= 0; i--) {
 		int layer = drawableLayers[i];
 		vector<const Drawable*> drawables = drawablesByLayer[layer];
-		for (size_t i = 0; i < drawables.size(); i++) {
-			drawablesinorder.push_back(drawables[i]);
+		for (size_t d = 0; d < drawables.size(); d++) {
+			drawablesinorder.push_back(drawables[d]);
 		}
 	}
 }
