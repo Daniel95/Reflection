@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
-#include "KeyEvents.h"
+#include "InputEvents.h"
 #include "Window.h"
 #include <iostream>
 

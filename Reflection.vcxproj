@@ -155,7 +155,7 @@
   <ItemGroup>
     <ClInclude Include="Window.h" />
     <ClInclude Include="GameEvents.h" />
-    <ClInclude Include="KeyEvents.h" />
+    <ClInclude Include="InputEvents.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -163,7 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEvents.cpp" />
-    <ClCompile Include="KeyEvents.cpp" />
+    <ClCompile Include="InputEvents.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Reflection.cpp" />
     <ClCompile Include="stdafx.cpp">
