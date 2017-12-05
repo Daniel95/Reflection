@@ -48,23 +48,23 @@ static void HandleKeyEvents(Event sfEvent) {
 }
 
 static void HandleMouseEvents(Event sfEvent) {
-	Mouse::Button pressedButton = sfEvent.mouseButton.button;
+	Mouse::Button pressedMouseButton = sfEvent.mouseButton.button;
 	Vector2i mousePosition = Mouse::getPosition();
 
 	switch (sfEvent.type) {
 	case Event::MouseButtonPressed:
-		if (std::find(pressedKeys.begin(), pressedKeys.end(), pressedButton) == pressedKeys.end()) {
+		if (std::find(pressedMouseButtons.begin(), pressedMouseButtons.end(), pressedMouseButton) == pressedMouseButtons.end()) {
 			for (size_t i = 0; i < KeyDownEvent.size(); i++) {
-				MouseDownEvent[i](pressedButton, mousePosition);
+				MouseDownEvent[i](pressedMouseButton, mousePosition);
 			}
-			pressedMouseButtons.push_back(pressedButton);
+			pressedMouseButtons.push_back(pressedMouseButton);
 		}
 		break;
-	case Event::KeyReleased:
+	case Event::MouseButtonReleased:
 		for (size_t i = 0; i < KeyUpEvent.size(); i++) {
-			MouseUpEvent[i](pressedButton, mousePosition);
+			MouseUpEvent[i](pressedMouseButton, mousePosition);
 		}
-		pressedMouseButtons.erase(remove(pressedMouseButtons.begin(), pressedMouseButtons.end(), pressedButton), pressedMouseButtons.end());
+		pressedMouseButtons.erase(remove(pressedMouseButtons.begin(), pressedMouseButtons.end(), pressedMouseButton), pressedMouseButtons.end());
 		break;
 	}
 }

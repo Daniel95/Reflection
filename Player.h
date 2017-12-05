@@ -12,5 +12,6 @@ public:
 	Player();
 	~Player();
 	void OnKey(Keyboard::Key key);
+	void OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta);
 };
 
