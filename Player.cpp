@@ -1,8 +1,12 @@
 #include "stdafx.h"
 #include "Player.h"
+#include <SFML/Graphics.hpp>
 #include "InputEvents.h"
 #include "Window.h"
 #include <iostream>
+#include "MathHelper.h"
+#include "TimeHelper.h"
+#include "GameEvents.h"
 
 Player::Player() {
 	body.setSize(Vector2f(100.0f, 150.0f));
@@ -11,7 +15,7 @@ Player::Player() {
 
 	cout << "player spawned" << endl;
 	body.setFillColor(Color::Green);
-	KeyEvent.push_back([this](auto key) { OnKey(key); });
+	UpdateEvent.push_back([this]() { OnUpdate(); });
 	MouseEvent.push_back([this](auto mouseButton, auto mousePosition, auto mouseDelta) { OnMouse(mouseButton, mousePosition, mouseDelta); });
 	add_drawable(body, 0);
 }
@@ -20,22 +24,26 @@ Player::~Player() {
 	//clear up player.
 }
 
-void Player::OnKey(Keyboard::Key key) {
-	if (key == Keyboard::Key::A) {
-		body.move(-PLAYER_SPEED, 0);
-	} else if (key == Keyboard::Key::D) {
-		body.move(PLAYER_SPEED, 0);
+void Player::OnUpdate() {
+	Vector2i input;
+
+	if (Keyboard::isKeyPressed(Keyboard::Key::A)) {
+		input.x = -1;
+	} else if (Keyboard::isKeyPressed(Keyboard::Key::D)) {
+		input.x = 1;
 	}
 
-	if (key == Keyboard::Key::W) {
-		body.move(0, -PLAYER_SPEED);
-	} else if (key == Keyboard::Key::S) {
-		body.move(0, PLAYER_SPEED);
+	if (Keyboard::isKeyPressed(Keyboard::Key::W)) {
+		input.y = -1;
+	} else if (Keyboard::isKeyPressed(Keyboard::Key::S)) {
+		input.y = 1;
 	}
+
+	Vector2f direction = MathHelper::Normalize((float)input.x, (float)input.y);
+	cout << direction.x << endl;
+
+	body.move((direction * PLAYER_SPEED) * TimeHelper::deltaTime);
 }
 
 void Player::OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta) {
-	cout << "mouse pos " << endl;
-	cout << mousePosition.x << endl;
-	cout << mousePosition.y << endl;
 }

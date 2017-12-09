@@ -7,12 +7,13 @@ using namespace sf;
 
 class Player {
 private:
-	const float PLAYER_SPEED = 0.4f;
+	const float PLAYER_SPEED = 800.0f;
 	RectangleShape body;
 public:
 	Player();
 	~Player();
 	void OnKey(Keyboard::Key key);
+	void OnUpdate();
 	void OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta);
 
 	Vector2f GetPosition() { return body.getPosition(); }
