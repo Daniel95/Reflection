@@ -6,7 +6,7 @@
 using namespace sf;
 using namespace std;
 
-RenderWindow window(VideoMode(1280, 920), "Reflection", Style::Close | Style::Titlebar);
+RenderWindow window(VideoMode(windowSize.x, windowSize.y), "Reflection", Style::Close | Style::Titlebar);
 map<int, vector<const Drawable*>> drawablesByLayer;
 vector<const Drawable*> drawablesinorder;
 

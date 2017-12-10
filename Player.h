@@ -10,9 +10,8 @@ private:
 	const float PLAYER_SPEED = 800.0f;
 	RectangleShape body;
 public:
-	Player();
+	Player(Vector2f startPosition);
 	~Player();
-	void OnKey(Keyboard::Key key);
 	void OnUpdate();
 	void OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta);
 

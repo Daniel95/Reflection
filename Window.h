@@ -5,6 +5,7 @@
 using namespace sf;
 using namespace std;
 
+static const Vector2i windowSize = Vector2i(1280, 920);
 extern RenderWindow window;
 extern map<int, vector<const Drawable*>> drawablesByLayer;
 extern vector<const Drawable*> drawablesinorder;

@@ -8,10 +8,10 @@
 #include "TimeHelper.h"
 #include "GameEvents.h"
 
-Player::Player() {
-	body.setSize(Vector2f(100.0f, 150.0f));
+Player::Player(Vector2f startPosition) {
+	body.setSize(Vector2f(60.0f, 100.0f));
 	body.setOrigin(body.getSize() / 2.0f);
-	body.setPosition(Vector2f(206.0f, 206.0f));
+	body.setPosition(startPosition);
 
 	cout << "player spawned" << endl;
 	body.setFillColor(Color::Green);
@@ -40,8 +40,6 @@ void Player::OnUpdate() {
 	}
 
 	Vector2f direction = MathHelper::Normalize((float)input.x, (float)input.y);
-	cout << direction.x << endl;
-
 	body.move((direction * PLAYER_SPEED) * TimeHelper::deltaTime);
 }
 
