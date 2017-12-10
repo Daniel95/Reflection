@@ -7,24 +7,25 @@
 using namespace sf;
 using namespace std;
 
-map<int, vector<Collider&>> collidersByLayer;
+map<int, vector<Collider*>> collidersByLayer;
 
-static void UpdateCollisions() {
-	for (int l = 0; l < collidersByLayer.size(); l++) {
-		vector<Collider&> colliders = collidersByLayer[l];
-		for (int c = 0; c < colliders.size(); c++) {
-			Collider& collider = colliders[c];
+void UpdateCollisions() {
+	for (size_t l = 0; l < collidersByLayer.size(); l++) {
+		vector<Collider*> colliders = collidersByLayer[l];
+		for (size_t c = 0; c < colliders.size(); c++) {
+			Collider* collider = colliders[c];
 			colliders.erase(remove(colliders.begin(), colliders.end(), collider), colliders.end());
-			for (int oc = 0; oc < colliders.size(); oc++) {
-				collider.CheckCollision(colliders[oc], 0.0f);
+			for (size_t oc = 0; oc < colliders.size(); oc++) {
+				cout << &colliders[oc] << endl;
+				collider->CheckCollision(*colliders[oc], 0.0f);
 			}
 		}
 	}
 }
 
-void AddCollider(Collider &collider, int layer) {
+void AddCollider(Collider& collider, int layer) {
 	if (collidersByLayer.find(layer) == collidersByLayer.end()) {
-		collidersByLayer[layer] = vector<Collider&>();
+		collidersByLayer[layer] = vector<Collider*>();
 	}
-	collidersByLayer[layer].push_back(collider);
+	collidersByLayer[layer].push_back(&collider);
 }

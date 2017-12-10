@@ -8,7 +8,7 @@ Box::Box(Vector2f position, Vector2f size) {
 	body.setOrigin(body.getSize() / 2.0f);
 	body.setPosition(position);
 	add_drawable(body, 1);
-	AddCollider(&GetCollider(), 0);
+	AddCollider(GetCollider(), 0);
 }
 
 
