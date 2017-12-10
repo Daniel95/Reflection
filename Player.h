@@ -10,7 +10,7 @@ private:
 	const float PLAYER_SPEED = 800.0f;
 	RectangleShape body;
 public:
-	Player(Vector2f startPosition);
+	Player(Vector2f position);
 	~Player();
 	void OnUpdate();
 	void OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta);

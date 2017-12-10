@@ -8,12 +8,11 @@
 #include "TimeHelper.h"
 #include "GameEvents.h"
 
-Player::Player(Vector2f startPosition) {
+Player::Player(Vector2f position) {
 	body.setSize(Vector2f(60.0f, 100.0f));
 	body.setOrigin(body.getSize() / 2.0f);
-	body.setPosition(startPosition);
+	body.setPosition(position);
 
-	cout << "player spawned" << endl;
 	body.setFillColor(Color::Green);
 	UpdateEvent.push_back([this]() { OnUpdate(); });
 	MouseEvent.push_back([this](auto mouseButton, auto mousePosition, auto mouseDelta) { OnMouse(mouseButton, mousePosition, mouseDelta); });

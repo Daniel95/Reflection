@@ -1,15 +1,16 @@
 #include "stdafx.h"
+#include <iostream>
 #include "Collider.h"
 
+using namespace std;
 
-Collider::Collider(RectangleShape& body) : body(body) {
-
-}
-
+Collider::Collider(RectangleShape& body) : body(body) {}
 
 Collider::~Collider() {}
 
 bool Collider::CheckCollision(Collider &other, float push) {
+	//body.getGlobalBounds().intersects(other.body.getGlobalBounds());
+
 	Vector2f otherPosition = other.GetPosition();
 	Vector2f otherHalfSize = other.GetHalfSize();
 
@@ -18,8 +19,8 @@ bool Collider::CheckCollision(Collider &other, float push) {
 
 	float deltaX = otherPosition.x - thisPosition.x;
 	float deltaY = otherPosition.y - thisPosition.y;
-	float intersectX = abs(deltaX) - otherHalfSize.x + thisHalfSize.x;
-	float intersectY = abs(deltaY) - otherHalfSize.y + thisHalfSize.y;
+	float intersectX = abs(deltaX) - (otherHalfSize.x + thisHalfSize.x);
+	float intersectY = abs(deltaY) - (otherHalfSize.y + thisHalfSize.y);
 
 	if (intersectX < 0.0f && intersectY < 0.0f) {
 		push = std::min(std::max(push, 0.0f), 1.0f);
