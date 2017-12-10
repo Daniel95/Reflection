@@ -1,9 +1,10 @@
 #include "stdafx.h"
+#include <iostream>
 #include "Player.h"
 #include <SFML/Graphics.hpp>
 #include "InputEvents.h"
 #include "Window.h"
-#include <iostream>
+#include "Collisions.h"
 #include "MathHelper.h"
 #include "TimeHelper.h"
 #include "GameEvents.h"
@@ -17,6 +18,7 @@ Player::Player(Vector2f position) {
 	UpdateEvent.push_back([this]() { OnUpdate(); });
 	MouseEvent.push_back([this](auto mouseButton, auto mousePosition, auto mouseDelta) { OnMouse(mouseButton, mousePosition, mouseDelta); });
 	add_drawable(body, 0);
+	AddCollider(GetCollider(), 0);
 }
 
 Player::~Player() {

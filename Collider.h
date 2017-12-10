@@ -17,6 +17,5 @@ public:
 	bool CheckCollision(Collider& other, float push);
 	Vector2f GetPosition() { return body.getPosition(); }
 	Vector2f GetHalfSize() { return body.getSize() / 2.0f; }
-
 };
 
