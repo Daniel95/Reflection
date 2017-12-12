@@ -17,6 +17,9 @@ Player::Player(Vector2f position) {
 	body.setFillColor(Color::Green);
 	UpdateEvent.push_back([this]() { OnUpdate(); });
 	MouseEvent.push_back([this](auto mouseButton, auto mousePosition, auto mouseDelta) { OnMouse(mouseButton, mousePosition, mouseDelta); });
+
+	cout << "spawn Player" << endl;
+
 	add_drawable(body, 0);
 	AddCollider(GetCollider(), 0);
 }

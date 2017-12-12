@@ -8,7 +8,7 @@ Collider::Collider(RectangleShape& body) : body(body) {}
 
 Collider::~Collider() {}
 
-bool Collider::CheckCollision(Collider &other, float push) {
+bool Collider::CheckCollision(Collider& other, float push) {
 	//body.getGlobalBounds().intersects(other.body.getGlobalBounds());
 
 	Vector2f otherPosition = other.GetPosition();
