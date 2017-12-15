@@ -7,62 +7,24 @@
 using namespace sf;
 using namespace std;
 
-static map<int, vector<Collider*>> collidersByLayer;
+static map<int, vector<RectangleShape*>> colliderBodiesByLayer;
 
 void UpdateCollisions() {
-	/*
-	for (auto const& x : collidersByLayer) {
-		vector<Collider*> colliders = x.second;
-		for (size_t c = 0; c < colliders.size(); c++) {
-			Collider* collider = colliders[c];
-			colliders.erase(remove(colliders.begin(), colliders.end(), colliders[c]), colliders.end());
-			for (size_t oc = 0; oc < colliders.size(); oc++) {
-				Collider& otherCollider = *colliders[oc];
-				collider->CheckCollision(otherCollider, 0.0f);
+	for (auto const& x : colliderBodiesByLayer) {
+		vector<RectangleShape*> colliderBodies = x.second;
+		for (size_t c = 0; c < colliderBodies.size(); c++) {
+			Collider collider = Collider(*colliderBodies[c]);
+			colliderBodies.erase(remove(colliderBodies.begin(), colliderBodies.end(), colliderBodies[c]), colliderBodies.end());
+			for (size_t oc = 0; oc < colliderBodies.size(); oc++) {
+				collider.CheckCollision(Collider(*colliderBodies[oc]), 0.5f);
 			}
 		}
 	}
-	*/
-	/*
-	for (size_t l = 0; l < collidersByLayer.size(); l++) {
-		vector<Collider*> colliders = collidersByLayer[l];
-		for (size_t c = 0; c < colliders.size(); c++) {
-
-			//NULLPNTR??
-			//cout << colliders[c]->GetPosition().x << endl;
-
-
-
-			//Collider* colliderPntr = colliders[c];
-			//cout << c << endl;
-			//cout << "this collider" << endl;
-			//cout << colliderPntr->GetPosition().x << endl;
-			colliders.erase(remove(colliders.begin(), colliders.end(), colliders[c]), colliders.end());
-			for (size_t oc = 0; oc < colliders.size(); oc++) {
-				//cout << oc << endl;
-				//Collider* otherColliderPntr = colliders[oc];
-				//cout << otherColliderPntr->GetPosition().x << endl;
-				//Collider& otherColliderRef = *colliders[oc];
-				//collider->CheckCollision(*otherCollider, 0.0f);
-			}
-		}
-	}
-	*/
 }
 
-void AddCollider(Collider &collider, int layer) {
-	cout << collider.GetPosition().x << endl;
-
-	if (collidersByLayer.find(layer) == collidersByLayer.end()) {
-		collidersByLayer[layer] = vector<Collider*>();
+void AddColliderBody(RectangleShape &colliderBody, int layer) {
+	if (colliderBodiesByLayer.find(layer) == colliderBodiesByLayer.end()) {
+		colliderBodiesByLayer[layer] = vector<RectangleShape*>();
 	}
-	collidersByLayer[layer].push_back(&collider);
-
-	cout << "Positions" << endl;
-	for (auto const& x : collidersByLayer) {
-		vector<Collider*> colliders = x.second;
-		for (size_t c = 0; c < colliders.size(); c++) {
-			cout << colliders[c]->GetPosition().x << endl;
-		}
-	}
+	colliderBodiesByLayer[layer].push_back(&colliderBody);
 }

@@ -4,9 +4,9 @@
 
 using namespace std;
 
-Collider::Collider(RectangleShape& body) : body(body) {}
+Collider::Collider(RectangleShape &body) : body(body) { }
 
-Collider::~Collider() {}
+Collider::~Collider() { }
 
 bool Collider::CheckCollision(Collider& other, float push) {
 	//body.getGlobalBounds().intersects(other.body.getGlobalBounds());

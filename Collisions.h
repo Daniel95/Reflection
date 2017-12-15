@@ -6,7 +6,7 @@
 using namespace sf;
 using namespace std;
 
-extern map<int, vector<Collider*>> collidersByLayer;
+extern map<int, vector<RectangleShape*>> colliderBodiesByLayer;
 
-void AddCollider(Collider &collider, int layer);
+void AddColliderBody(RectangleShape &collider, int layer);
 void UpdateCollisions();

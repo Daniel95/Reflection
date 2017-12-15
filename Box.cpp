@@ -10,9 +10,8 @@ Box::Box(Vector2f position, Vector2f size) {
 	body.setPosition(position);
 
 	cout << "spawn box" << endl;
-
 	add_drawable(body, 1);
-	AddCollider(GetCollider(), 0);
+	AddColliderBody(body, 0);
 }
 
 

@@ -7,9 +7,8 @@ using namespace sf;
 class Collider {
 private:
 	RectangleShape& body;
-
 public:
-	Collider(RectangleShape& body);
+	Collider(RectangleShape &body);
 	~Collider();
 
 	void Move(float dx, float dy) { body.move(dx, dy); }

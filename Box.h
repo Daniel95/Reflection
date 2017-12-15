@@ -5,11 +5,10 @@
 using namespace sf;
 
 class Box {
+private:
+	RectangleShape body;
 public:
 	Box(Vector2f position, Vector2f size);
 	~Box();
-	Collider GetCollider() { return Collider(body); }
-private:
-	RectangleShape body;
 };
 
