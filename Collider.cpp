@@ -4,11 +4,15 @@
 
 using namespace std;
 
+Collider::Collider(RectangleShape &body, float mass) : body(body) {
+	Mass = mass;
+}
+
 Collider::Collider(RectangleShape &body) : body(body) { }
 
 Collider::~Collider() { }
 
-bool Collider::CheckCollision(Collider& other, float push) {
+bool Collider::CheckCollision(Collider& other) {
 	//body.getGlobalBounds().intersects(other.body.getGlobalBounds());
 
 	Vector2f otherPosition = other.GetPosition();
@@ -23,23 +27,30 @@ bool Collider::CheckCollision(Collider& other, float push) {
 	float intersectY = abs(deltaY) - (otherHalfSize.y + thisHalfSize.y);
 
 	if (intersectX < 0.0f && intersectY < 0.0f) {
-		push = std::min(std::max(push, 0.0f), 1.0f);
+		float combinedMass = Mass + other.Mass;
+		float thisPush = Mass / combinedMass;
+		float otherPush = other.Mass / combinedMass;
+
+		cout << "thisPush" << endl;
+		cout << thisPush << endl;
+		cout << "otherPush" << endl;
+		cout << otherPush << endl;
 
 		if (intersectX > intersectY) {
 			if (deltaX > 0.0f) {
-				Move(intersectX * (1.0f - push), 0.0f);
-				other.Move(-intersectX * push, 0.0f);
+				Move(intersectX * (1.0f - thisPush), 0.0f);
+				other.Move(-intersectX * otherPush, 0.0f);
 			} else {
-				Move(-intersectX * (1.0f - push), 0.0f);
-				other.Move(intersectX * push, 0.0f);
+				Move(-intersectX * (1.0f - thisPush), 0.0f);
+				other.Move(intersectX * otherPush, 0.0f);
 			}
 		} else {
 			if (deltaY > 0.0f) {
-				Move(0.0f, intersectY * (1.0f - push));
-				other.Move(0.0f , -intersectY * push);
+				Move(0.0f, intersectY * (1.0f - thisPush));
+				other.Move(0.0f , -intersectY * otherPush);
 			} else {
-				Move(0.0f, -intersectY * (1.0f - push));
-				other.Move(0.0f, intersectY * push);
+				Move(0.0f, -intersectY * (1.0f - thisPush));
+				other.Move(0.0f, intersectY * otherPush);
 			}
 		}
 

@@ -4,15 +4,18 @@
 #include "Collisions.h"
 #include <iostream>
 
-Box::Box(Vector2f position, Vector2f size) {
+Box::Box(Vector2f position, Vector2f size, float mass) {
 	body.setSize(size);
 	body.setOrigin(body.getSize() / 2.0f);
 	body.setPosition(position);
 
-	cout << "spawn box" << endl;
+	collider.Mass = mass;
+
 	add_drawable(body, 1);
-	AddColliderBody(body, 0);
+	AddColliderBody(collider, 0);
 }
 
 
-Box::~Box() {}
+Box::~Box() {
+	//clear up box.
+}

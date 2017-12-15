@@ -7,24 +7,24 @@
 using namespace sf;
 using namespace std;
 
-static map<int, vector<RectangleShape*>> colliderBodiesByLayer;
+static map<int, vector<Collider*>> colliderBodiesByLayer;
 
 void UpdateCollisions() {
 	for (auto const& x : colliderBodiesByLayer) {
-		vector<RectangleShape*> colliderBodies = x.second;
+		vector<Collider*> colliderBodies = x.second;
 		for (size_t c = 0; c < colliderBodies.size(); c++) {
-			Collider collider = Collider(*colliderBodies[c]);
+			Collider collider = *colliderBodies[c];
 			colliderBodies.erase(remove(colliderBodies.begin(), colliderBodies.end(), colliderBodies[c]), colliderBodies.end());
 			for (size_t oc = 0; oc < colliderBodies.size(); oc++) {
-				collider.CheckCollision(Collider(*colliderBodies[oc]), 0.5f);
+				collider.CheckCollision(*colliderBodies[oc]);
 			}
 		}
 	}
 }
 
-void AddColliderBody(RectangleShape &colliderBody, int layer) {
+void AddColliderBody(Collider &collider, int layer) {
 	if (colliderBodiesByLayer.find(layer) == colliderBodiesByLayer.end()) {
-		colliderBodiesByLayer[layer] = vector<RectangleShape*>();
+		colliderBodiesByLayer[layer] = vector<Collider*>();
 	}
-	colliderBodiesByLayer[layer].push_back(&colliderBody);
+	colliderBodiesByLayer[layer].push_back(&collider);
 }
