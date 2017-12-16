@@ -12,7 +12,6 @@ Collider::Collider(RectangleShape &body) : body(body) { }
 
 Collider::~Collider() { }
 
-/*
 bool Collider::CheckCollision(Collider& other, Vector2f &thisPush, Vector2f &otherPush) {
 	Vector2f otherPosition = other.GetPosition();
 	Vector2f otherHalfSize = other.GetHalfSize();
@@ -55,9 +54,9 @@ bool Collider::CheckCollision(Collider& other, Vector2f &thisPush, Vector2f &oth
 
 	return false;
 }
-*/
 
-bool Collider::CheckCollision(Collider& other, Vector2f &thisPush, Vector2f &otherPush) {
+
+bool Collider::CheckCollision(Collider& other) {
 	//body.getGlobalBounds().intersects(other.body.getGlobalBounds());
 
 	Vector2f otherPosition = other.GetPosition();
@@ -73,28 +72,25 @@ bool Collider::CheckCollision(Collider& other, Vector2f &thisPush, Vector2f &oth
 
 	if (intersectX < 0.0f && intersectY < 0.0f) {
 		float combinedMass = Mass + other.Mass;
-		float axisPush = Mass / combinedMass;
+		float push = Mass / combinedMass;
 
 		if (intersectX > intersectY) {
 			if (deltaX > 0.0f) {
-				thisPush = Vector2f(intersectX * (1.0f - axisPush), 0.0f);
-				otherPush = Vector2f(-intersectX * axisPush, 0.0f);
+				Move(intersectX * (1.0f - push), 0.0f);
+				other.Move(-intersectX * push, 0.0f);
 			} else {
-				thisPush = Vector2f(-intersectX * (1.0f - axisPush), 0.0f);
-				otherPush = Vector2f(intersectX * axisPush, 0.0f);
+				Move(-intersectX * (1.0f - push), 0.0f);
+				other.Move(intersectX * push, 0.0f);
 			}
 		} else {
 			if (deltaY > 0.0f) {
-				thisPush = Vector2f(0.0f, intersectY * (1.0f - axisPush));
-				otherPush = Vector2f(0.0f, -intersectY * axisPush);
+				Move(0.0f, intersectY * (1.0f - push));
+				other.Move(0.0f, -intersectY * push);
 			} else {
-				thisPush = Vector2f(0.0f, -intersectY * (1.0f - axisPush));
-				otherPush = Vector2f(0.0f, intersectY * axisPush);
+				Move(0.0f, -intersectY * (1.0f - push));
+				other.Move(0.0f, intersectY * push);
 			}
 		}
-
-		Move(thisPush);
-		other.Move(otherPush);
 
 		return true;
 	}
