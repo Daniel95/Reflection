@@ -1,7 +1,10 @@
 #pragma once
 
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
+#include <functional> 
+#include <vector> 
 
+using namespace std;
 using namespace sf;
 
 class Collider {
@@ -13,10 +16,15 @@ public:
 	~Collider();
 
 	float Mass;
+	vector<function<void(Collider&, float)>> CollisionEnterEvent;
+	vector<function<void(Collider&, float)>> CollisionEvent;
+	vector<function<void(Collider&, float)>> CollisionExitEvent;
 
 	void Move(float dx, float dy) { body.move(dx, dy); }
+	void Move(Vector2f move) { body.move(move); }
 
 	bool CheckCollision(Collider& other);
+	bool CheckCollision(Collider& other, Vector2f &thisPush, Vector2f &otherPush);
 	Vector2f GetPosition() { return body.getPosition(); }
 	Vector2f GetHalfSize() { return body.getSize() / 2.0f; }
 };

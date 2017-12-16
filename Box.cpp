@@ -12,7 +12,7 @@ Box::Box(Vector2f position, Vector2f size, float mass) {
 	collider.Mass = mass;
 
 	add_drawable(body, 1);
-	AddColliderBody(collider, 0);
+	AddCollider(collider, 0);
 }
 
 

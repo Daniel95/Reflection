@@ -8,5 +8,6 @@ using namespace std;
 
 extern map<int, vector<Collider*>> colliderBodiesByLayer;
 
-void AddColliderBody(Collider &collider, int layer);
+void AddCollider(Collider &collider, int layer);
 void UpdateCollisions();
+void UpdateCollisionEvents(Collider &colliderOne, Collider &colliderTwo, Vector2f colliderOnePush, Vector2f colliderTwoPush);

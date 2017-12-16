@@ -19,7 +19,7 @@ Player::Player(Vector2f position) {
 	MouseEvent.push_back([this](auto mouseButton, auto mousePosition, auto mouseDelta) { OnMouse(mouseButton, mousePosition, mouseDelta); });
 
 	add_drawable(body, 0);
-	AddColliderBody(collider, 0);
+	AddCollider(collider, 0);
 }
 
 Player::~Player() {
@@ -45,5 +45,4 @@ void Player::OnUpdate() {
 	body.move((direction * PLAYER_SPEED) * TimeHelper::deltaTime);
 }
 
-void Player::OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta) {
-}
+void Player::OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta) { }
