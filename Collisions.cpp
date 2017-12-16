@@ -13,22 +13,23 @@ static vector<Collider*[2]> collisions;
 
 void UpdateCollisions() {
 	for (auto const& x : colliderBodiesByLayer) {
-		vector<Collider*> colliderBodies = x.second;
-		for (size_t c = 0; c < colliderBodies.size(); c++) {
-			Collider &colliderOne = *colliderBodies[c];
-			colliderBodies.erase(remove(colliderBodies.begin(), colliderBodies.end(), colliderBodies[c]), colliderBodies.end());
-			for (size_t oc = 0; oc < colliderBodies.size(); oc++) {
-				Collider &colliderTwo = *colliderBodies[c];
+		vector<Collider*> colliders = x.second;
 
-				/*
+		for (size_t c = 0; c < colliders.size(); c++) {
+			Collider &collider = *colliders[c];
+			colliders.erase(remove(colliders.begin(), colliders.end(), colliders[c]), colliders.end());
+
+			for (size_t oc = 0; oc < colliders.size(); oc++) {
 				Vector2f colliderOnePush;
+				if (collider.CheckCollision(*colliders[oc], colliderOnePush)) {
+					cout << "true" << endl;
+				}
+				/*
 				Vector2f colliderTwoPush;
-				if (colliderOne.CheckCollision(colliderTwo, colliderOnePush, colliderTwoPush)) {
-					UpdateCollisionEvents(colliderOne, colliderTwo, colliderOnePush, colliderTwoPush);
+				if (collider.CheckCollision(*colliders[c], colliderOnePush, colliderTwoPush)) {
+				UpdateCollisionEvents(collider, *colliders[c], colliderOnePush, colliderTwoPush);
 				}
 				*/
-
-				colliderOne.CheckCollision(colliderTwo);
 			}
 		}
 	}

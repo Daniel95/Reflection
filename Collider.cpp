@@ -12,6 +12,7 @@ Collider::Collider(RectangleShape &body) : body(body) { }
 
 Collider::~Collider() { }
 
+/*
 bool Collider::CheckCollision(Collider& other, Vector2f &thisPush, Vector2f &otherPush) {
 	Vector2f otherPosition = other.GetPosition();
 	Vector2f otherHalfSize = other.GetHalfSize();
@@ -54,8 +55,9 @@ bool Collider::CheckCollision(Collider& other, Vector2f &thisPush, Vector2f &oth
 
 	return false;
 }
+*/
 
-bool Collider::CheckCollision(Collider& other) {
+bool Collider::CheckCollision(Collider& other, Vector2f &thisPush) {
 	//body.getGlobalBounds().intersects(other.body.getGlobalBounds());
 
 	Vector2f otherPosition = other.GetPosition();
