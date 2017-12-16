@@ -28,29 +28,23 @@ bool Collider::CheckCollision(Collider& other) {
 
 	if (intersectX < 0.0f && intersectY < 0.0f) {
 		float combinedMass = Mass + other.Mass;
-		float thisPush = Mass / combinedMass;
-		float otherPush = other.Mass / combinedMass;
-
-		cout << "thisPush" << endl;
-		cout << thisPush << endl;
-		cout << "otherPush" << endl;
-		cout << otherPush << endl;
+		float push = Mass / combinedMass;
 
 		if (intersectX > intersectY) {
 			if (deltaX > 0.0f) {
-				Move(intersectX * (1.0f - thisPush), 0.0f);
-				other.Move(-intersectX * otherPush, 0.0f);
+				Move(intersectX * (1.0f - push), 0.0f);
+				other.Move(-intersectX * push, 0.0f);
 			} else {
-				Move(-intersectX * (1.0f - thisPush), 0.0f);
-				other.Move(intersectX * otherPush, 0.0f);
+				Move(-intersectX * (1.0f - push), 0.0f);
+				other.Move(intersectX * push, 0.0f);
 			}
 		} else {
 			if (deltaY > 0.0f) {
-				Move(0.0f, intersectY * (1.0f - thisPush));
-				other.Move(0.0f , -intersectY * otherPush);
+				Move(0.0f, intersectY * (1.0f - push));
+				other.Move(0.0f , -intersectY * push);
 			} else {
-				Move(0.0f, -intersectY * (1.0f - thisPush));
-				other.Move(0.0f, intersectY * otherPush);
+				Move(0.0f, -intersectY * (1.0f - push));
+				other.Move(0.0f, intersectY * push);
 			}
 		}
 
