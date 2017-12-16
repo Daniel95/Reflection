@@ -16,20 +16,16 @@ void UpdateCollisions() {
 		vector<Collider*> colliders = x.second;
 
 		for (size_t c = 0; c < colliders.size(); c++) {
-			Collider &collider = *colliders[c];
+			Collider &colliderOne = *colliders[c];
 			colliders.erase(remove(colliders.begin(), colliders.end(), colliders[c]), colliders.end());
 
 			for (size_t oc = 0; oc < colliders.size(); oc++) {
+				Collider &colliderTwo = *colliders[oc];
 				Vector2f colliderOnePush;
-				if (collider.CheckCollision(*colliders[oc], colliderOnePush)) {
-					cout << "true" << endl;
-				}
-				/*
 				Vector2f colliderTwoPush;
-				if (collider.CheckCollision(*colliders[c], colliderOnePush, colliderTwoPush)) {
-				UpdateCollisionEvents(collider, *colliders[c], colliderOnePush, colliderTwoPush);
+				if (colliderOne.CheckCollision(colliderTwo, colliderOnePush, colliderTwoPush)) {
+					UpdateCollisionEvents(colliderOne, colliderTwo, colliderOnePush, colliderTwoPush);
 				}
-				*/
 			}
 		}
 	}

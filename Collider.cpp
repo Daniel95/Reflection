@@ -57,7 +57,7 @@ bool Collider::CheckCollision(Collider& other, Vector2f &thisPush, Vector2f &oth
 }
 */
 
-bool Collider::CheckCollision(Collider& other, Vector2f &thisPush) {
+bool Collider::CheckCollision(Collider& other, Vector2f &thisPush, Vector2f &otherPush) {
 	//body.getGlobalBounds().intersects(other.body.getGlobalBounds());
 
 	Vector2f otherPosition = other.GetPosition();
@@ -75,28 +75,26 @@ bool Collider::CheckCollision(Collider& other, Vector2f &thisPush) {
 		float combinedMass = Mass + other.Mass;
 		float axisPush = Mass / combinedMass;
 
-		cout << "intersectX" << endl;
-		cout << intersectX << endl;
-		cout << "intersectY" << endl;
-		cout << intersectY << endl;
-
 		if (intersectX > intersectY) {
 			if (deltaX > 0.0f) {
-				Move(intersectX * (1.0f - axisPush), 0.0f);
-				other.Move(-intersectX * axisPush, 0.0f);
+				thisPush = Vector2f(intersectX * (1.0f - axisPush), 0.0f);
+				otherPush = Vector2f(-intersectX * axisPush, 0.0f);
 			} else {
-				Move(-intersectX * (1.0f - axisPush), 0.0f);
-				other.Move(intersectX * axisPush, 0.0f);
+				thisPush = Vector2f(-intersectX * (1.0f - axisPush), 0.0f);
+				otherPush = Vector2f(intersectX * axisPush, 0.0f);
 			}
 		} else {
 			if (deltaY > 0.0f) {
-				Move(0.0f, intersectY * (1.0f - axisPush));
-				other.Move(0.0f , -intersectY * axisPush);
+				thisPush = Vector2f(0.0f, intersectY * (1.0f - axisPush));
+				otherPush = Vector2f(0.0f, -intersectY * axisPush);
 			} else {
-				Move(0.0f, -intersectY * (1.0f - axisPush));
-				other.Move(0.0f, intersectY * axisPush);
+				thisPush = Vector2f(0.0f, -intersectY * (1.0f - axisPush));
+				otherPush = Vector2f(0.0f, intersectY * axisPush);
 			}
 		}
+
+		Move(thisPush);
+		other.Move(otherPush);
 
 		return true;
 	}
