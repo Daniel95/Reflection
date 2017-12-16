@@ -1,10 +1,6 @@
-﻿  Collider.cpp
-  Generating Code...
-  Compiling...
-  Collisions.cpp
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  Reflection.cpp
+﻿  Reflection.cpp
   Player.cpp
+  Collisions.cpp
   Box.cpp
+  Generating Code...
   Reflection.vcxproj -> C:\Users\idani\Documents\GitHub\NHTV\Reflection\Debug\Reflection.exe

@@ -4,12 +4,20 @@
 #include "Window.h"
 #include "Collisions.h"
 #include "Collider.h"
+#include "Collision.h"
 
 using namespace sf;
 using namespace std;
 
 static map<int, vector<Collider*>> colliderBodiesByLayer;
-static vector<Collider*[2]> collisions;
+static vector<Collision*> collisions;
+
+void AddCollider(Collider &collider, int layer) {
+	if (colliderBodiesByLayer.find(layer) == colliderBodiesByLayer.end()) {
+		colliderBodiesByLayer[layer] = vector<Collider*>();
+	}
+	colliderBodiesByLayer[layer].push_back(&collider);
+}
 
 void UpdateCollisions() {
 	for (auto const& x : colliderBodiesByLayer) {
@@ -32,25 +40,17 @@ void UpdateCollisions() {
 }
 
 void UpdateCollisionEvents(Collider &colliderOne, Collider &colliderTwo, Vector2f colliderOnePush, Vector2f colliderTwoPush) {
-	Collider* (*collisionPntr)[2] = NULL;
+	Collision *collisionPntr = NULL;
 	for (size_t i = 0; i < collisions.size(); i++) {
-		bool collisionExists = collisions[i][0] || collisions[i][1] && &colliderTwo == collisions[i][0] || collisions[i][1];
+		bool collisionExists = &colliderOne == &collisions[i]->ColliderOne || &colliderOne == &collisions[i]->ColliderTwo && &colliderTwo == &collisions[i]->ColliderOne || &colliderTwo == &collisions[i]->ColliderTwo;
 		if (collisionExists) {
-			collisionPntr = &collisions[i];
+			collisionPntr = collisions[i];
 			break;
 		}
 	}
 
 	if (collisionPntr == NULL) {
-		Collider* collision[2] = { &colliderOne, &colliderTwo };
-		//collisions.push_back(collision);
+		Collision collision(colliderOne, colliderTwo);
 		collisionPntr = &collision;
 	}
-}
-
-void AddCollider(Collider &collider, int layer) {
-	if (colliderBodiesByLayer.find(layer) == colliderBodiesByLayer.end()) {
-		colliderBodiesByLayer[layer] = vector<Collider*>();
-	}
-	colliderBodiesByLayer[layer].push_back(&collider);
 }

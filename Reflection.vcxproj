@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="Box.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Collisions.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="TimeHelper.h" />
@@ -169,6 +170,7 @@
   <ItemGroup>
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="GameEvents.cpp" />
     <ClCompile Include="InputEvents.cpp" />
