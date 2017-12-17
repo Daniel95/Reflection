@@ -18,6 +18,10 @@ Player::Player(Vector2f position) {
 	UpdateEvent.push_back([this]() { OnUpdate(); });
 	MouseEvent.push_back([this](auto mouseButton, auto mousePosition, auto mouseDelta) { OnMouse(mouseButton, mousePosition, mouseDelta); });
 
+	collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnCollisionEnter(collider, push); });
+	collider.CollisionEvent.push_back([this](auto collider, auto push) { OnCollision(collider, push); });
+	collider.CollisionExitEvent.push_back([this](auto collider) { OnCollisionExit(collider); });
+
 	add_drawable(body, 0);
 	AddCollider(collider, 0);
 }
@@ -44,5 +48,11 @@ void Player::OnUpdate() {
 	Vector2f direction = MathHelper::Normalize((float)input.x, (float)input.y);
 	body.move((direction * PLAYER_SPEED) * TimeHelper::deltaTime);
 }
+
+void Player::OnCollisionEnter(Collider& collider, Vector2f push) { }
+
+void Player::OnCollision(Collider& collider, Vector2f push) { }
+
+void Player::OnCollisionExit(Collider& collider) { }
 
 void Player::OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta) { }

@@ -40,6 +40,7 @@ void UpdateCollisions() {
 			}
 		}
 	}
+	UpdateOutdatedCollisions();
 }
 
 void UpdateCollision(Collider &colliderOne, Collider &colliderTwo, Vector2f colliderOnePush, Vector2f colliderTwoPush) {
@@ -67,6 +68,7 @@ void UpdateCollision(Collider &colliderOne, Collider &colliderTwo, Vector2f coll
 void UpdateOutdatedCollisions() {
 	for (size_t i = 0; i < outdatedCollisions.size(); i++) {
 		Collision& outdatedCollision = *outdatedCollisions[i];
+
 		outdatedCollision.ColliderOne.DispatchCollisionExitEvent(outdatedCollision.ColliderTwo);
 		outdatedCollision.ColliderTwo.DispatchCollisionExitEvent(outdatedCollision.ColliderOne);
 
