@@ -24,12 +24,13 @@ void UpdateCollisions() {
 	outdatedCollisions = collisions;
 	for (auto const& x : colliderBodiesByLayer) {
 		vector<Collider*> colliders = x.second;
-		cout << colliders.size() << endl;
+		int otherCollidersStartIndex = 0;
+
 		for (size_t c = 0; c < colliders.size(); c++) {
 			Collider &colliderOne = *colliders[c];
-			colliders.erase(remove(colliders.begin(), colliders.end(), colliders[c]), colliders.end());
+			otherCollidersStartIndex++;
 
-			for (size_t oc = 0; oc < colliders.size(); oc++) {
+			for (size_t oc = otherCollidersStartIndex; oc < colliders.size(); oc++) {
 				Collider &colliderTwo = *colliders[oc];
 				Vector2f colliderOnePush;
 				Vector2f colliderTwoPush;
