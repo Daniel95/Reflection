@@ -1,2 +1,3 @@
-﻿  Collisions.cpp
+﻿  Reflection.cpp
+Reflection.cpp(25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Reflection.vcxproj -> C:\Users\idani\Documents\GitHub\NHTV\Reflection\Debug\Reflection.exe

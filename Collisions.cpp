@@ -24,7 +24,7 @@ void UpdateCollisions() {
 	outdatedCollisions = collisions;
 	for (auto const& x : colliderBodiesByLayer) {
 		vector<Collider*> colliders = x.second;
-
+		cout << colliders.size() << endl;
 		for (size_t c = 0; c < colliders.size(); c++) {
 			Collider &colliderOne = *colliders[c];
 			colliders.erase(remove(colliders.begin(), colliders.end(), colliders[c]), colliders.end());
