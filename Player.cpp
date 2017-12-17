@@ -10,7 +10,7 @@
 #include "GameEvents.h"
 
 vector<Player*> Players;
-vector<function<void(Player&)>> PlayerSpawnEvent;
+vector<function<void(Player*)>> PlayerSpawnEvent;
 
 Player::Player(Vector2f position) {
 	body.setSize(Vector2f(60.0f, 100.0f));
@@ -27,14 +27,17 @@ Player::Player(Vector2f position) {
 	//subscribe to previous existing players
 	for (size_t p = 0; p < Players.size(); p++) {
 		Player &otherPlayer = *Players[p];
-		otherPlayer.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnOtherPlayerCollision(collider, push); });
+		otherPlayer.collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnOtherPlayerCollision(collider, push); });
+		otherPlayer.collider.CollisionEvent.push_back([this](auto collider, auto push) { OnOtherPlayerCollision(collider, push); });
 	}
-	//dispatch player spawned event so other players in the Players can subscribe to this player
+	Players.push_back(this);
+
+	//dispatch player spawned event so other players can subscribe to this player
 	for (size_t e = 0; e < PlayerSpawnEvent.size(); e++) {
-		PlayerSpawnEvent[e](*this);
+		PlayerSpawnEvent[e](this);
 	}
 	//add myself to Players list
-	Players.push_back(this);
+	PlayerSpawnEvent.push_back([this](auto player) { OnOtherPlayerSpawn(player); });
 
 	add_drawable(body, 0);
 	AddCollider(collider, 0);
@@ -68,12 +71,17 @@ void Player::OnUpdate() {
 
 void Player::OnCollisionEnter(Collider& collider, Vector2f push) { }
 
-void Player::OnCollision(Collider& collider, Vector2f push) { }
+void Player::OnCollision(Collider& collider, Vector2f push) {  }
 
 void Player::OnCollisionExit(Collider& collider) { }
 
 void Player::OnOtherPlayerCollision(Collider& collider, Vector2f push) {
 	body.move(push);
+}
+
+void Player::OnOtherPlayerSpawn(Player* otherPlayer) {
+	otherPlayer->collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnOtherPlayerCollision(collider, push); });
+	otherPlayer->collider.CollisionEvent.push_back([this](auto collider, auto push) { OnOtherPlayerCollision(collider, push); });
 }
 
 void Player::OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta) { }

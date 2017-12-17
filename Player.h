@@ -18,16 +18,14 @@ public:
 	void OnCollision(Collider& collider, Vector2f push);
 	void OnCollisionExit(Collider& collider);
 	void OnOtherPlayerCollision(Collider& collider, Vector2f push);
+	void OnOtherPlayerSpawn(Player* otherPlayer);
 	void OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta);
 
 	float Mass;
-	vector<function<void(Collider&, Vector2f)>> CollisionEnterEvent;
-	vector<function<void(Collider&, Vector2f)>> CollisionEvent;
-	vector<function<void(Collider&)>> CollisionExitEvent;
 
 	Vector2f GetPosition() { return body.getPosition(); }
 	Collider* GetCollider() { return &collider; }
 };
 
 extern vector<Player*> Players;
-extern vector<function<void(Player&)>> PlayerSpawnEvent;
+extern vector<function<void(Player*)>> PlayerSpawnEvent;

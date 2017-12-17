@@ -1,0 +1,16 @@
+﻿  stdafx.cpp
+  Box.cpp
+  Collider.cpp
+  Collision.cpp
+  Collisions.cpp
+  GameEvents.cpp
+  InputEvents.cpp
+  MathHelper.cpp
+  Player.cpp
+  Reflection.cpp
+  TimeHelper.cpp
+  Window.cpp
+  Generating code
+  All 1670 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Reflection.vcxproj -> C:\Users\idani\Documents\GitHub\NHTV\Reflection\Release\Reflection.exe
