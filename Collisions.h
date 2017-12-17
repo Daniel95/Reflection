@@ -9,7 +9,9 @@ using namespace std;
 
 extern map<int, vector<Collider*>> colliderBodiesByLayer;
 extern vector<Collision*> collisions;
+extern vector<Collision*> outdatedCollisions;
 
 void AddCollider(Collider &collider, int layer);
 void UpdateCollisions();
-void UpdateCollisionEvents(Collider &colliderOne, Collider &colliderTwo, Vector2f colliderOnePush, Vector2f colliderTwoPush);
+void UpdateCollision(Collider &colliderOne, Collider &colliderTwo, Vector2f colliderOnePush, Vector2f colliderTwoPush);
+void UpdateOutdatedCollisions();

@@ -97,3 +97,21 @@ bool Collider::CheckCollision(Collider& other) {
 
 	return false;
 }
+
+void Collider::DispatchCollisionEnterEvent(Collider& collider, Vector2f push) {
+	for (size_t i = 0; i < CollisionEnterEvent.size(); i++) {
+		CollisionEnterEvent[i](collider, push);
+	}
+}
+
+void Collider::DispatchCollisionEvent(Collider& collider, Vector2f push) {
+	for (size_t i = 0; i < CollisionEvent.size(); i++) {
+		CollisionEvent[i](collider, push);
+	}
+}
+
+void Collider::DispatchCollisionExitEvent(Collider& collider) {
+	for (size_t i = 0; i < CollisionExitEvent.size(); i++) {
+		CollisionExitEvent[i](collider);
+	}
+}

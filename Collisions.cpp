@@ -11,6 +11,7 @@ using namespace std;
 
 static map<int, vector<Collider*>> colliderBodiesByLayer;
 static vector<Collision*> collisions;
+static vector<Collision*> outdatedCollisions;
 
 void AddCollider(Collider &collider, int layer) {
 	if (colliderBodiesByLayer.find(layer) == colliderBodiesByLayer.end()) {
@@ -20,6 +21,7 @@ void AddCollider(Collider &collider, int layer) {
 }
 
 void UpdateCollisions() {
+	outdatedCollisions = collisions;
 	for (auto const& x : colliderBodiesByLayer) {
 		vector<Collider*> colliders = x.second;
 
@@ -32,25 +34,43 @@ void UpdateCollisions() {
 				Vector2f colliderOnePush;
 				Vector2f colliderTwoPush;
 				if (colliderOne.CheckCollision(colliderTwo, colliderOnePush, colliderTwoPush)) {
-					UpdateCollisionEvents(colliderOne, colliderTwo, colliderOnePush, colliderTwoPush);
+					UpdateCollision(colliderOne, colliderTwo, colliderOnePush, colliderTwoPush);
 				}
 			}
 		}
 	}
 }
 
-void UpdateCollisionEvents(Collider &colliderOne, Collider &colliderTwo, Vector2f colliderOnePush, Vector2f colliderTwoPush) {
-	Collision *collisionPntr = NULL;
+void UpdateCollision(Collider &colliderOne, Collider &colliderTwo, Vector2f colliderOnePush, Vector2f colliderTwoPush) {
+	Collision *collision = NULL;
 	for (size_t i = 0; i < collisions.size(); i++) {
 		bool collisionExists = &colliderOne == &collisions[i]->ColliderOne || &colliderOne == &collisions[i]->ColliderTwo && &colliderTwo == &collisions[i]->ColliderOne || &colliderTwo == &collisions[i]->ColliderTwo;
 		if (collisionExists) {
-			collisionPntr = collisions[i];
+			collision = collisions[i];
 			break;
 		}
 	}
 
-	if (collisionPntr == NULL) {
-		Collision collision(colliderOne, colliderTwo);
-		collisionPntr = &collision;
+	if (collision == NULL) {
+		collision = new Collision(colliderOne, colliderTwo);
+		collisions.push_back(collision);
+		colliderOne.DispatchCollisionEnterEvent(colliderTwo, colliderOnePush);
+		colliderTwo.DispatchCollisionEnterEvent(colliderOne, colliderTwoPush);
+	} else {
+		colliderOne.DispatchCollisionEvent(colliderTwo, colliderOnePush);
+		colliderTwo.DispatchCollisionEvent(colliderOne, colliderTwoPush);
+		outdatedCollisions.erase(remove(outdatedCollisions.begin(), outdatedCollisions.end(), collision), outdatedCollisions.end());
 	}
+}
+
+void UpdateOutdatedCollisions() {
+	for (size_t i = 0; i < outdatedCollisions.size(); i++) {
+		Collision& outdatedCollision = *outdatedCollisions[i];
+		outdatedCollision.ColliderOne.DispatchCollisionExitEvent(outdatedCollision.ColliderTwo);
+		outdatedCollision.ColliderTwo.DispatchCollisionExitEvent(outdatedCollision.ColliderOne);
+
+		collisions.erase(remove(collisions.begin(), collisions.end(), &outdatedCollision), collisions.end());
+		delete &outdatedCollision;
+	}
+	outdatedCollisions.clear();
 }

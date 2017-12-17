@@ -16,10 +16,13 @@ public:
 	~Collider();
 
 	float Mass;
-	vector<function<void(Collider&, float)>> CollisionEnterEvent;
-	vector<function<void(Collider&, float)>> CollisionEvent;
-	vector<function<void(Collider&, float)>> CollisionExitEvent;
+	vector<function<void(Collider&, Vector2f)>> CollisionEnterEvent;
+	vector<function<void(Collider&, Vector2f)>> CollisionEvent;
+	vector<function<void(Collider&)>> CollisionExitEvent;
 
+	void DispatchCollisionEnterEvent(Collider&, Vector2f);
+	void DispatchCollisionEvent(Collider&, Vector2f);
+	void DispatchCollisionExitEvent(Collider&);
 	bool CheckCollision(Collider& other, Vector2f &thisPush, Vector2f &otherPush);
 	bool CheckCollision(Collider& other);
 	void Move(float dx, float dy) { body.move(dx, dy); }
