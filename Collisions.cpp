@@ -9,9 +9,9 @@
 using namespace sf;
 using namespace std;
 
-static map<int, vector<Collider*>> colliderBodiesByLayer;
-static vector<Collision*> collisions;
-static vector<Collision*> outdatedCollisions;
+map<int, vector<Collider*>> colliderBodiesByLayer;
+vector<Collision*> collisions;
+vector<Collision*> outdatedCollisions;
 
 void AddCollider(Collider &collider, int layer) {
 	if (colliderBodiesByLayer.find(layer) == colliderBodiesByLayer.end()) {
