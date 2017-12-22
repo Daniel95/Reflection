@@ -8,7 +8,8 @@ using namespace std;
 static const Vector2i windowSize = Vector2i(1280, 920);
 extern RenderWindow window;
 extern map<int, vector<const Drawable*>> drawablesByLayer;
-extern vector<const Drawable*> drawablesinorder;
+extern vector<const Drawable*> drawablesInOrder;
 
-void add_drawable(const Drawable &drawable, int renderLayer);
-void draw_drawables_in_order();
+void AddDrawable(const Drawable &drawable, int renderLayer);
+void RemoveDrawable(const Drawable &drawable, int renderLayer);
+void DrawDrawablesInOrder();

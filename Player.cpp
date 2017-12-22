@@ -39,11 +39,12 @@ Player::Player(Vector2f position) {
 	//add myself to Players list
 	PlayerSpawnedEvent.push_back([this](auto player) { OnOtherPlayerSpawned(player); });
 
-	add_drawable(body, 0);
+	AddDrawable(body, 0);
 	AddCollider(collider, 0);
 }
 
 Player::~Player() {
+	RemoveDrawable(body, 0);
 	RemoveCollider(collider, 0);
 	//clear up player:
 	//unsub from events.

@@ -8,37 +8,52 @@ using namespace std;
 
 RenderWindow window(VideoMode(windowSize.x, windowSize.y), "Reflection", Style::Close | Style::Titlebar);
 map<int, vector<const Drawable*>> drawablesByLayer;
-vector<const Drawable*> drawablesinorder;
+vector<const Drawable*> drawablesInOrder;
 
-void sort_drawables_in_order();
+void SortDrawablesInOrder();
 
-void add_drawable(const Drawable &drawable, int renderLayer) {
+void AddDrawable(const Drawable &drawable, int renderLayer) {
 	if (drawablesByLayer.find(renderLayer) == drawablesByLayer.end()) {
 		drawablesByLayer[renderLayer] = vector<const Drawable*>();
 	}
 	drawablesByLayer[renderLayer].push_back(&drawable);
 
-	sort_drawables_in_order();
+	SortDrawablesInOrder();
 }
 
-void draw_drawables_in_order() {
-	for (size_t i = 0; i < drawablesinorder.size(); i++) {
-		window.draw(*drawablesinorder[i]);
+
+void RemoveDrawable(const Drawable &drawable, int renderLayer) {
+	if (drawablesByLayer.find(renderLayer) == drawablesByLayer.end()) {
+		cout << "Drawable to remove not found!" << endl;
+		return;
+	}
+
+	vector<const Drawable*>& drawableVector = drawablesByLayer[renderLayer];
+	drawableVector.erase(remove(drawableVector.begin(), drawableVector.end(), &drawable), drawableVector.end());
+
+	if (drawableVector.size() == 0) {
+		drawablesByLayer.erase(renderLayer);
 	}
 }
 
-void sort_drawables_in_order() {
+void DrawDrawablesInOrder() {
+	for (size_t i = 0; i < drawablesInOrder.size(); i++) {
+		window.draw(*drawablesInOrder[i]);
+	}
+}
+
+void SortDrawablesInOrder() {
 	vector<int> drawableLayers;
 	for (auto const& x : drawablesByLayer) {
 		drawableLayers.push_back(x.first);
 	}
 
-	drawablesinorder.clear();
+	drawablesInOrder.clear();
 	for (int i = drawableLayers.size() - 1; i >= 0; i--) {
 		int layer = drawableLayers[i];
 		vector<const Drawable*> drawables = drawablesByLayer[layer];
 		for (size_t d = 0; d < drawables.size(); d++) {
-			drawablesinorder.push_back(drawables[d]);
+			drawablesInOrder.push_back(drawables[d]);
 		}
 	}
 }

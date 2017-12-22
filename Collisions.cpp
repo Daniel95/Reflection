@@ -26,12 +26,11 @@ void RemoveCollider(Collider &collider, int layer) {
 		return;
 	}
 
-	vector<Collider*>& collidersVector = colliderBodiesByLayer[layer];
-	collidersVector.erase(remove(collidersVector.begin(), collidersVector.end(), &collider), collidersVector.end());
+	vector<Collider*>& colliderVector = colliderBodiesByLayer[layer];
+	colliderVector.erase(remove(colliderVector.begin(), colliderVector.end(), &collider), colliderVector.end());
 
-	if (collidersVector.size() == 0) {
+	if (colliderVector.size() == 0) {
 		colliderBodiesByLayer.erase(layer);
-		cout << "remove layer" << endl;
 	}
 }
 

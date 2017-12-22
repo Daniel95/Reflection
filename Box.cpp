@@ -11,12 +11,13 @@ Box::Box(Vector2f position, Vector2f size, float mass) {
 
 	collider.Mass = mass;
 
-	add_drawable(body, 1);
+	AddDrawable(body, 1);
 	AddCollider(collider, 0);
 }
 
 
 Box::~Box() {
+	RemoveDrawable(body, 1);
 	RemoveCollider(collider, 0);
 	//clear up box.
 }
