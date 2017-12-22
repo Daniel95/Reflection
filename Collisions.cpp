@@ -20,6 +20,21 @@ void AddCollider(Collider &collider, int layer) {
 	colliderBodiesByLayer[layer].push_back(&collider);
 }
 
+void RemoveCollider(Collider &collider, int layer) {
+	if (colliderBodiesByLayer.find(layer) == colliderBodiesByLayer.end()) {
+		cout << "Collider to remove not found!" << endl;
+		return;
+	}
+
+	vector<Collider*>& collidersVector = colliderBodiesByLayer[layer];
+	collidersVector.erase(remove(collidersVector.begin(), collidersVector.end(), &collider), collidersVector.end());
+
+	if (collidersVector.size() == 0) {
+		colliderBodiesByLayer.erase(layer);
+		cout << "remove layer" << endl;
+	}
+}
+
 void UpdateCollisions() {
 	outdatedCollisions = collisions;
 	for (auto const& x : colliderBodiesByLayer) {

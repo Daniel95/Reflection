@@ -12,6 +12,7 @@ extern vector<Collision*> collisions;
 extern vector<Collision*> outdatedCollisions;
 
 void AddCollider(Collider &collider, int layer);
+void RemoveCollider(Collider &collider, int layer);
 void UpdateCollisions();
 void UpdateCollision(Collider &colliderOne, Collider &colliderTwo, Vector2f colliderOnePush, Vector2f colliderTwoPush);
 void UpdateOutdatedCollisions();

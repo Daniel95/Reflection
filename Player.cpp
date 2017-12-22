@@ -10,7 +10,7 @@
 #include "GameEvents.h"
 
 vector<Player*> Players;
-vector<function<void(Player*)>> PlayerSpawnEvent;
+vector<function<void(Player*)>> PlayerSpawnedEvent;
 
 Player::Player(Vector2f position) {
 	body.setSize(Vector2f(60.0f, 100.0f));
@@ -33,17 +33,18 @@ Player::Player(Vector2f position) {
 	Players.push_back(this);
 
 	//dispatch player spawned event so other players can subscribe to this player
-	for (size_t e = 0; e < PlayerSpawnEvent.size(); e++) {
-		PlayerSpawnEvent[e](this);
+	for (size_t e = 0; e < PlayerSpawnedEvent.size(); e++) {
+		PlayerSpawnedEvent[e](this);
 	}
 	//add myself to Players list
-	PlayerSpawnEvent.push_back([this](auto player) { OnOtherPlayerSpawn(player); });
+	PlayerSpawnedEvent.push_back([this](auto player) { OnOtherPlayerSpawned(player); });
 
 	add_drawable(body, 0);
 	AddCollider(collider, 0);
 }
 
 Player::~Player() {
+	RemoveCollider(collider, 0);
 	//clear up player:
 	//unsub from events.
 	//remove from player list
@@ -79,7 +80,7 @@ void Player::OnOtherPlayerCollision(Collider& collider, Vector2f push) {
 	body.move(push);
 }
 
-void Player::OnOtherPlayerSpawn(Player* otherPlayer) {
+void Player::OnOtherPlayerSpawned(Player* otherPlayer) {
 	otherPlayer->collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnOtherPlayerCollision(collider, push); });
 	otherPlayer->collider.CollisionEvent.push_back([this](auto collider, auto push) { OnOtherPlayerCollision(collider, push); });
 }

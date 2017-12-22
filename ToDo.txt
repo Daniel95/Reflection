@@ -1,3 +1,4 @@
-Make event dictionaries so they can be deleted by a key
+Make event maps so they can be deleted by a key
+Refactor naming
 
 print: cout << "first line" << endl;
