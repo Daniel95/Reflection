@@ -2,10 +2,11 @@
 
 #include <SFML/Graphics.hpp>
 #include "Collider.h"
+#include "LevelObject.h"
 
 using namespace sf;
 
-class Player {
+class Player : public LevelObject {
 private:
 	const float PLAYER_SPEED = 800.0f;
 	RectangleShape body;

@@ -1,4 +1,4 @@
 #include "stdafx.h"
 #include "TimeHelper.h"
 
-float TimeHelper::deltaTime = 0;
+float TimeHelper::DeltaTime = 0;

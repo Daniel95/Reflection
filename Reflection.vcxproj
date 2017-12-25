@@ -157,6 +157,8 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Collisions.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelObject.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="TimeHelper.h" />
     <ClInclude Include="Window.h" />
@@ -174,6 +176,8 @@
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="GameEvents.cpp" />
     <ClCompile Include="InputEvents.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelObject.cpp" />
     <ClCompile Include="MathHelper.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Reflection.cpp" />

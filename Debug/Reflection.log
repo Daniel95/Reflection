@@ -1,7 +1,2 @@
-﻿  Window.cpp
-  Reflection.cpp
-  Player.cpp
-  Collisions.cpp
-  Box.cpp
-  Generating Code...
+﻿  Level.cpp
   Reflection.vcxproj -> C:\Users\idani\Documents\GitHub\NHTV\Reflection\Debug\Reflection.exe

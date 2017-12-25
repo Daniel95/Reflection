@@ -3,6 +3,7 @@
 #include "Player.h"
 #include <SFML/Graphics.hpp>
 #include "InputEvents.h"
+#include "Level.h"
 #include "Window.h"
 #include "Collisions.h"
 #include "MathHelper.h"
@@ -50,6 +51,7 @@ Player::~Player() {
 	//unsub from events.
 	//remove from player list
 	//disptach player removed event so other players can unsubscribe from this player
+	cout << "Player removed" << endl;
 }
 
 void Player::OnUpdate() {
@@ -68,7 +70,7 @@ void Player::OnUpdate() {
 	}
 
 	Vector2f direction = MathHelper::Normalize((float)input.x, (float)input.y);
-	body.move((direction * PLAYER_SPEED) * TimeHelper::deltaTime);
+	body.move((direction * PLAYER_SPEED) * TimeHelper::DeltaTime);
 }
 
 void Player::OnCollisionEnter(Collider& collider, Vector2f push) { }
