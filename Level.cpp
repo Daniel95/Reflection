@@ -28,9 +28,6 @@ void InstantiateLevel() {
 	Player *player1 = new Player(Vector2f(player1Pos.x, player1Pos.y));
 	Player *player2 = new Player(Vector2f(player2Pos.x, player2Pos.y));
 
-	//AddLevelObject(*player1);
-	//AddLevelObject(*player2);
-
 	Box *box1 = new Box(Vector2f(player1Pos.x + 200, player1Pos.y), Vector2f(57, 204), 100.0f);
 	Box *box2 = new Box(Vector2f(player1Pos.x + 280, player1Pos.y + 150), Vector2f(50, 100), 0.5f);
 	Box *box3 = new Box(Vector2f(player2Pos.x - 355, player2Pos.y), Vector2f(100, 162), 10.0f);
@@ -54,8 +51,8 @@ void UpdateLevel() {
 	LevelObject* levelObject;
 	for (size_t i = 0; i < levelObjects.size(); i++) {
 		levelObject = levelObjects[i];
-		levelObject->body.move(scrollSpeed, 0);
-		if (levelObject->body.getPosition().x + levelObject->body.getPosition().x / 2 < 0) {
+		levelObject->Body.move(scrollSpeed, 0);
+		if (levelObject->Body.getPosition().x + levelObject->Body.getPosition().x / 2 < 0) {
 			DestroyLevelObject(*levelObject);
 		}
 	}
@@ -68,6 +65,10 @@ void AddLevelObject(LevelObject &levelObject) {
 void DestroyLevelObject(LevelObject &levelObject) {
 	levelObjects.erase(remove(levelObjects.begin(), levelObjects.end(), &levelObject), levelObjects.end());
 	delete &levelObject;
+}
+
+void RemoveLevelObject(LevelObject &levelObject) {
+	levelObjects.erase(remove(levelObjects.begin(), levelObjects.end(), &levelObject), levelObjects.end());
 }
 
 void SpawnBoxes() {

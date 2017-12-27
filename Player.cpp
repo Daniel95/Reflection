@@ -14,10 +14,10 @@ vector<Player*> Players;
 vector<function<void(Player*)>> PlayerSpawnedEvent;
 
 Player::Player(Vector2f position) {
-	body.setSize(Vector2f(60.0f, 100.0f));
-	body.setOrigin(body.getSize() / 2.0f);
-	body.setPosition(position);
-	body.setFillColor(Color::Green);
+	Body.setSize(Vector2f(60.0f, 100.0f));
+	Body.setOrigin(Body.getSize() / 2.0f);
+	Body.setPosition(position);
+	Body.setFillColor(Color::Green);
 
 	UpdateEvent.push_back([this]() { OnUpdate(); });
 	MouseEvent.push_back([this](auto mouseButton, auto mousePosition, auto mouseDelta) { OnMouse(mouseButton, mousePosition, mouseDelta); });
@@ -40,18 +40,19 @@ Player::Player(Vector2f position) {
 	//add myself to Players list
 	PlayerSpawnedEvent.push_back([this](auto player) { OnOtherPlayerSpawned(player); });
 
-	AddDrawable(body, 0);
+	AddDrawable(Body, 0);
 	AddCollider(collider, 0);
 }
 
 Player::~Player() {
-	RemoveDrawable(body, 0);
+	cout << "Player removed" << endl;
+
+	RemoveDrawable(Body, 0);
 	RemoveCollider(collider, 0);
 	//clear up player:
 	//unsub from events.
 	//remove from player list
 	//disptach player removed event so other players can unsubscribe from this player
-	cout << "Player removed" << endl;
 }
 
 void Player::OnUpdate() {
@@ -70,7 +71,7 @@ void Player::OnUpdate() {
 	}
 
 	Vector2f direction = MathHelper::Normalize((float)input.x, (float)input.y);
-	body.move((direction * PLAYER_SPEED) * TimeHelper::DeltaTime);
+	Body.move((direction * PLAYER_SPEED) * TimeHelper::DeltaTime);
 }
 
 void Player::OnCollisionEnter(Collider& collider, Vector2f push) { }
@@ -80,7 +81,7 @@ void Player::OnCollision(Collider& collider, Vector2f push) {  }
 void Player::OnCollisionExit(Collider& collider) { }
 
 void Player::OnOtherPlayerCollision(Collider& collider, Vector2f push) {
-	body.move(push);
+	Body.move(push);
 }
 
 void Player::OnOtherPlayerSpawned(Player* otherPlayer) {

@@ -5,10 +5,12 @@
 using namespace sf;
 
 class LevelObject {
+private:
+
 public:
-	RectangleShape body;
+	RectangleShape Body;
 
 	LevelObject();
-	~LevelObject();
+	virtual ~LevelObject();
 };
 

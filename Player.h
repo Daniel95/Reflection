@@ -9,8 +9,7 @@ using namespace sf;
 class Player : public LevelObject {
 private:
 	const float PLAYER_SPEED = 800.0f;
-	RectangleShape body;
-	Collider collider = Collider(body, 0.5f);
+	Collider collider = Collider(Body, 0.5f);
 public:
 	Player(Vector2f position);
 	~Player();
@@ -24,7 +23,6 @@ public:
 
 	float Mass;
 
-	Vector2f GetPosition() { return body.getPosition(); }
 	Collider* GetCollider() { return &collider; }
 };
 
