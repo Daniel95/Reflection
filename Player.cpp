@@ -45,13 +45,12 @@ Player::Player(Vector2f position) {
 }
 
 Player::~Player() {
-	cout << "Player removed" << endl;
-
 	RemoveDrawable(Body, 0);
 	RemoveCollider(collider, 0);
+	Players.erase(remove(Players.begin(), Players.end(), this), Players.end());
+
 	//clear up player:
 	//unsub from events.
-	//remove from player list
 	//disptach player removed event so other players can unsubscribe from this player
 }
 

@@ -36,7 +36,11 @@ void InstantiateLevel() {
 	Box *box6 = new Box(Vector2f(player2Pos.x + 450, player2Pos.y + 300), Vector2f(37, 190), 0.1f);
 
 	Box *topBoundary = new Box(Vector2f(windowCenter.x, 0), Vector2f((float)windowSize.x, 50), 9999);
+	levelObjects.erase(remove(levelObjects.begin(), levelObjects.end(), topBoundary), levelObjects.end());
+
 	Box *bottomBoundary = new Box(Vector2f(windowCenter.x, (float)windowSize.y), Vector2f((float)windowSize.x, 50), 9999);
+	levelObjects.erase(remove(levelObjects.begin(), levelObjects.end(), bottomBoundary), levelObjects.end());
+
 	//Box *rightBoundary = new Box(Vector2f(0, windowCenter.y), Vector2f(0, (float)windowSize.y), 9999);
 	//Box *leftBoundary = new Box(Vector2f((float)windowSize.x, windowCenter.y), Vector2f(0, (float)windowSize.y), 9999);
 }
