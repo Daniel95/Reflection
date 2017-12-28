@@ -1,4 +1,11 @@
+Features:
+Spawning boxes
+Player shooting
+Enemies
+
+Refactoring:
 Make event maps so they can be deleted by a key
 Refactor naming
+
 
 print: cout << "first line" << endl;

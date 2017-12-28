@@ -6,56 +6,56 @@
 using namespace sf;
 using namespace std;
 
-RenderWindow window(VideoMode(windowSize.x, windowSize.y), "Reflection", Style::Close | Style::Titlebar);
-map<int, vector<const Drawable*>> drawablesByLayer;
-vector<const Drawable*> drawablesInOrder;
+RenderWindow GameWindow(VideoMode(GameWindowSize.x, GameWindowSize.y), "Reflection", Style::Close | Style::Titlebar);
+map<int, vector<const Drawable*>> DrawablesByLayer;
+vector<const Drawable*> DrawablesInOrder;
 
 void SortDrawablesInOrder();
 
 void AddDrawable(const Drawable &drawable, int renderLayer) {
-	if (drawablesByLayer.find(renderLayer) == drawablesByLayer.end()) {
-		drawablesByLayer[renderLayer] = vector<const Drawable*>();
+	if (DrawablesByLayer.find(renderLayer) == DrawablesByLayer.end()) {
+		DrawablesByLayer[renderLayer] = vector<const Drawable*>();
 	}
-	drawablesByLayer[renderLayer].push_back(&drawable);
+	DrawablesByLayer[renderLayer].push_back(&drawable);
 
 	SortDrawablesInOrder();
 }
 
 
 void RemoveDrawable(const Drawable &drawable, int renderLayer) {
-	if (drawablesByLayer.find(renderLayer) == drawablesByLayer.end()) {
+	if (DrawablesByLayer.find(renderLayer) == DrawablesByLayer.end()) {
 		cout << "Drawable to remove not found!" << endl;
 		return;
 	}
 
-	vector<const Drawable*> &drawableVector = drawablesByLayer[renderLayer];
+	vector<const Drawable*> &drawableVector = DrawablesByLayer[renderLayer];
 	drawableVector.erase(remove(drawableVector.begin(), drawableVector.end(), &drawable), drawableVector.end());
 
 	if (drawableVector.size() == 0) {
-		drawablesByLayer.erase(renderLayer);
+		DrawablesByLayer.erase(renderLayer);
 	}
 
-	drawablesInOrder.erase(remove(drawablesInOrder.begin(), drawablesInOrder.end(), &drawable), drawablesInOrder.end());
+	DrawablesInOrder.erase(remove(DrawablesInOrder.begin(), DrawablesInOrder.end(), &drawable), DrawablesInOrder.end());
 }
 
 void DrawDrawablesInOrder() {
-	for (size_t i = 0; i < drawablesInOrder.size(); i++) {
-		window.draw(*drawablesInOrder[i]);
+	for (size_t i = 0; i < DrawablesInOrder.size(); i++) {
+		GameWindow.draw(*DrawablesInOrder[i]);
 	}
 }
 
 void SortDrawablesInOrder() {
 	vector<int> drawableLayers;
-	for (auto const& x : drawablesByLayer) {
+	for (auto const& x : DrawablesByLayer) {
 		drawableLayers.push_back(x.first);
 	}
 
-	drawablesInOrder.clear();
+	DrawablesInOrder.clear();
 	for (int i = drawableLayers.size() - 1; i >= 0; i--) {
 		int layer = drawableLayers[i];
-		vector<const Drawable*> drawables = drawablesByLayer[layer];
+		vector<const Drawable*> drawables = DrawablesByLayer[layer];
 		for (size_t d = 0; d < drawables.size(); d++) {
-			drawablesInOrder.push_back(drawables[d]);
+			DrawablesInOrder.push_back(drawables[d]);
 		}
 	}
 }
