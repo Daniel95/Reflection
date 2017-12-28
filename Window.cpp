@@ -28,12 +28,14 @@ void RemoveDrawable(const Drawable &drawable, int renderLayer) {
 		return;
 	}
 
-	vector<const Drawable*>& drawableVector = drawablesByLayer[renderLayer];
+	vector<const Drawable*> &drawableVector = drawablesByLayer[renderLayer];
 	drawableVector.erase(remove(drawableVector.begin(), drawableVector.end(), &drawable), drawableVector.end());
 
 	if (drawableVector.size() == 0) {
 		drawablesByLayer.erase(renderLayer);
 	}
+
+	drawablesInOrder.erase(remove(drawablesInOrder.begin(), drawablesInOrder.end(), &drawable), drawablesInOrder.end());
 }
 
 void DrawDrawablesInOrder() {
