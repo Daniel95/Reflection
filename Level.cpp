@@ -38,7 +38,7 @@ void InstantiateLevel() {
 	Box *topBoundary = new Box(Vector2f(windowCenter.x, 0), Vector2f((float)windowSize.x, 50), 9999);
 	Box *bottomBoundary = new Box(Vector2f(windowCenter.x, (float)windowSize.y), Vector2f((float)windowSize.x, 50), 9999);
 	//Box *rightBoundary = new Box(Vector2f(0, windowCenter.y), Vector2f(0, (float)windowSize.y), 9999);
-	Box *leftBoundary = new Box(Vector2f((float)windowSize.x, windowCenter.y), Vector2f(0, (float)windowSize.y), 9999);
+	//Box *leftBoundary = new Box(Vector2f((float)windowSize.x, windowCenter.y), Vector2f(0, (float)windowSize.y), 9999);
 }
 
 void UpdateLevel() {
