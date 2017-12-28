@@ -9,7 +9,5 @@ LevelObject::LevelObject() {
 }
 
 LevelObject::~LevelObject() {
-	cout << "LevelObject removed" << endl;
-
 	RemoveLevelObject(*this);
 }

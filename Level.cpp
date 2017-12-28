@@ -48,11 +48,13 @@ void UpdateLevel() {
 		SpawnBoxes();
 	}
 
+	float levelObjectLeftSideX = 0;
 	LevelObject* levelObject;
 	for (size_t i = 0; i < levelObjects.size(); i++) {
 		levelObject = levelObjects[i];
 		levelObject->Body.move(scrollSpeed, 0);
-		if (levelObject->Body.getPosition().x + levelObject->Body.getPosition().x / 2 < 0) {
+		levelObjectLeftSideX = levelObject->Body.getPosition().x + levelObject->Body.getSize().x / 2;
+		if (levelObjectLeftSideX < 0) {
 			DestroyLevelObject(*levelObject);
 		}
 	}
