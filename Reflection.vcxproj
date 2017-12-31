@@ -160,6 +160,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelObject.h" />
     <ClInclude Include="MathHelper.h" />
+    <ClInclude Include="Range.h" />
     <ClInclude Include="TimeHelper.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="GameEvents.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="LevelObject.cpp" />
     <ClCompile Include="MathHelper.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Range.cpp" />
     <ClCompile Include="Reflection.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
