@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Range.h"
 
-Range::Range(int min, int max) {
-	Min = min;
-	Max = max;
-	Size = max - min;
+Range::Range(int _min, int _max) {
+	min = _min;
+	max = _max;
+	size = _max - _min;
 }
