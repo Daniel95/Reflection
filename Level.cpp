@@ -12,7 +12,7 @@
 using namespace sf;
 using namespace std;
 
-const float boxSpawnInterval = 0.4f;
+const float boxSpawnInterval = 0.7f;
 const float spawnScreenOffset = 200;
 const int maxBoxSpawnAmount = 3;
 const int minBoxSpawnAmount = 0;
@@ -106,8 +106,8 @@ void SpawnBoxes() {
 
 		int randomBoxYPos = rand() % (maxYPos - minYPos + 1) + minYPos;
 
-		Range occupiedYSpace = Range(randomBoxYPos - halfBoxHeight, randomBoxYPos + halfBoxHeight);
-		occupiedYSpaces.push_back(&occupiedYSpace);
+		Range *occupiedYSpace = new Range(randomBoxYPos - halfBoxHeight, randomBoxYPos + halfBoxHeight);
+		occupiedYSpaces.push_back(occupiedYSpace);
 
 		sort(occupiedYSpaces.begin(), occupiedYSpaces.end(), RangeCompare);
 
@@ -119,9 +119,10 @@ void SpawnBoxes() {
 		for (int i = 0; i <= occupiedYSpaces.size(); i++) {
 			space.SetMin(0);
 			space.SetMax(0);
+			cout << i << endl;
 
-			//break whole spawning loop when the new boxs is going to spawn in a existing box
-			if (i + 1 < occupiedYSpaces.size() && occupiedYSpace.GetMax() > occupiedYSpaces[i]->GetMin()) {
+			//break whole spawning loop when the new boxs is going to spawn in a existings box
+			if (i + 1 < occupiedYSpaces.size() && occupiedYSpaces[i]->GetMax() > occupiedYSpaces[i + 1]->GetMin()) {
 				break;
 			}
 
@@ -139,7 +140,7 @@ void SpawnBoxes() {
 
 			if (space.GetMin() < halfWindowHeight) {
 				if (space.GetMax() > halfWindowHeight) {
-					float sizeInTopHalfScreen = halfWindowHeight - space.GetMin();
+					int sizeInTopHalfScreen = halfWindowHeight - space.GetMin();
 					if (sizeInTopHalfScreen > biggestTopHalfScreenSpace) {
 						biggestTopHalfScreenSpace = sizeInTopHalfScreen;
 					}
@@ -149,7 +150,7 @@ void SpawnBoxes() {
 			}
 			if (space.GetMax() > halfWindowHeight) {
 				if (space.GetMin() < halfWindowHeight) {
-					float sizeInBottomHalfScreen = space.GetMax() - halfWindowHeight;
+					int sizeInBottomHalfScreen = space.GetMax() - halfWindowHeight;
 					if (sizeInBottomHalfScreen > biggestBottomHalfScreenSpace) {
 						biggestBottomHalfScreenSpace = sizeInBottomHalfScreen;
 					}
@@ -166,6 +167,12 @@ void SpawnBoxes() {
 		int randomBoxMass = rand() % (maxBoxMass - minBoxMass + 1) + minBoxMass;
 		int randomBoxWidth = rand() % (maxBoxSize.x - minBoxSize.x + 1) + minBoxSize.x;
 
-		new Box(Vector2f(GameWindowSize.x - 160, randomBoxYPos), Vector2f(randomBoxWidth, randomBoxHeight), randomBoxMass);
+		new Box(Vector2f(GameWindowSize.x + randomBoxWidth, randomBoxYPos), Vector2f(randomBoxWidth, randomBoxHeight), randomBoxMass);
+
+		for (size_t i = 0; i < occupiedYSpaces.size(); i++) {
+			delete [] &occupiedYSpaces[i];
+		}
+		occupiedYSpaces.clear();
+
 	}
 }
