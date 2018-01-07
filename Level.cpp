@@ -54,6 +54,8 @@ void InstantiateLevel() {
 	Box *bottomBoundary = new Box(Vector2f(windowCenter.x, (float)GameWindowSize.y), Vector2f((float)GameWindowSize.x, 50), 9999);
 	levelObjects.erase(remove(levelObjects.begin(), levelObjects.end(), bottomBoundary), levelObjects.end());
 
+	SpawnBoxes();
+
 	//Box *rightBoundary = new Box(Vector2f(0, windowCenter.y), Vector2f(0, (float)windowSize.y), 9999);
 	//Box *leftBoundary = new Box(Vector2f((float)windowSize.x, windowCenter.y), Vector2f(0, (float)windowSize.y), 9999);
 }
@@ -119,7 +121,6 @@ void SpawnBoxes() {
 		for (int i = 0; i <= occupiedYSpaces.size(); i++) {
 			space.SetMin(0);
 			space.SetMax(0);
-			cout << i << endl;
 
 			//break whole spawning loop when the new boxs is going to spawn in a existings box
 			if (i + 1 < occupiedYSpaces.size() && occupiedYSpaces[i]->GetMax() > occupiedYSpaces[i + 1]->GetMin()) {
@@ -168,11 +169,10 @@ void SpawnBoxes() {
 		int randomBoxWidth = rand() % (maxBoxSize.x - minBoxSize.x + 1) + minBoxSize.x;
 
 		new Box(Vector2f(GameWindowSize.x + randomBoxWidth, randomBoxYPos), Vector2f(randomBoxWidth, randomBoxHeight), randomBoxMass);
-
-		for (size_t i = 0; i < occupiedYSpaces.size(); i++) {
-			delete [] &occupiedYSpaces[i];
-		}
-		occupiedYSpaces.clear();
-
 	}
+
+	for (int i = 0; i < occupiedYSpaces.size(); i++) {
+		delete occupiedYSpaces[i];
+	}
+	occupiedYSpaces.clear();
 }

@@ -1,5 +1,5 @@
 #pragma once
-struct Range {
+class Range {
 private:
 	int min;
 	int max;	
