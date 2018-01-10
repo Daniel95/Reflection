@@ -15,7 +15,7 @@ public:
 	Collider(RectangleShape &body, float mass);
 	~Collider();
 
-	float Mass;
+	float Mass = 0;
 	vector<function<void(Collider&, Vector2f)>> CollisionEnterEvent;
 	vector<function<void(Collider&, Vector2f)>> CollisionEvent;
 	vector<function<void(Collider&)>> CollisionExitEvent;

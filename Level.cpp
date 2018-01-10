@@ -41,13 +41,6 @@ void InstantiateLevel() {
 
 	minScreenHalfSpace = player2->Body.getSize().y + 10;
 
-	//Box *box1 = new Bx(Vector2f(player1Pos.x + 200, player1Pos.y), Vector2f(57, 204), 100.0f);
-	//Box *box2 = new Box(Vector2f(player1Pos.x + 280, player1Pos.y + 150), Vector2f(50, 100), 0.5f);
-	//Box *box3 = new Box(Vector2f(player2Pos.x - 355, player2Pos.y), Vector2f(100, 162), 10.0f);
-	//Box *box4 = new Box(Vector2f(player2Pos.x - 133, player2Pos.y + 200), Vector2f(79, 135), 1.5f);
-	//Box *box5 = new Box(Vector2f(player2Pos.x - 320, player2Pos.y - 100), Vector2f(60, 112), 100.0f);
-	//Box *box6 = new Box(Vector2f(player2Pos.x + 450, player2Pos.y + 300), Vector2f(37, 190), 0.1f);
-
 	Box *topBoundary = new Box(Vector2f(windowCenter.x, 0), Vector2f((float)GameWindowSize.x, 50), 9999);
 	levelObjects.erase(remove(levelObjects.begin(), levelObjects.end(), topBoundary), levelObjects.end());
 
@@ -55,9 +48,6 @@ void InstantiateLevel() {
 	levelObjects.erase(remove(levelObjects.begin(), levelObjects.end(), bottomBoundary), levelObjects.end());
 
 	SpawnBoxes();
-
-	//Box *rightBoundary = new Box(Vector2f(0, windowCenter.y), Vector2f(0, (float)windowSize.y), 9999);
-	//Box *leftBoundary = new Box(Vector2f((float)windowSize.x, windowCenter.y), Vector2f(0, (float)windowSize.y), 9999);
 }
 
 void UpdateLevel() {
@@ -118,7 +108,7 @@ void SpawnBoxes() {
 		int halfWindowHeight = GameWindowSize.y / 2;
 		Range space(0, 0);
 
-		for (int i = 0; i <= occupiedYSpaces.size(); i++) {
+		for (size_t i = 0; i <= occupiedYSpaces.size(); i++) {
 			space.SetMin(0);
 			space.SetMax(0);
 
@@ -168,7 +158,7 @@ void SpawnBoxes() {
 		int randomBoxMass = rand() % (maxBoxMass - minBoxMass + 1) + minBoxMass;
 		int randomBoxWidth = rand() % (maxBoxSize.x - minBoxSize.x + 1) + minBoxSize.x;
 
-		new Box(Vector2f(GameWindowSize.x + randomBoxWidth, randomBoxYPos), Vector2f(randomBoxWidth, randomBoxHeight), randomBoxMass);
+		new Box(Vector2f(GameWindowSize.x + randomBoxWidth, (float)randomBoxYPos), Vector2f(randomBoxWidth, randomBoxHeight), (float)randomBoxMass);
 	}
 
 	for (int i = 0; i < occupiedYSpaces.size(); i++) {

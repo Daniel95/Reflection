@@ -14,10 +14,10 @@ vector<Player*> Players;
 vector<function<void(Player*)>> PlayerSpawnedEvent;
 
 Player::Player(Vector2f position) {
-	Body.setSize(Vector2f(60.0f, 100.0f));
+	Body.setSize(playerSize);
 	Body.setOrigin(Body.getSize() / 2.0f);
 	Body.setPosition(position);
-	Body.setFillColor(Color::Green);
+	Body.setFillColor(playerColor);
 
 	UpdateEvent.push_back([this]() { OnUpdate(); });
 	MouseEvent.push_back([this](auto mouseButton, auto mousePosition, auto mouseDelta) { OnMouse(mouseButton, mousePosition, mouseDelta); });
@@ -70,7 +70,7 @@ void Player::OnUpdate() {
 	}
 
 	Vector2f direction = MathHelper::Normalize((float)input.x, (float)input.y);
-	Body.move((direction * PLAYER_SPEED) * TimeHelper::DeltaTime);
+	Body.move((direction * playerSpeed) * TimeHelper::DeltaTime);
 }
 
 void Player::OnCollisionEnter(Collider& collider, Vector2f push) { }
