@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Collider.h"
 #include "LevelObject.h"
+#include <string> 
 
 using namespace sf;
 
@@ -13,6 +14,7 @@ const Color playerColor = Color::Green;
 
 class Player : public LevelObject {
 private:
+	string id;
 	Collider collider = Collider(Body, playerMass);
 
 	void OnUpdate();

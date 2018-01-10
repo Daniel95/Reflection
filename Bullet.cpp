@@ -6,6 +6,8 @@
 #include "MathHelper.h"
 #include "TimeHelper.h"
 #include <iostream>
+#include <sstream> //for std::stringstream 
+#include <string>  //for std::string
 
 Bullet::Bullet(Vector2f position, Vector2f _direction) {
 	//Vector2f direction = MathHelper::Normalize((float)direction.x, (float)direction.y);
@@ -16,7 +18,14 @@ Bullet::Bullet(Vector2f position, Vector2f _direction) {
 
 	direction = _direction;
 
-	UpdateEvent.push_back([this]() { OnUpdate(); });
+	//const void * address = static_cast<const void*>(this);
+	std::stringstream ss;
+	ss << this;
+	std::string addressName = ss.str();
+
+	cout << addressName << endl;
+
+	UpdateEvent[addressName] = [this]() { OnUpdate(); };
 
 	AddDrawable(Body, 1);
 	AddCollider(collider, 0);
@@ -24,7 +33,7 @@ Bullet::Bullet(Vector2f position, Vector2f _direction) {
 
 Bullet::~Bullet() {
 	//bullet not removed from update event
-	UpdateEvent[0].
+	//UpdateEvent[0].
 }
 
 void Bullet::OnUpdate() {

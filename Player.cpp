@@ -9,6 +9,8 @@
 #include "MathHelper.h"
 #include "TimeHelper.h"
 #include "GameEvents.h"
+#include <sstream>
+#include <string> 
 
 vector<Player*> Players;
 vector<function<void(Player*)>> PlayerSpawnedEvent;
@@ -19,7 +21,12 @@ Player::Player(Vector2f position) {
 	Body.setPosition(position);
 	Body.setFillColor(playerColor);
 
-	UpdateEvent.push_back([this]() { OnUpdate(); });
+	stringstream ss;
+	ss << this;
+	id = ss.str();
+
+	UpdateEvent[id] = [this]() { OnUpdate(); };
+
 	MouseEvent.push_back([this](auto mouseButton, auto mousePosition, auto mouseDelta) { OnMouse(mouseButton, mousePosition, mouseDelta); });
 	collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnCollisionEnter(collider, push); });
 	collider.CollisionEvent.push_back([this](auto collider, auto push) { OnCollision(collider, push); });
@@ -48,6 +55,7 @@ Player::~Player() {
 	RemoveDrawable(Body, 0);
 	RemoveCollider(collider, 0);
 	Players.erase(remove(Players.begin(), Players.end(), this), Players.end());
+	UpdateEvent.erase(id);
 
 	//clear up player:
 	//unsub from events.

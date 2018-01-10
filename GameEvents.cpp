@@ -10,5 +10,5 @@ using namespace std;
 using namespace sf;
 
 vector<function<void(Event)>> SFEvent;
-vector<function<void()>> UpdateEvent;
+map<string, function<void()>> UpdateEvent;
 vector<function<void()>> DrawEvent;

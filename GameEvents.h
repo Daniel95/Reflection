@@ -8,5 +8,8 @@ using namespace std;
 using namespace sf;
 
 extern vector<function<void(Event)>> SFEvent;
-extern vector<function<void()>> UpdateEvent;
+
+//Update event with id so it can be removed later	
+extern map<string, function<void()>> UpdateEvent;
+
 extern vector<function<void()>> DrawEvent;
