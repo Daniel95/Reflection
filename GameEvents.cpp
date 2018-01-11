@@ -6,9 +6,8 @@
 #include <vector> 
 #include "GameEvents.h"
 
-using namespace std;
-using namespace sf;
+using sf::Event;
 
 vector<function<void(Event)>> SFEvent;
-map<string, function<void()>> UpdateEvent;
+map<std::string, function<void()>> UpdateEvent;
 vector<function<void()>> DrawEvent;

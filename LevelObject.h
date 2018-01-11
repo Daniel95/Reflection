@@ -9,6 +9,7 @@ private:
 
 public:
 	RectangleShape Body;
+	std::string Id = "";
 
 	LevelObject();
 	virtual ~LevelObject();

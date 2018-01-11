@@ -5,8 +5,6 @@
 #include "GameEvents.h"
 #include "MathHelper.h"
 #include <iostream>
-#include <sstream>
-#include <string> 
 
 using namespace std;
 using namespace sf;
@@ -16,13 +14,7 @@ Enemy::Enemy(Vector2f position) {
 	Body.setOrigin(Body.getSize() / 2.0f);
 	Body.setPosition(position);
 
-	stringstream ss;
-	ss << this;
-	string addressName = ss.str();
-
-	cout << addressName << endl;
-
-	UpdateEvent[addressName] = [this]() { OnUpdate(); };
+	UpdateEvent[Id] = [this]() { OnUpdate(); };
 
 	AddDrawable(Body, 1);
 	AddCollider(collider, 0);
@@ -35,5 +27,5 @@ Enemy::~Enemy() {
 }
 
 void Enemy::OnUpdate() {
-
+	UpdateEvent.erase(Id);
 }

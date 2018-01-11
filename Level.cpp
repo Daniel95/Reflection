@@ -158,10 +158,10 @@ void SpawnBoxes() {
 		int randomBoxMass = rand() % (maxBoxMass - minBoxMass + 1) + minBoxMass;
 		int randomBoxWidth = rand() % (maxBoxSize.x - minBoxSize.x + 1) + minBoxSize.x;
 
-		new Box(Vector2f(GameWindowSize.x + randomBoxWidth, (float)randomBoxYPos), Vector2f(randomBoxWidth, randomBoxHeight), (float)randomBoxMass);
+		new Box(Vector2f(GameWindowSize.x + (float)randomBoxWidth, (float)randomBoxYPos), Vector2f((float)randomBoxWidth, (float)randomBoxHeight), (float)randomBoxMass);
 	}
 
-	for (int i = 0; i < occupiedYSpaces.size(); i++) {
+	for (size_t i = 0; i < occupiedYSpaces.size(); i++) {
 		delete occupiedYSpaces[i];
 	}
 	occupiedYSpaces.clear();
