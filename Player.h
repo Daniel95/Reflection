@@ -21,7 +21,7 @@ private:
 	void OnCollisionExit(Collider& collider);
 	void OnOtherPlayerCollision(Collider& collider, Vector2f push);
 	void OnOtherPlayerSpawned(Player* otherPlayer);
-	void OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta);
+	void OnMouseDown(Mouse::Button mouseButton, Vector2i mousePosition);
 public:
 	Player(Vector2f position);
 	~Player();

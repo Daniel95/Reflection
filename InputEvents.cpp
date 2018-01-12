@@ -5,6 +5,8 @@
 vector<function<void(Keyboard::Key)>> KeyDownEvent;
 vector<function<void(Keyboard::Key)>> KeyEvent;
 vector<function<void(Keyboard::Key)>> KeyUpEvent;
+
+//Parameters: MouseButton, Pos, Delta
 vector<function<void(Mouse::Button, Vector2i)>> MouseDownEvent;
 vector<function<void(Mouse::Button, Vector2i, Vector2i)>> MouseEvent;
 vector<function<void(Mouse::Button, Vector2i)>> MouseUpEvent;
@@ -54,14 +56,14 @@ static void HandleMouseEvents(Event sfEvent) {
 	switch (sfEvent.type) {
 	case Event::MouseButtonPressed:
 		if (std::find(pressedMouseButtons.begin(), pressedMouseButtons.end(), pressedMouseButton) == pressedMouseButtons.end()) {
-			for (size_t i = 0; i < KeyDownEvent.size(); i++) {
+			for (size_t i = 0; i < MouseDownEvent.size(); i++) {
 				MouseDownEvent[i](pressedMouseButton, mousePosition);
 			}
 			pressedMouseButtons.push_back(pressedMouseButton);
 		}
 		break;
 	case Event::MouseButtonReleased:
-		for (size_t i = 0; i < KeyUpEvent.size(); i++) {
+		for (size_t i = 0; i < MouseUpEvent.size(); i++) {
 			MouseUpEvent[i](pressedMouseButton, mousePosition);
 		}
 		pressedMouseButtons.erase(remove(pressedMouseButtons.begin(), pressedMouseButtons.end(), pressedMouseButton), pressedMouseButtons.end());
@@ -85,5 +87,4 @@ void HandleInputUpdate() {
 			MouseEvent[e](pressedMouseButtons[i], mousePosition, mouseDelta);
 		}
 	}
-
 }

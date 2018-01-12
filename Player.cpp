@@ -9,6 +9,7 @@
 #include "MathHelper.h"
 #include "TimeHelper.h"
 #include "GameEvents.h"
+#include "Bullet.h"
 
 vector<Player*> Players;
 vector<function<void(Player*)>> PlayerSpawnedEvent;
@@ -21,7 +22,7 @@ Player::Player(Vector2f position) {
 
 	UpdateEvent[Id] = [this]() { OnUpdate(); };
 
-	MouseEvent.push_back([this](auto mouseButton, auto mousePosition, auto mouseDelta) { OnMouse(mouseButton, mousePosition, mouseDelta); });
+	MouseDownEvent.push_back([this](auto mouseButton, auto mousePosition) { OnMouseDown(mouseButton, mousePosition); });
 	collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnCollisionEnter(collider, push); });
 	collider.CollisionEvent.push_back([this](auto collider, auto push) { OnCollision(collider, push); });
 	collider.CollisionExitEvent.push_back([this](auto collider) { OnCollisionExit(collider); });
@@ -90,4 +91,12 @@ void Player::OnOtherPlayerSpawned(Player* otherPlayer) {
 	otherPlayer->collider.CollisionEvent.push_back([this](auto collider, auto push) { OnOtherPlayerCollision(collider, push); });
 }
 
-void Player::OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta) { }
+void Player::OnMouseDown(Mouse::Button mouseButton, Vector2i mousePosition) {
+	if (mouseButton != Mouse::Button::Left) { return; }
+	cout << "Shoot" << endl;
+
+	Vector2f direction = (Vector2f)mousePosition - Body.getPosition();
+	Vector2f spawnPosition = Body.getPosition() + (direction * 3.0f);
+
+	new Bullet(spawnPosition, direction);
+}
