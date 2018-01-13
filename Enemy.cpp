@@ -13,6 +13,7 @@ Enemy::Enemy(Vector2f position) {
 	Body.setSize(enemySize);
 	Body.setOrigin(Body.getSize() / 2.0f);
 	Body.setPosition(position);
+	Body.setFillColor(enemyColor);
 
 	UpdateEvent[Id] = [this]() { OnUpdate(); };
 

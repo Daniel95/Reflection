@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "InputEvents.h"
+#include "Window.h"
 #include <iostream>
 
 vector<function<void(Keyboard::Key)>> KeyDownEvent;
@@ -51,7 +52,7 @@ static void HandleKeyEvents(Event sfEvent) {
 
 static void HandleMouseEvents(Event sfEvent) {
 	Mouse::Button pressedMouseButton = sfEvent.mouseButton.button;
-	Vector2i mousePosition = Mouse::getPosition();
+	Vector2i mousePosition = Mouse::getPosition(GameWindow);
 
 	switch (sfEvent.type) {
 	case Event::MouseButtonPressed:

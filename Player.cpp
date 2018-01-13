@@ -93,10 +93,10 @@ void Player::OnOtherPlayerSpawned(Player* otherPlayer) {
 
 void Player::OnMouseDown(Mouse::Button mouseButton, Vector2i mousePosition) {
 	if (mouseButton != Mouse::Button::Left) { return; }
-	cout << "Shoot" << endl;
 
-	Vector2f direction = (Vector2f)mousePosition - Body.getPosition();
-	Vector2f spawnPosition = Body.getPosition() + (direction * 3.0f);
+	Vector2f delta = (Vector2f)mousePosition - Body.getPosition();
+	Vector2f direction = MathHelper::Normalize(delta);
+	Vector2f spawnPosition = Body.getPosition() + (direction * 100.0f);
 
 	new Bullet(spawnPosition, direction);
 }
