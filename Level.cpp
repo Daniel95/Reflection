@@ -12,6 +12,8 @@
 using namespace sf;
 using namespace std;
 
+vector<LevelObject*> LevelObjectsToDestroy;
+
 const float boxSpawnInterval = 0.7f;
 const float spawnScreenOffset = 200;
 const int maxBoxSpawnAmount = 3;
@@ -51,6 +53,11 @@ void InstantiateLevel() {
 }
 
 void UpdateLevel() {
+	for (size_t i = 0; i < LevelObjectsToDestroy.size(); i++) {
+		DestroyLevelObject(*LevelObjectsToDestroy[i]);
+	}
+	LevelObjectsToDestroy.clear();
+
 	blockSpawnTimer += TimeHelper::DeltaTime * abs(scrollSpeed);
 	if(blockSpawnTimer >= boxSpawnInterval) {
 		blockSpawnTimer = 0;

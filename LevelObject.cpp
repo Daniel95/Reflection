@@ -17,3 +17,7 @@ LevelObject::LevelObject() {
 LevelObject::~LevelObject() {
 	RemoveLevelObject(*this);
 }
+
+void LevelObject::Destroy() {
+	LevelObjectsToDestroy.push_back(this);
+}

@@ -16,6 +16,7 @@ class Bullet : LevelObject {
 	Collider collider = Collider(Body, bulletMass);
 
 	void OnUpdate();
+	void OnCollisionEnterEvent(Collider&, Vector2f);
 public:
 	Bullet(Vector2f position, Vector2f direction);
 	~Bullet();

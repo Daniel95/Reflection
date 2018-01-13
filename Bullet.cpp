@@ -19,6 +19,9 @@ Bullet::Bullet(Vector2f position, Vector2f _direction) {
 
 	AddDrawable(Body, 1);
 	AddCollider(collider, 0);
+
+	collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnCollisionEnterEvent(collider, push); });
+
 }
 
 Bullet::~Bullet() {
@@ -30,6 +33,9 @@ Bullet::~Bullet() {
 }
 
 void Bullet::OnUpdate() {
-	//cout << Body.getPosition().x << endl;
-	//Body.move(direction * bulletSpeed * TimeHelper::DeltaTime);
+	Body.move(direction * bulletSpeed * TimeHelper::DeltaTime);
+}
+
+void Bullet::OnCollisionEnterEvent(Collider& collider, Vector2f push) {
+	Destroy();
 }

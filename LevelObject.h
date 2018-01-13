@@ -13,5 +13,6 @@ public:
 
 	LevelObject();
 	virtual ~LevelObject();
+	void Destroy();
 };
 
