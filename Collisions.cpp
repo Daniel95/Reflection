@@ -26,6 +26,23 @@ void RemoveCollider(Collider &collider, int layer) {
 		return;
 	}
 
+	//Potentially remove active collisions
+	for (size_t i = 0; i < collisions.size(); i++) {
+		Collision& collision = *collisions[i];
+		if (&collision.ColliderOne == &collider) {
+			collision.ColliderTwo.DispatchCollisionExitEvent(collision.ColliderOne);
+
+			collisions.erase(remove(collisions.begin(), collisions.end(), &collision), collisions.end());
+			delete &collision;
+		} else if (&collision.ColliderTwo == &collider) {
+			collision.ColliderOne.DispatchCollisionExitEvent(collision.ColliderTwo);
+
+			collisions.erase(remove(collisions.begin(), collisions.end(), &collision), collisions.end());
+			delete &collision;
+		}
+	}
+
+	//Remove collider from layer
 	vector<Collider*>& colliderVector = colliderBodiesByLayer[layer];
 	colliderVector.erase(remove(colliderVector.begin(), colliderVector.end(), &collider), colliderVector.end());
 
@@ -67,12 +84,12 @@ void UpdateCollision(Collider &colliderOne, Collider &colliderTwo, Vector2f coll
 		}
 	}
 
-	if (collision == NULL) {
+	if (collision == NULL) { //Collision enter
 		collision = new Collision(colliderOne, colliderTwo);
 		collisions.push_back(collision);
 		colliderOne.DispatchCollisionEnterEvent(colliderTwo, colliderOnePush);
 		colliderTwo.DispatchCollisionEnterEvent(colliderOne, colliderTwoPush);
-	} else {
+	} else { //Collision
 		colliderOne.DispatchCollisionEvent(colliderTwo, colliderOnePush);
 		colliderTwo.DispatchCollisionEvent(colliderOne, colliderTwoPush);
 		outdatedCollisions.erase(remove(outdatedCollisions.begin(), outdatedCollisions.end(), collision), outdatedCollisions.end());
