@@ -6,15 +6,16 @@
 
 using namespace sf;
 
-const float playerSpeed = 800.0f;
+const float playerSpeed = 600.0f;
 const Vector2f playerSize = Vector2f(60.0f, 100.0f);
 const float playerMass = 0.5f;
 const Color playerColor = Color::Green;
-const float playerFireRate = 0.5f;
+const float playerShootCD = 0.3f;
 
 class Player : public LevelObject {
 private:
 	Collider collider = Collider(Body, playerMass);
+	float playerShootTimer = 0;
 
 	void OnUpdate();
 	void OnCollisionEnter(Collider& collider, Vector2f push);

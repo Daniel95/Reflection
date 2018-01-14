@@ -13,7 +13,6 @@
 
 vector<Player*> Players;
 vector<function<void(Player*)>> PlayerSpawnedEvent;
-float playerFireCD = 0;
 
 Player::Player(Vector2f position) {
 	Body.setSize(playerSize);
@@ -95,9 +94,9 @@ void Player::OnOtherPlayerSpawned(Player* otherPlayer) {
 void Player::OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta) {
 	if (mouseButton != Mouse::Button::Left) { return; }
 
-	playerFireCD -= TimeHelper::DeltaTime;
-	if (playerFireCD > 0) { return; }
-	playerFireCD = playerFireRate;
+	playerShootTimer -= TimeHelper::DeltaTime;
+	if (playerShootTimer > 0) { return; }
+	playerShootTimer = playerShootCD;
 
 	Vector2f delta = (Vector2f)mousePosition - Body.getPosition();
 	Vector2f direction = MathHelper::Normalize(delta);

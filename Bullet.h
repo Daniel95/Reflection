@@ -5,7 +5,7 @@
 
 using namespace sf;
 
-const float bulletSpeed = 500;
+const float bulletSpeed = 700;
 const Vector2f bulletSize = Vector2f(10.0f, 10.0f);
 const float bulletMass = 0.0f;
 const Color bulletColor = Color::Red;
