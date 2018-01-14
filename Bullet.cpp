@@ -21,15 +21,15 @@ Bullet::Bullet(Vector2f position, Vector2f _direction) {
 	AddCollider(collider, 0);
 
 	collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnCollisionEnterEvent(collider, push); });
-
 }
 
 Bullet::~Bullet() {
 	//bullet not removed from update event
-	//UpdateEvent[0].
+	//UpdateEvent[0].\
 	RemoveDrawable(Body, 1);
 	RemoveCollider(collider, 0);
 	UpdateEvent.erase(Id);
+	RemoveDrawable(Body, 1);
 }
 
 void Bullet::OnUpdate() {
