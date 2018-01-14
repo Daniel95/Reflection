@@ -1,18 +1,20 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "Tags.h"
 
 using namespace sf;
 
-class LevelObject {
+class GameObject {
 private:
 
 public:
 	RectangleShape Body;
 	std::string Id = "";
+	Tags::Tag Tag;
 
-	LevelObject();
-	virtual ~LevelObject();
+	GameObject();
+	virtual ~GameObject();
 	void Destroy();
 };
 

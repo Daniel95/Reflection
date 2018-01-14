@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Collider.h"
-#include "LevelObject.h"
+#include "GameObject.h"
 
 using namespace sf;
 
@@ -12,9 +12,9 @@ const float playerMass = 0.5f;
 const Color playerColor = Color::Green;
 const float playerShootCD = 0.3f;
 
-class Player : public LevelObject {
+class Player : public GameObject {
 private:
-	Collider collider = Collider(Body, playerMass);
+	Collider collider = Collider(*this, playerMass);
 	float playerShootTimer = 0;
 
 	void OnUpdate();

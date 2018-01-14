@@ -160,8 +160,9 @@
     <ClInclude Include="Collisions.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Level.h" />
-    <ClInclude Include="LevelObject.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="MathHelper.h" />
+    <ClInclude Include="Tags.h" />
     <ClInclude Include="Range.h" />
     <ClInclude Include="TimeHelper.h" />
     <ClInclude Include="Window.h" />
@@ -182,7 +183,7 @@
     <ClCompile Include="GameEvents.cpp" />
     <ClCompile Include="InputEvents.cpp" />
     <ClCompile Include="Level.cpp" />
-    <ClCompile Include="LevelObject.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="MathHelper.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Range.cpp" />

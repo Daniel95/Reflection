@@ -4,11 +4,11 @@
 
 using namespace std;
 
-Collider::Collider(RectangleShape &body, float mass) : body(body) {
+Collider::Collider(GameObject &gameObject, float mass) : gameObject(gameObject), body(gameObject.Body) {
 	Mass = mass;
 }
 
-Collider::Collider(RectangleShape &body) : body(body) { }
+Collider::Collider(GameObject &gameObject) : gameObject(gameObject), body(gameObject.Body) { }
 
 Collider::~Collider() { }
 

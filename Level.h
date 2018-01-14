@@ -1,10 +1,10 @@
 #pragma once
-#include "LevelObject.h"
+#include "GameObject.h"
 
-extern std::vector<LevelObject*> LevelObjectsToDestroy;
+extern std::vector<GameObject*> GameObjectsToDestroy;
 
 void InstantiateLevel();
 void UpdateLevel();
-void AddLevelObject(LevelObject &levelObject);
-void DestroyLevelObject(LevelObject &levelObject);
-void RemoveLevelObject(LevelObject &levelObject);
+void AddGameObject(GameObject &gameObject);
+void DestroyGameObject(GameObject &gameObject);
+void RemoveGameObject(GameObject &gameObject);

@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "Collider.h"
-#include "LevelObject.h"
+#include "GameObject.h"
 
 using namespace sf;
 
@@ -10,10 +10,10 @@ const Vector2f bulletSize = Vector2f(10.0f, 10.0f);
 const float bulletMass = 0.0f;
 const Color bulletColor = Color::Red;
 
-class Bullet : LevelObject {
+class Bullet : GameObject {
 	Vector2f direction;
 
-	Collider collider = Collider(Body, bulletMass);
+	Collider collider = Collider(*this, bulletMass);
 
 	void OnUpdate();
 	void OnCollisionEnterEvent(Collider&, Vector2f);

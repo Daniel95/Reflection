@@ -1,13 +1,13 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "Collider.h"
-#include "LevelObject.h"
+#include "GameObject.h"
 
 using namespace sf;
 
-class Box : public LevelObject {
+class Box : public GameObject {
 private:
-	Collider collider = Collider(Body);
+	Collider collider = Collider(*this);
 public:
 	Box(Vector2f position, Vector2f size, float mass);
 	~Box();

@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Level.h"
-#include "LevelObject.h"
+#include "GameObject.h"
 #include "TimeHelper.h"
 #include "Window.h"
 #include "Player.h"
@@ -12,7 +12,7 @@
 using namespace sf;
 using namespace std;
 
-vector<LevelObject*> LevelObjectsToDestroy;
+vector<GameObject*> GameObjectsToDestroy;
 
 const float boxSpawnInterval = 350.0f;
 const float spawnScreenOffset = 200.0f;
@@ -21,10 +21,10 @@ const int minBoxSpawnAmount = 0;
 const Vector2i minBoxSize = Vector2i(50, 50);
 const Vector2i maxBoxSize = Vector2i(150, 200);
 const int minBoxMass = 1;
-const int maxBoxMass = 5;
+const int maxBoxMass = 4;
 
-vector<LevelObject*> levelObjects;
-float scrollSpeed = -130.0f;
+vector<GameObject*> sideScrollingGameObjects;
+float scrollSpeed = -100.0f;
 float blockSpawnTimer = 0;
 float minScreenHalfSpace = 0;
 
@@ -44,19 +44,19 @@ void InstantiateLevel() {
 	minScreenHalfSpace = player2->Body.getSize().y + 10;
 
 	Box *topBoundary = new Box(Vector2f(windowCenter.x, 0), Vector2f((float)GameWindowSize.x, 50), 9999);
-	levelObjects.erase(remove(levelObjects.begin(), levelObjects.end(), topBoundary), levelObjects.end());
+	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), topBoundary), sideScrollingGameObjects.end());
 
 	Box *bottomBoundary = new Box(Vector2f(windowCenter.x, (float)GameWindowSize.y), Vector2f((float)GameWindowSize.x, 50), 9999);
-	levelObjects.erase(remove(levelObjects.begin(), levelObjects.end(), bottomBoundary), levelObjects.end());
+	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), bottomBoundary), sideScrollingGameObjects.end());
 
 	SpawnBoxes();
 }
 
 void UpdateLevel() {
-	for (size_t i = 0; i < LevelObjectsToDestroy.size(); i++) {
-		DestroyLevelObject(*LevelObjectsToDestroy[i]);
+	for (size_t i = 0; i < GameObjectsToDestroy.size(); i++) {
+		DestroyGameObject(*GameObjectsToDestroy[i]);
 	}
-	LevelObjectsToDestroy.clear();
+	GameObjectsToDestroy.clear();
 
 	float fixedScollSpeed = scrollSpeed * TimeHelper::DeltaTime;
 
@@ -67,28 +67,28 @@ void UpdateLevel() {
 	}
 
 	float levelObjectLeftSideX = 0;
-	LevelObject* levelObject;
-	for (size_t i = 0; i < levelObjects.size(); i++) {
-		levelObject = levelObjects[i];
-		levelObject->Body.move(fixedScollSpeed, 0);
-		levelObjectLeftSideX = levelObject->Body.getPosition().x + levelObject->Body.getSize().x / 2;
+	GameObject* gameObject;
+	for (size_t i = 0; i < sideScrollingGameObjects.size(); i++) {
+		gameObject = sideScrollingGameObjects[i];
+		gameObject->Body.move(fixedScollSpeed, 0);
+		levelObjectLeftSideX = gameObject->Body.getPosition().x + gameObject->Body.getSize().x / 2;
 		if (levelObjectLeftSideX < 0) {
-			DestroyLevelObject(*levelObject);
+			DestroyGameObject(*gameObject);
 		}
 	}
 }
 
-void AddLevelObject(LevelObject &levelObject) {
-	levelObjects.push_back(&levelObject);
+void AddGameObject(GameObject &gameObject) {
+	sideScrollingGameObjects.push_back(&gameObject);
 }
 
-void DestroyLevelObject(LevelObject &levelObject) {
-	levelObjects.erase(remove(levelObjects.begin(), levelObjects.end(), &levelObject), levelObjects.end());
-	delete &levelObject;
+void DestroyGameObject(GameObject &gameObject) {
+	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), &gameObject), sideScrollingGameObjects.end());
+	delete &gameObject;
 }
 
-void RemoveLevelObject(LevelObject &levelObject) {
-	levelObjects.erase(remove(levelObjects.begin(), levelObjects.end(), &levelObject), levelObjects.end());
+void RemoveGameObject(GameObject &gameObject) {
+	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), &gameObject), sideScrollingGameObjects.end());
 }
 
 bool RangeCompare(Range *range1, Range *range2) {

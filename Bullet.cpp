@@ -12,7 +12,9 @@ Bullet::Bullet(Vector2f position, Vector2f _direction) {
 	Body.setOrigin(Body.getSize() / 2.0f);
 	Body.setPosition(position);
 	Body.setFillColor(bulletColor);
-		
+
+	Tag = Tags::Tag::Bullet;
+	
 	direction = _direction;
 
 	UpdateEvent[Id] = [this]() { OnUpdate(); };

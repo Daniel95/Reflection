@@ -15,6 +15,8 @@ Enemy::Enemy(Vector2f position) {
 	Body.setPosition(position);
 	Body.setFillColor(enemyColor);
 
+	Tag = Tags::Tag::Enemy;
+
 	UpdateEvent[Id] = [this]() { OnUpdate(); };
 
 	AddDrawable(Body, 1);

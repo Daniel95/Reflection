@@ -9,6 +9,7 @@
 #include "MathHelper.h"
 #include "TimeHelper.h"
 #include "GameEvents.h"
+#include "Tags.h"
 #include "Bullet.h"
 
 vector<Player*> Players;
@@ -19,6 +20,8 @@ Player::Player(Vector2f position) {
 	Body.setOrigin(Body.getSize() / 2.0f);
 	Body.setPosition(position);
 	Body.setFillColor(playerColor);
+
+	Tag = Tags::Tag::Player;
 
 	UpdateEvent[Id] = [this]() { OnUpdate(); };
 
@@ -76,7 +79,11 @@ void Player::OnUpdate() {
 	Body.move((direction * playerSpeed) * TimeHelper::DeltaTime);
 }
 
-void Player::OnCollisionEnter(Collider& collider, Vector2f push) { }
+void Player::OnCollisionEnter(Collider& collider, Vector2f push) { 
+	if (collider.GetGameObject().Tag == Tags::Tag::Bullet || collider.GetGameObject().Tag == Tags::Tag::Enemy) {
+		Destroy();
+	}
+}
 
 void Player::OnCollision(Collider& collider, Vector2f push) {  }
 

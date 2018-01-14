@@ -3,16 +3,18 @@
 #include <SFML/Graphics.hpp>
 #include <functional> 
 #include <vector> 
+#include "GameObject.h"
 
 using namespace std;
 using namespace sf;
 
 class Collider {
 private:
+	GameObject& gameObject;
 	RectangleShape& body;
 public:
-	Collider(RectangleShape &body);
-	Collider(RectangleShape &body, float mass);
+	Collider(GameObject &gameObject);
+	Collider(GameObject &gameObject, float mass);
 	~Collider();
 
 	float Mass = 0;
@@ -29,5 +31,6 @@ public:
 	void Move(Vector2f move) { body.move(move); }
 	Vector2f GetPosition() { return body.getPosition(); }
 	Vector2f GetHalfSize() { return body.getSize() / 2.0f; }
+	GameObject GetGameObject() { return gameObject; }
 };
 
