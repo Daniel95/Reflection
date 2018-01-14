@@ -79,7 +79,7 @@ void HandleInputUpdate() {
 		}
 	}
 	
-	Vector2i mousePosition = Mouse::getPosition();
+	Vector2i mousePosition = Mouse::getPosition(GameWindow);
 	mouseDelta = mousePosition - previousMousePosition;
 	previousMousePosition = mousePosition;
 

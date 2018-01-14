@@ -13,6 +13,7 @@
 
 vector<Player*> Players;
 vector<function<void(Player*)>> PlayerSpawnedEvent;
+float playerFireCD = 0;
 
 Player::Player(Vector2f position) {
 	Body.setSize(playerSize);
@@ -22,7 +23,7 @@ Player::Player(Vector2f position) {
 
 	UpdateEvent[Id] = [this]() { OnUpdate(); };
 
-	MouseDownEvent.push_back([this](auto mouseButton, auto mousePosition) { OnMouseDown(mouseButton, mousePosition); });
+	MouseEvent.push_back([this](auto mouseButton, auto mousePosition, auto mouseDelta) { OnMouse(mouseButton, mousePosition, mouseDelta); });
 	collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnCollisionEnter(collider, push); });
 	collider.CollisionEvent.push_back([this](auto collider, auto push) { OnCollision(collider, push); });
 	collider.CollisionExitEvent.push_back([this](auto collider) { OnCollisionExit(collider); });
@@ -91,8 +92,12 @@ void Player::OnOtherPlayerSpawned(Player* otherPlayer) {
 	otherPlayer->collider.CollisionEvent.push_back([this](auto collider, auto push) { OnOtherPlayerCollision(collider, push); });
 }
 
-void Player::OnMouseDown(Mouse::Button mouseButton, Vector2i mousePosition) {
+void Player::OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta) {
 	if (mouseButton != Mouse::Button::Left) { return; }
+
+	playerFireCD -= TimeHelper::DeltaTime;
+	if (playerFireCD > 0) { return; }
+	playerFireCD = playerFireRate;
 
 	Vector2f delta = (Vector2f)mousePosition - Body.getPosition();
 	Vector2f direction = MathHelper::Normalize(delta);

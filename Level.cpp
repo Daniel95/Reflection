@@ -58,7 +58,7 @@ void UpdateLevel() {
 	}
 	LevelObjectsToDestroy.clear();
 
-	blockSpawnTimer += TimeHelper::DeltaTime * abs(scrollSpeed);
+	blockSpawnTimer += abs(scrollSpeed) * TimeHelper::DeltaTime;
 	if(blockSpawnTimer >= boxSpawnInterval) {
 		blockSpawnTimer = 0;
 		SpawnBoxes();

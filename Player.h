@@ -10,6 +10,7 @@ const float playerSpeed = 800.0f;
 const Vector2f playerSize = Vector2f(60.0f, 100.0f);
 const float playerMass = 0.5f;
 const Color playerColor = Color::Green;
+const float playerFireRate = 0.5f;
 
 class Player : public LevelObject {
 private:
@@ -21,7 +22,7 @@ private:
 	void OnCollisionExit(Collider& collider);
 	void OnOtherPlayerCollision(Collider& collider, Vector2f push);
 	void OnOtherPlayerSpawned(Player* otherPlayer);
-	void OnMouseDown(Mouse::Button mouseButton, Vector2i mousePosition);
+	void OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta);
 public:
 	Player(Vector2f position);
 	~Player();
