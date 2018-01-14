@@ -14,8 +14,8 @@ using namespace std;
 
 vector<LevelObject*> LevelObjectsToDestroy;
 
-const float boxSpawnInterval = 0.7f;
-const float spawnScreenOffset = 200;
+const float boxSpawnInterval = 350.0f;
+const float spawnScreenOffset = 200.0f;
 const int maxBoxSpawnAmount = 3;
 const int minBoxSpawnAmount = 0;
 const Vector2i minBoxSize = Vector2i(50, 50);
@@ -24,7 +24,7 @@ const int minBoxMass = 1;
 const int maxBoxMass = 5;
 
 vector<LevelObject*> levelObjects;
-float scrollSpeed = -0.15f;
+float scrollSpeed = -130.0f;
 float blockSpawnTimer = 0;
 float minScreenHalfSpace = 0;
 
@@ -58,7 +58,9 @@ void UpdateLevel() {
 	}
 	LevelObjectsToDestroy.clear();
 
-	blockSpawnTimer += abs(scrollSpeed) * TimeHelper::DeltaTime;
+	float fixedScollSpeed = scrollSpeed * TimeHelper::DeltaTime;
+
+	blockSpawnTimer += abs(fixedScollSpeed);
 	if(blockSpawnTimer >= boxSpawnInterval) {
 		blockSpawnTimer = 0;
 		SpawnBoxes();
@@ -68,7 +70,7 @@ void UpdateLevel() {
 	LevelObject* levelObject;
 	for (size_t i = 0; i < levelObjects.size(); i++) {
 		levelObject = levelObjects[i];
-		levelObject->Body.move(scrollSpeed, 0);
+		levelObject->Body.move(fixedScollSpeed, 0);
 		levelObjectLeftSideX = levelObject->Body.getPosition().x + levelObject->Body.getSize().x / 2;
 		if (levelObjectLeftSideX < 0) {
 			DestroyLevelObject(*levelObject);

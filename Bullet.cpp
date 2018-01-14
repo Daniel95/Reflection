@@ -34,5 +34,5 @@ void Bullet::OnUpdate() {
 }
 
 void Bullet::OnCollisionEnterEvent(Collider& collider, Vector2f push) {
-	//Destroy();
+	Destroy();
 }
