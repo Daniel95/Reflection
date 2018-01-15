@@ -10,7 +10,7 @@ Box::Box(Vector2f position, Vector2f size, float mass) {
 	Body.setOrigin(Body.getSize() / 2.0f);
 	Body.setPosition(position);
 
-	Tag = Tags::Tag::Enemy;
+	Tag = Tags::Tag::Box;
 
 	collider.Mass = mass;
 

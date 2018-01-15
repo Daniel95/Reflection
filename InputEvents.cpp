@@ -3,14 +3,14 @@
 #include "Window.h"
 #include <iostream>
 
-vector<function<void(Keyboard::Key)>> KeyDownEvent;
-vector<function<void(Keyboard::Key)>> KeyEvent;
-vector<function<void(Keyboard::Key)>> KeyUpEvent;
+map<string, function<void(Keyboard::Key)>> KeyDownEvent;
+map<string, function<void(Keyboard::Key)>> KeyEvent;
+map<string, function<void(Keyboard::Key)>> KeyUpEvent;
 
 //Parameters: MouseButton, Pos, Delta
-vector<function<void(Mouse::Button, Vector2i)>> MouseDownEvent;
-vector<function<void(Mouse::Button, Vector2i, Vector2i)>> MouseEvent;
-vector<function<void(Mouse::Button, Vector2i)>> MouseUpEvent;
+map<string, function<void(Mouse::Button, Vector2i)>> MouseDownEvent;
+map<string, function<void(Mouse::Button, Vector2i, Vector2i)>> MouseEvent;
+map<string, function<void(Mouse::Button, Vector2i)>> MouseUpEvent;
 
 vector<Keyboard::Key> pressedKeys;
 vector<Mouse::Button> pressedMouseButtons;
@@ -35,15 +35,15 @@ static void HandleKeyEvents(Event sfEvent) {
 	switch (sfEvent.type) {
 	case Event::KeyPressed:
 		if (std::find(pressedKeys.begin(), pressedKeys.end(), pressedKey) == pressedKeys.end()) {
-			for (size_t i = 0; i < KeyDownEvent.size(); i++) {
-				KeyDownEvent[i](pressedKey);
+			for (auto const& x : KeyDownEvent) {
+				x.second(pressedKey);
 			}
 			pressedKeys.push_back(pressedKey);
 		}
 		break;
 	case Event::KeyReleased:
-		for (size_t i = 0; i < KeyUpEvent.size(); i++) {
-			KeyUpEvent[i](pressedKey);
+		for (auto const& x : KeyUpEvent) {
+			x.second(pressedKey);
 		}
 		pressedKeys.erase(remove(pressedKeys.begin(), pressedKeys.end(), pressedKey), pressedKeys.end());
 		break;
@@ -57,15 +57,15 @@ static void HandleMouseEvents(Event sfEvent) {
 	switch (sfEvent.type) {
 	case Event::MouseButtonPressed:
 		if (std::find(pressedMouseButtons.begin(), pressedMouseButtons.end(), pressedMouseButton) == pressedMouseButtons.end()) {
-			for (size_t i = 0; i < MouseDownEvent.size(); i++) {
-				MouseDownEvent[i](pressedMouseButton, mousePosition);
+			for (auto const& x : MouseDownEvent) {
+				x.second(pressedMouseButton, mousePosition);
 			}
 			pressedMouseButtons.push_back(pressedMouseButton);
 		}
 		break;
 	case Event::MouseButtonReleased:
-		for (size_t i = 0; i < MouseUpEvent.size(); i++) {
-			MouseUpEvent[i](pressedMouseButton, mousePosition);
+		for (auto const& x : MouseUpEvent) {
+			x.second(pressedMouseButton, mousePosition);
 		}
 		pressedMouseButtons.erase(remove(pressedMouseButtons.begin(), pressedMouseButtons.end(), pressedMouseButton), pressedMouseButtons.end());
 		break;
@@ -74,8 +74,8 @@ static void HandleMouseEvents(Event sfEvent) {
 
 void HandleInputUpdate() {
 	for (size_t i = 0; i < pressedKeys.size(); i++) {
-		for (size_t e = 0; e < KeyEvent.size(); e++) {
-			KeyEvent[e](pressedKeys[i]);
+		for (auto const& x : KeyEvent) {
+			x.second(pressedKeys[i]);
 		}
 	}
 	
@@ -84,8 +84,8 @@ void HandleInputUpdate() {
 	previousMousePosition = mousePosition;
 
 	for (size_t i = 0; i < pressedMouseButtons.size(); i++) {
-		for (size_t e = 0; e < MouseEvent.size(); e++) {
-			MouseEvent[e](pressedMouseButtons[i], mousePosition, mouseDelta);
+		for (auto const& x : MouseEvent) {
+			x.second(pressedMouseButtons[i], mousePosition, mouseDelta);
 		}
 	}
 }

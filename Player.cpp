@@ -24,8 +24,8 @@ Player::Player(Vector2f position) {
 	Tag = Tags::Tag::Player;
 
 	UpdateEvent[Id] = [this]() { OnUpdate(); };
+	MouseEvent[Id] = [this](auto mouseButton, auto mousePosition, auto mouseDelta) { OnMouse(mouseButton, mousePosition, mouseDelta); };
 
-	MouseEvent.push_back([this](auto mouseButton, auto mousePosition, auto mouseDelta) { OnMouse(mouseButton, mousePosition, mouseDelta); });
 	collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnCollisionEnter(collider, push); });
 	collider.CollisionEvent.push_back([this](auto collider, auto push) { OnCollision(collider, push); });
 	collider.CollisionExitEvent.push_back([this](auto collider) { OnCollisionExit(collider); });
@@ -54,9 +54,11 @@ Player::~Player() {
 	RemoveCollider(collider, 0);
 	Players.erase(remove(Players.begin(), Players.end(), this), Players.end());
 	UpdateEvent.erase(Id);
+	MouseEvent.erase(Id);
 
 	//clear up player:
 	//unsub from events.
+	//unsub from key events
 	//disptach player removed event so other players can unsubscribe from this player
 }
 
