@@ -14,6 +14,7 @@
 
 vector<Player*> Players;
 vector<function<void(Player*)>> PlayerSpawnedEvent;
+vector<function<void()>> PlayerKilledEvent;
 
 Player::Player(Vector2f position) {
 	Body.setSize(playerSize);
@@ -44,6 +45,7 @@ Player::Player(Vector2f position) {
 	}
 	//add myself to Players list
 	PlayerSpawnedEvent.push_back([this](auto player) { OnOtherPlayerSpawned(player); });
+	PlayerKilledEvent.push_back([this]() { OnPlayerKilled(); });
 
 	AddDrawable(Body, 0);
 	AddCollider(collider, 0);
@@ -52,14 +54,13 @@ Player::Player(Vector2f position) {
 Player::~Player() {
 	RemoveDrawable(Body, 0);
 	RemoveCollider(collider, 0);
-	Players.erase(remove(Players.begin(), Players.end(), this), Players.end());
+
 	UpdateEvent.erase(Id);
 	MouseEvent.erase(Id);
 
-	//clear up player:
-	//unsub from events.
-	//unsub from key events
-	//disptach player removed event so other players can unsubscribe from this player
+	Players.erase(remove(Players.begin(), Players.end(), this), Players.end());
+	PlayerKilledEvent.clear();
+	PlayerKilledEvent.clear();
 }
 
 void Player::OnUpdate() {
@@ -83,7 +84,9 @@ void Player::OnUpdate() {
 
 void Player::OnCollisionEnter(Collider& collider, Vector2f push) { 
 	if (collider.GetGameObject().Tag == Tags::Tag::Bullet || collider.GetGameObject().Tag == Tags::Tag::Enemy) {
-		Destroy();
+		for (size_t i = 0; i < PlayerKilledEvent.size(); i++) {
+			PlayerKilledEvent[i]();
+		}
 	}
 }
 
@@ -93,6 +96,10 @@ void Player::OnCollisionExit(Collider& collider) { }
 
 void Player::OnOtherPlayerCollision(Collider& collider, Vector2f push) {
 	Body.move(push);
+}
+
+void Player::OnPlayerKilled() {
+	Destroy();
 }
 
 void Player::OnOtherPlayerSpawned(Player* otherPlayer) {
