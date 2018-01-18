@@ -7,6 +7,7 @@
 #include "Window.h"
 #include "Player.h"
 #include "Box.h"
+#include "Enemy.h"
 #include "Range.h"
 
 using namespace sf;
@@ -14,8 +15,10 @@ using namespace std;
 
 vector<GameObject*> GameObjectsToDestroy;
 
-const float boxSpawnInterval = 350.0f;
 const float spawnScreenOffset = 200.0f;
+
+
+const float boxSpawnInterval = 350.0f;
 const int maxBoxSpawnAmount = 3;
 const int minBoxSpawnAmount = 0;
 const Vector2i minBoxSize = Vector2i(50, 50);
@@ -23,12 +26,19 @@ const Vector2i maxBoxSize = Vector2i(150, 200);
 const int minBoxMass = 1;
 const int maxBoxMass = 4;
 
+const float enemySpawnInterval = 1000.0f;
+const int maxEnemySpawnScreenXOffset = 200;
+const int maxEnemySpawnAmount = 2;
+const int minEnemySpawnAmount = 1;
+
 vector<GameObject*> sideScrollingGameObjects;
 float scrollSpeed = -100.0f;
 float blockSpawnTimer = 0;
+float enemySpawnTimer = 0;
 float minScreenHalfSpace = 0;
 
 void SpawnBoxes();
+void SpawnEnemies();
 
 void InstantiateLevel() {
 	srand(time(NULL));
@@ -50,6 +60,7 @@ void InstantiateLevel() {
 	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), bottomBoundary), sideScrollingGameObjects.end());
 
 	SpawnBoxes();
+	SpawnEnemies();
 }
 
 void UpdateLevel() {
@@ -64,6 +75,12 @@ void UpdateLevel() {
 	if(blockSpawnTimer >= boxSpawnInterval) {
 		blockSpawnTimer = 0;
 		SpawnBoxes();
+	}
+
+	enemySpawnTimer += abs(fixedScollSpeed);
+	if (enemySpawnTimer >= enemySpawnInterval) {
+		enemySpawnTimer = 0;
+		SpawnEnemies();
 	}
 
 	float levelObjectLeftSideX = 0;
@@ -93,6 +110,28 @@ void RemoveGameObject(GameObject &gameObject) {
 
 bool RangeCompare(Range *range1, Range *range2) {
 	return range1->GetMin() < range2->GetMin();
+}
+
+void SpawnEnemies() {
+	int randomEnemySpawnAmount = rand() % (maxEnemySpawnAmount - minEnemySpawnAmount + 1) + minEnemySpawnAmount;
+
+	cout << randomEnemySpawnAmount << endl;
+
+	for (int i = 0; i < randomEnemySpawnAmount; i++) {
+		int halfEnemyHeight = (int)enemySize.y / 2;
+		int halfEnemyWidth = (int)enemySize.x / 2;
+
+		int minYPos = halfEnemyHeight;
+		int maxYPos = GameWindowSize.y - halfEnemyHeight;
+
+		int randomEnemyYPos = rand() % (maxYPos - minYPos + 1) + minYPos;
+
+		int minXPos = GameWindowSize.x + halfEnemyWidth;
+		int maxXPos = minXPos + maxEnemySpawnScreenXOffset;
+		int randomEnemyXPos = rand() % (maxXPos - minXPos) + minXPos;
+
+		new Enemy(Vector2f((float)randomEnemyXPos, (float)randomEnemyYPos));
+	}
 }
 
 void SpawnBoxes() {

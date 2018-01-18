@@ -17,6 +17,7 @@ Enemy::Enemy(Vector2f position) {
 
 	Tag = Tags::Tag::Enemy;
 
+	//UpdateEvent[Id] = [this]() { OnUpdate(); };
 	UpdateEvent[Id] = [this]() { OnUpdate(); };
 
 	AddDrawable(Body, 1);
@@ -27,8 +28,9 @@ Enemy::Enemy(Vector2f position) {
 Enemy::~Enemy() {
 	RemoveDrawable(Body, 1);
 	RemoveCollider(collider, 0);
+	UpdateEvent.erase(Id);
 }
 
 void Enemy::OnUpdate() {
-	UpdateEvent.erase(Id);
+
 }

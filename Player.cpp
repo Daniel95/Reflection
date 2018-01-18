@@ -60,7 +60,6 @@ Player::~Player() {
 
 	Players.erase(remove(Players.begin(), Players.end(), this), Players.end());
 	PlayerKilledEvent.clear();
-	PlayerKilledEvent.clear();
 }
 
 void Player::OnUpdate() {
