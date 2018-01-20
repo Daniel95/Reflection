@@ -56,10 +56,12 @@ void Enemy::OnUpdate() {
 			}
 		}
 
+		if (smallestDistanceToPlayer > maxShootDistance) { return; }
+
 		Vector2f direction = MathHelper::Normalize(offsetToClosestPlayer);
 		Vector2f spawnPosition = Body.getPosition() + (direction * 100.0f);
 
-		new Bullet(spawnPosition, direction);
+		new Bullet(spawnPosition, direction, enemyBulletSpeed);
 
 		enemyShootTimer = 0;
 	}

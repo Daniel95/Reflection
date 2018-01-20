@@ -7,6 +7,7 @@
 using namespace sf;
 
 const float playerSpeed = 600.0f;
+const float playerBulletSpeed = 800.0f;
 const Vector2f playerSize = Vector2f(60.0f, 100.0f);
 const float playerMass = 0.5f;
 const Color playerColor = Color::Green;

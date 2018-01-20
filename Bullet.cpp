@@ -7,7 +7,7 @@
 #include "TimeHelper.h"
 #include <iostream>
 
-Bullet::Bullet(Vector2f position, Vector2f _direction) {
+Bullet::Bullet(Vector2f position, Vector2f _direction, float _speed) {
 	Body.setSize(bulletSize);
 	Body.setOrigin(Body.getSize() / 2.0f);
 	Body.setPosition(position);
@@ -16,6 +16,7 @@ Bullet::Bullet(Vector2f position, Vector2f _direction) {
 	Tag = Tags::Tag::Bullet;
 	
 	direction = _direction;
+	speed = _speed;
 
 	UpdateEvent[Id] = [this]() { OnUpdate(); };
 
@@ -32,7 +33,7 @@ Bullet::~Bullet() {
 }
 
 void Bullet::OnUpdate() {
-	Body.move(direction * bulletSpeed * TimeHelper::DeltaTime);
+	Body.move(direction * speed * TimeHelper::DeltaTime);
 }
 
 void Bullet::OnCollisionEnterEvent(Collider& collider, Vector2f push) {

@@ -117,5 +117,5 @@ void Player::OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i
 	Vector2f direction = MathHelper::Normalize(delta);
 	Vector2f spawnPosition = Body.getPosition() + (direction * 100.0f);
 
-	new Bullet(spawnPosition, direction);
+	new Bullet(spawnPosition, direction, playerBulletSpeed);
 }
