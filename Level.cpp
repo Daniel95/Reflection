@@ -17,7 +17,6 @@ vector<GameObject*> GameObjectsToDestroy;
 
 const float spawnScreenOffset = 200.0f;
 
-
 const float boxSpawnInterval = 350.0f;
 const int maxBoxSpawnAmount = 3;
 const int minBoxSpawnAmount = 0;
@@ -26,10 +25,12 @@ const Vector2i maxBoxSize = Vector2i(150, 200);
 const int minBoxMass = 1;
 const int maxBoxMass = 4;
 
-const float enemySpawnInterval = 1000.0f;
+const float enemySpawnInterval = 700.0f;
 const int maxEnemySpawnScreenXOffset = 200;
-const int maxEnemySpawnAmount = 2;
-const int minEnemySpawnAmount = 1;
+const int maxEnemySpawnAmount = 3;
+const int minEnemySpawnAmount = 0;
+
+const float boundaryHeight = 50;
 
 vector<GameObject*> sideScrollingGameObjects;
 float scrollSpeed = -100.0f;
@@ -53,10 +54,12 @@ void InstantiateLevel() {
 
 	minScreenHalfSpace = player2->Body.getSize().y + 10;
 
-	Box *topBoundary = new Box(Vector2f(windowCenter.x, 0), Vector2f((float)GameWindowSize.x, 50), 9999);
+	float halfBoundaryHeight = boundaryHeight / 2;
+
+	Box *topBoundary = new Box(Vector2f(windowCenter.x, -halfBoundaryHeight), Vector2f((float)GameWindowSize.x, boundaryHeight), 9999);
 	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), topBoundary), sideScrollingGameObjects.end());
 
-	Box *bottomBoundary = new Box(Vector2f(windowCenter.x, (float)GameWindowSize.y), Vector2f((float)GameWindowSize.x, 50), 9999);
+	Box *bottomBoundary = new Box(Vector2f(windowCenter.x, (float)GameWindowSize.y + halfBoundaryHeight), Vector2f((float)GameWindowSize.x, boundaryHeight), 9999);
 	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), bottomBoundary), sideScrollingGameObjects.end());
 
 	SpawnBoxes();

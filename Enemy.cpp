@@ -30,7 +30,6 @@ Enemy::Enemy(Vector2f position) {
 	AddCollider(collider, 0);
 }
 
-
 Enemy::~Enemy() {
 	RemoveDrawable(Body, 1);
 	RemoveCollider(collider, 0);
