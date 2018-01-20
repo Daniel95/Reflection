@@ -8,10 +8,12 @@ using namespace sf;
 const Vector2f bulletSize = Vector2f(10.0f, 10.0f);
 const float bulletMass = 0.0f;
 const Color bulletColor = Color::Red;
+const float maxLifeTime = 30;
 
 class Bullet : GameObject {
 	Vector2f direction;
 	float speed;
+	float lifeTime;
 
 	Collider collider = Collider(*this, bulletMass);
 

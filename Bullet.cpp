@@ -34,6 +34,11 @@ Bullet::~Bullet() {
 
 void Bullet::OnUpdate() {
 	Body.move(direction * speed * TimeHelper::DeltaTime);
+
+	lifeTime += TimeHelper::DeltaTime;
+	if (lifeTime > maxLifeTime) {
+		Destroy();
+	}
 }
 
 void Bullet::OnCollisionEnterEvent(Collider& collider, Vector2f push) {

@@ -18,5 +18,7 @@ GameObject::~GameObject() {
 }
 
 void GameObject::Destroy() {
+	if (destroying) { return; }
+	destroying = true;
 	GameObjectsToDestroy.push_back(this);
 }

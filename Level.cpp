@@ -115,8 +115,6 @@ bool RangeCompare(Range *range1, Range *range2) {
 void SpawnEnemies() {
 	int randomEnemySpawnAmount = rand() % (maxEnemySpawnAmount - minEnemySpawnAmount + 1) + minEnemySpawnAmount;
 
-	cout << randomEnemySpawnAmount << endl;
-
 	for (int i = 0; i < randomEnemySpawnAmount; i++) {
 		int halfEnemyHeight = (int)enemySize.y / 2;
 		int halfEnemyWidth = (int)enemySize.x / 2;

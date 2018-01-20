@@ -7,7 +7,7 @@ using namespace sf;
 
 class GameObject {
 private:
-
+	bool destroying = false;
 public:
 	RectangleShape Body;
 	std::string Id = "";
