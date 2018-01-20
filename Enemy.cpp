@@ -4,6 +4,11 @@
 #include "Collisions.h"
 #include "GameEvents.h"
 #include "MathHelper.h"
+#include "GameObject.h"
+#include "TimeHelper.h"
+#include "Bullet.h"
+#include "Player.h"
+
 #include <iostream>
 
 using namespace std;
@@ -17,7 +22,8 @@ Enemy::Enemy(Vector2f position) {
 
 	Tag = Tags::Tag::Enemy;
 
-	//UpdateEvent[Id] = [this]() { OnUpdate(); };
+	collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnCollisionEnter(collider, push); });
+
 	UpdateEvent[Id] = [this]() { OnUpdate(); };
 
 	AddDrawable(Body, 1);
@@ -32,5 +38,35 @@ Enemy::~Enemy() {
 }
 
 void Enemy::OnUpdate() {
+	if (Players.size() == 0) { return; }
 
+	enemyShootTimer += TimeHelper::DeltaTime;
+	if (enemyShootTimer >= enemyShootCD) {
+		float smallestDistanceToPlayer = FLT_MAX;
+		Vector2f offsetToClosestPlayer;
+		float distance;
+		Vector2f offset;
+
+		for (size_t i = 0; i < Players.size(); i++) {
+			offset = Players[i]->Body.getPosition() - Body.getPosition();
+			distance = MathHelper::Length(offset);
+			if (distance < smallestDistanceToPlayer) {
+				smallestDistanceToPlayer = distance;
+				offsetToClosestPlayer = offset;
+			}
+		}
+
+		Vector2f direction = MathHelper::Normalize(offsetToClosestPlayer);
+		Vector2f spawnPosition = Body.getPosition() + (direction * 100.0f);
+
+		new Bullet(spawnPosition, direction);
+
+		enemyShootTimer = 0;
+	}
+}
+
+void Enemy::OnCollisionEnter(Collider& collider, Vector2f push) {
+	if (collider.GetGameObject().Tag == Tags::Tag::Bullet) {
+		Destroy();
+	}
 }
