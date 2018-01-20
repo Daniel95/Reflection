@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Level.h"
 #include "GameObject.h"
+#include "GameEvents.h"
 #include "TimeHelper.h"
 #include "Window.h"
 #include "Player.h"
@@ -13,7 +14,7 @@
 using namespace sf;
 using namespace std;
 
-vector<GameObject*> GameObjectsToDestroy;
+const string updateLevelId = "UpdateLevel";
 
 const float spawnScreenOffset = 200.0f;
 
@@ -41,8 +42,11 @@ float minScreenHalfSpace = 0;
 void SpawnBoxes();
 void SpawnEnemies();
 
-void InstantiateLevel() {
+void StartLevel() {
 	srand(time(NULL));
+
+	UpdateEvent[updateLevelId] = UpdateLevel;
+	PlayerKilledEvent.push_back(StopLevel);
 
 	Vector2f windowCenter = Vector2f((float)GameWindowSize.x / 2, (float)GameWindowSize.y / 2);
 	float quarterWindowHeight = (float)GameWindowSize.y / 4;
@@ -63,15 +67,14 @@ void InstantiateLevel() {
 	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), bottomBoundary), sideScrollingGameObjects.end());
 
 	SpawnBoxes();
-	SpawnEnemies();
+}
+
+void StopLevel() {
+	UpdateEvent.erase(updateLevelId);
+	//PlayerKilledEvent.erase(StopLevel);
 }
 
 void UpdateLevel() {
-	for (size_t i = 0; i < GameObjectsToDestroy.size(); i++) {
-		DestroyGameObject(*GameObjectsToDestroy[i]);
-	}
-	GameObjectsToDestroy.clear();
-
 	float fixedScollSpeed = scrollSpeed * TimeHelper::DeltaTime;
 
 	blockSpawnTimer += abs(fixedScollSpeed);
@@ -93,21 +96,16 @@ void UpdateLevel() {
 		gameObject->Body.move(fixedScollSpeed, 0);
 		levelObjectLeftSideX = gameObject->Body.getPosition().x + gameObject->Body.getSize().x / 2;
 		if (levelObjectLeftSideX < 0) {
-			DestroyGameObject(*gameObject);
+			RemoveSideScrollingGameObject(*gameObject);
 		}
 	}
 }
 
-void AddGameObject(GameObject &gameObject) {
+void AddSideScrollingGameObject(GameObject &gameObject) {
 	sideScrollingGameObjects.push_back(&gameObject);
 }
 
-void DestroyGameObject(GameObject &gameObject) {
-	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), &gameObject), sideScrollingGameObjects.end());
-	delete &gameObject;
-}
-
-void RemoveGameObject(GameObject &gameObject) {
+void RemoveSideScrollingGameObject(GameObject &gameObject) {
 	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), &gameObject), sideScrollingGameObjects.end());
 }
 

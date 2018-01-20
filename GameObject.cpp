@@ -7,14 +7,15 @@
 #include <string> 
 
 GameObject::GameObject() {
-	AddGameObject(*this);
+	AddSideScrollingGameObject(*this);
 
 	stringstream ss;
 	ss << this;
 	Id = ss.str();
 }
+
 GameObject::~GameObject() {
-	RemoveGameObject(*this);
+	RemoveSideScrollingGameObject(*this);
 }
 
 void GameObject::Destroy() {

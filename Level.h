@@ -3,8 +3,9 @@
 
 extern std::vector<GameObject*> GameObjectsToDestroy;
 
-void InstantiateLevel();
+void StartLevel();
+void StopLevel();
 void UpdateLevel();
-void AddGameObject(GameObject &gameObject);
-void DestroyGameObject(GameObject &gameObject);
-void RemoveGameObject(GameObject &gameObject);
+void AddSideScrollingGameObject(GameObject &gameObject);
+void RemoveSideScrollingGameObject(GameObject &gameObject);
+void RemoveSideScrollingGameObject(GameObject &gameObject);

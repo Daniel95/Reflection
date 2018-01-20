@@ -10,7 +10,7 @@ const float enemyBulletSpeed = 550.0f;
 const float enemyMass = 0.5f;
 const Color enemyColor = Color::Red;
 const float enemyShootCD = 0.9f;
-const float maxShootDistance = 700.0f;
+const float maxShootDistance = 650.0f;
 
 class Enemy : public GameObject {
 	Collider collider = Collider(*this, enemyMass);
