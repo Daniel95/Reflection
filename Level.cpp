@@ -14,7 +14,7 @@
 using namespace sf;
 using namespace std;
 
-const string updateLevelId = "UpdateLevel";
+const string levelId = "Level";
 
 const float spawnScreenOffset = 200.0f;
 
@@ -45,8 +45,8 @@ void SpawnEnemies();
 void StartLevel() {
 	srand(time(NULL));
 
-	UpdateEvent[updateLevelId] = UpdateLevel;
-	PlayerKilledEvent.push_back(StopLevel);
+	UpdateEvent[levelId] = UpdateLevel;
+	PlayerKilledEvent[levelId] = StopLevel;
 
 	Vector2f windowCenter = Vector2f((float)GameWindowSize.x / 2, (float)GameWindowSize.y / 2);
 	float quarterWindowHeight = (float)GameWindowSize.y / 4;
@@ -70,8 +70,8 @@ void StartLevel() {
 }
 
 void StopLevel() {
-	UpdateEvent.erase(updateLevelId);
-	//PlayerKilledEvent.erase(StopLevel);
+	UpdateEvent.erase(levelId);
+	PlayerKilledEvent.erase(levelId);
 }
 
 void UpdateLevel() {

@@ -37,4 +37,4 @@ public:
 
 extern vector<Player*> Players;
 extern vector<function<void(Player*)>> PlayerSpawnedEvent;
-extern vector<function<void()>> PlayerKilledEvent;
+extern map<string, function<void()>> PlayerKilledEvent;

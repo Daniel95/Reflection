@@ -14,7 +14,7 @@
 
 vector<Player*> Players;
 vector<function<void(Player*)>> PlayerSpawnedEvent;
-vector<function<void()>> PlayerKilledEvent;
+map<string, function<void()>> PlayerKilledEvent;
 
 Player::Player(Vector2f position) {
 	Body.setSize(playerSize);
@@ -45,7 +45,7 @@ Player::Player(Vector2f position) {
 	}
 	//add myself to Players list
 	PlayerSpawnedEvent.push_back([this](auto player) { OnOtherPlayerSpawned(player); });
-	PlayerKilledEvent.push_back([this]() { OnPlayerKilled(); });
+	PlayerKilledEvent[Id]= [this]() { OnPlayerKilled(); };
 
 	AddDrawable(Body, 0);
 	AddCollider(collider, 0);
@@ -57,9 +57,9 @@ Player::~Player() {
 
 	UpdateEvent.erase(Id);
 	MouseEvent.erase(Id);
+	PlayerKilledEvent.erase(Id);
 
 	Players.erase(remove(Players.begin(), Players.end(), this), Players.end());
-	PlayerKilledEvent.clear();
 }
 
 void Player::OnUpdate() {
@@ -83,8 +83,16 @@ void Player::OnUpdate() {
 
 void Player::OnCollisionEnter(Collider& collider, Vector2f push) { 
 	if (collider.GetGameObject().Tag == Tags::Tag::Bullet || collider.GetGameObject().Tag == Tags::Tag::Enemy) {
-		for (size_t i = 0; i < PlayerKilledEvent.size(); i++) {
-			PlayerKilledEvent[i]();
+		vector<function<void()>> playerKilledEventVector;
+
+		//Elements cannot be destroyed when iterating over a map, but they can be destroyed when iterating over a vector.
+		//Some objects need to be destroyed when the player dies and its game over.
+		for (auto const& x : PlayerKilledEvent) {
+			playerKilledEventVector.push_back(x.second);
+		}
+
+		for (size_t i = 0; i < playerKilledEventVector.size(); i++) {
+			playerKilledEventVector[i]();
 		}
 	}
 }
