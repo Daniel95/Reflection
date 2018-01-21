@@ -162,6 +162,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="MathHelper.h" />
+    <ClInclude Include="Reflection.h" />
     <ClInclude Include="Tags.h" />
     <ClInclude Include="Range.h" />
     <ClInclude Include="TimeHelper.h" />

@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Level.h"
 #include "GameObject.h"
+#include "Reflection.h"
 #include "GameEvents.h"
 #include "TimeHelper.h"
 #include "Window.h"
@@ -72,6 +73,10 @@ void StartLevel() {
 void StopLevel() {
 	UpdateEvent.erase(levelId);
 	PlayerKilledEvent.erase(levelId);
+
+	for (auto const& x : DestroyAllGameObjectsEvent) {
+		x.second();
+	}
 }
 
 void UpdateLevel() {
