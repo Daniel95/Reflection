@@ -33,9 +33,9 @@ const int maxEnemySpawnAmount = 3;
 const int minEnemySpawnAmount = 0;
 
 const float boundaryHeight = 50;
+const float scrollSpeed = -100.0f;
 
 vector<GameObject*> sideScrollingGameObjects;
-float scrollSpeed = -100.0f;
 float blockSpawnTimer = 0;
 float enemySpawnTimer = 0;
 float minScreenHalfSpace = 0;
@@ -46,7 +46,7 @@ void SpawnEnemies();
 void StartLevel() {
 	srand(time(NULL));
 
-	UpdateEvent[levelId] = UpdateLevel;
+	//UpdateEvent[levelId] = UpdateLevel;
 	PlayerKilledEvent[levelId] = StopLevel;
 
 	Vector2f windowCenter = Vector2f((float)GameWindowSize.x / 2, (float)GameWindowSize.y / 2);
@@ -67,7 +67,7 @@ void StartLevel() {
 	Box *bottomBoundary = new Box(Vector2f(windowCenter.x, (float)GameWindowSize.y + halfBoundaryHeight), Vector2f((float)GameWindowSize.x, boundaryHeight), 9999);
 	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), bottomBoundary), sideScrollingGameObjects.end());
 
-	SpawnBoxes();
+	//SpawnBoxes();
 }
 
 void StopLevel() {
@@ -77,6 +77,14 @@ void StopLevel() {
 	for (auto const& x : DestroyAllGameObjectsEvent) {
 		x.second();
 	}
+
+	sideScrollingGameObjects.clear();
+	blockSpawnTimer = 0;
+	enemySpawnTimer = 0;
+	minScreenHalfSpace = 0;
+
+	//Delay startlevel by 1 frame
+	DelayedMethods.push_back(StartLevel);
 }
 
 void UpdateLevel() {
@@ -101,7 +109,7 @@ void UpdateLevel() {
 		gameObject->Body.move(fixedScollSpeed, 0);
 		levelObjectLeftSideX = gameObject->Body.getPosition().x + gameObject->Body.getSize().x / 2;
 		if (levelObjectLeftSideX < 0) {
-			RemoveSideScrollingGameObject(*gameObject);
+			gameObject->Destroy();
 		}
 	}
 }

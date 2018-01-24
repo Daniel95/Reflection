@@ -10,7 +10,11 @@ Collider::Collider(GameObject &gameObject, float mass) : gameObject(gameObject),
 
 Collider::Collider(GameObject &gameObject) : gameObject(gameObject), body(gameObject.Body) { }
 
-Collider::~Collider() { }
+Collider::~Collider() {
+	CollisionEnterEvent.clear();
+	CollisionEvent.clear();
+	CollisionExitEvent.clear();
+}
 
 bool Collider::CheckCollision(Collider& other, Vector2f &thisPush, Vector2f &otherPush) {
 	Vector2f otherPosition = other.GetPosition();
