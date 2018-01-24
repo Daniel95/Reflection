@@ -13,7 +13,7 @@
 #include "Bullet.h"
 
 vector<Player*> Players;
-vector<function<void(Player*)>> PlayerSpawnedEvent;
+map<string, function<void(Player*)>> PlayerSpawnedEvent;
 map<string, function<void()>> PlayerKilledEvent;
 
 Player::Player(Vector2f position) {
@@ -40,11 +40,12 @@ Player::Player(Vector2f position) {
 	Players.push_back(this);
 
 	//dispatch player spawned event so other players can subscribe to this player
-	for (size_t e = 0; e < PlayerSpawnedEvent.size(); e++) {
-		PlayerSpawnedEvent[e](this);
+	for (auto const& e : PlayerSpawnedEvent) {
+		e.second(this);
 	}
+
 	//add myself to Players list
-	PlayerSpawnedEvent.push_back([this](auto player) { OnOtherPlayerSpawned(player); });
+	PlayerSpawnedEvent[Id] = [this](auto player) { OnOtherPlayerSpawned(player); };
 	PlayerKilledEvent[Id]= [this]() { OnPlayerKilled(); };
 
 	AddDrawable(Body, 0);
@@ -57,6 +58,7 @@ Player::~Player() {
 
 	UpdateEvent.erase(Id);
 	MouseEvent.erase(Id);
+	PlayerSpawnedEvent.erase(Id);
 	PlayerKilledEvent.erase(Id);
 
 	Players.erase(remove(Players.begin(), Players.end(), this), Players.end());
