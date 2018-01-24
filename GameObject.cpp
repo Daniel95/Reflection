@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Reflection.h"
 #include "GameObject.h"
+#include "DelayMethods.h"
 #include "Level.h"
 #include "Window.h"
 #include <iostream>
@@ -24,5 +25,5 @@ GameObject::~GameObject() {
 void GameObject::Destroy() {
 	if (destroying) { return; }
 	destroying = true;
-	GameObjectsToDestroy.push_back(this);
+	DelayMethod(1, [this]() { delete this; });
 }

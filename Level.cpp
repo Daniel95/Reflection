@@ -6,6 +6,7 @@
 #include "Reflection.h"
 #include "GameEvents.h"
 #include "TimeHelper.h"
+#include "DelayMethods.h"
 #include "Window.h"
 #include "Player.h"
 #include "Box.h"
@@ -46,7 +47,7 @@ void SpawnEnemies();
 void StartLevel() {
 	srand(time(NULL));
 
-	//UpdateEvent[levelId] = UpdateLevel;
+	UpdateEvent[levelId] = UpdateLevel;
 	PlayerKilledEvent[levelId] = StopLevel;
 
 	Vector2f windowCenter = Vector2f((float)GameWindowSize.x / 2, (float)GameWindowSize.y / 2);
@@ -67,7 +68,7 @@ void StartLevel() {
 	Box *bottomBoundary = new Box(Vector2f(windowCenter.x, (float)GameWindowSize.y + halfBoundaryHeight), Vector2f((float)GameWindowSize.x, boundaryHeight), 9999);
 	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), bottomBoundary), sideScrollingGameObjects.end());
 
-	//SpawnBoxes();
+	SpawnBoxes();
 }
 
 void StopLevel() {
@@ -84,7 +85,7 @@ void StopLevel() {
 	minScreenHalfSpace = 0;
 
 	//Delay startlevel by 1 frame
-	DelayedMethods.push_back(StartLevel);
+	DelayMethod(2, StartLevel);
 }
 
 void UpdateLevel() {

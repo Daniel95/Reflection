@@ -5,5 +5,3 @@
 using namespace std;
 
 extern map<string, function<void()>> DestroyAllGameObjectsEvent;
-extern vector<GameObject*> GameObjectsToDestroy;
-extern vector<function<void()>> DelayedMethods;

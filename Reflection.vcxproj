@@ -159,6 +159,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Collisions.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="DelayMethods.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="MathHelper.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Collisions.cpp" />
+    <ClCompile Include="DelayMethods.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameEvents.cpp" />
     <ClCompile Include="InputEvents.cpp" />
@@ -197,9 +199,6 @@
     </ClCompile>
     <ClCompile Include="TimeHelper.cpp" />
     <ClCompile Include="Window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Reflection.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
