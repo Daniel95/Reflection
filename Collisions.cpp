@@ -9,19 +9,19 @@
 using namespace sf;
 using namespace std;
 
-map<int, vector<Collider*>> colliderBodiesByLayer;
+map<int, vector<Collider*>> collidersByLayer;
 vector<Collision*> collisions;
 vector<Collision*> outdatedCollisions;
 
 void AddCollider(Collider &collider, int layer) {
-	if (colliderBodiesByLayer.find(layer) == colliderBodiesByLayer.end()) {
-		colliderBodiesByLayer[layer] = vector<Collider*>();
+	if (collidersByLayer.find(layer) == collidersByLayer.end()) {
+		collidersByLayer[layer] = vector<Collider*>();
 	}
-	colliderBodiesByLayer[layer].push_back(&collider);
+	collidersByLayer[layer].push_back(&collider);
 }
 
 void RemoveCollider(Collider &collider, int layer) {
-	if (colliderBodiesByLayer.find(layer) == colliderBodiesByLayer.end()) {
+	if (collidersByLayer.find(layer) == collidersByLayer.end()) {
 		cout << "Collider to remove not found!" << endl;
 		return;
 	}
@@ -43,17 +43,17 @@ void RemoveCollider(Collider &collider, int layer) {
 	}
 
 	//Remove collider from layer
-	vector<Collider*>& colliderVector = colliderBodiesByLayer[layer];
+	vector<Collider*>& colliderVector = collidersByLayer[layer];
 	colliderVector.erase(remove(colliderVector.begin(), colliderVector.end(), &collider), colliderVector.end());
 
 	if (colliderVector.size() == 0) {
-		colliderBodiesByLayer.erase(layer);
+		collidersByLayer.erase(layer);
 	}
 }
 
 void UpdateCollisions() {
 	outdatedCollisions = collisions;
-	for (auto const& x : colliderBodiesByLayer) {
+	for (auto const& x : collidersByLayer) {
 		vector<Collider*> colliders = x.second;
 		int otherCollidersStartIndex = 0;
 

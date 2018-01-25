@@ -7,10 +7,6 @@
 using namespace sf;
 using namespace std;
 
-extern map<int, vector<Collider*>> colliderBodiesByLayer;
-extern vector<Collision*> collisions;
-extern vector<Collision*> outdatedCollisions;
-
 void AddCollider(Collider &collider, int layer);
 void RemoveCollider(Collider &collider, int layer);
 void UpdateCollisions();
