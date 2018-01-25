@@ -4,6 +4,7 @@
 #include <functional> 
 #include <vector> 
 #include "GameObject.h"
+#include <iostream>
 
 using namespace std;
 using namespace sf;
@@ -31,6 +32,8 @@ public:
 	void Move(Vector2f move) { body.move(move); }
 	Vector2f GetPosition() { return body.getPosition(); }
 	Vector2f GetHalfSize() { return body.getSize() / 2.0f; }
-	GameObject GetGameObject() { return gameObject; }
+	GameObject& GetGameObject() { 
+		return gameObject;
+	}
 };
 
