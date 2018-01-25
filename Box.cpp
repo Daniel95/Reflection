@@ -6,20 +6,20 @@
 #include <iostream>
 
 Box::Box(Vector2f position, Vector2f size, float mass) {
-	Body.setSize(size);
-	Body.setOrigin(Body.getSize() / 2.0f);
-	Body.setPosition(position);
+	GetBody().setSize(size);
+	GetBody().setOrigin(GetBody().getSize() / 2.0f);
+	GetBody().setPosition(position);
 
 	Tag = Tags::Tag::Box;
 
 	collider.Mass = mass;
 
-	AddDrawable(Body, 1);
+	AddDrawable(GetBody(), 1);
 	AddCollider(collider, 0);
 }
 
 
 Box::~Box() {
-	RemoveDrawable(Body, 1);
+	RemoveDrawable(GetBody(), 1);
 	RemoveCollider(collider, 0);
 }

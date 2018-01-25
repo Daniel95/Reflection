@@ -58,7 +58,7 @@ void StartLevel() {
 	Player *player1 = new Player(Vector2f(player1Pos.x, player1Pos.y));
 	Player *player2 = new Player(Vector2f(player2Pos.x, player2Pos.y));
 
-	minScreenHalfSpace = player2->Body.getSize().y + 10;
+	minScreenHalfSpace = player2->GetBody().getSize().y + 10;
 
 	float halfBoundaryHeight = boundaryHeight / 2;
 
@@ -84,8 +84,8 @@ void StopLevel() {
 	enemySpawnTimer = 0;
 	minScreenHalfSpace = 0;
 
-	//Delay startlevel by 1 frame
-	DelayMethod(200, StartLevel);
+	//Delay startlevel by 2 frames
+	DelayMethod(2, StartLevel);
 }
 
 void UpdateLevel() {
@@ -107,8 +107,8 @@ void UpdateLevel() {
 	GameObject* gameObject;
 	for (size_t i = 0; i < sideScrollingGameObjects.size(); i++) {
 		gameObject = sideScrollingGameObjects[i];
-		gameObject->Body.move(fixedScollSpeed, 0);
-		levelObjectLeftSideX = gameObject->Body.getPosition().x + gameObject->Body.getSize().x / 2;
+		gameObject->GetBody().move(fixedScollSpeed, 0);
+		levelObjectLeftSideX = gameObject->GetBody().getPosition().x + gameObject->GetBody().getSize().x / 2;
 		if (levelObjectLeftSideX < 0) {
 			gameObject->Destroy();
 		}

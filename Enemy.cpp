@@ -15,10 +15,10 @@ using namespace std;
 using namespace sf;
 
 Enemy::Enemy(Vector2f position) {
-	Body.setSize(enemySize);
-	Body.setOrigin(Body.getSize() / 2.0f);
-	Body.setPosition(position);
-	Body.setFillColor(enemyColor);
+	GetBody().setSize(enemySize);
+	GetBody().setOrigin(GetBody().getSize() / 2.0f);
+	GetBody().setPosition(position);
+	GetBody().setFillColor(enemyColor);
 
 	Tag = Tags::Tag::Enemy;
 
@@ -26,12 +26,12 @@ Enemy::Enemy(Vector2f position) {
 
 	UpdateEvent[Id] = [this]() { OnUpdate(); };
 
-	AddDrawable(Body, 1);
+	AddDrawable(GetBody(), 1);
 	AddCollider(collider, 0);
 }
 
 Enemy::~Enemy() {
-	RemoveDrawable(Body, 1);
+	RemoveDrawable(GetBody(), 1);
 	RemoveCollider(collider, 0);
 	UpdateEvent.erase(Id);
 }
@@ -47,7 +47,7 @@ void Enemy::OnUpdate() {
 		Vector2f offset;
 
 		for (size_t i = 0; i < Players.size(); i++) {
-			offset = Players[i]->Body.getPosition() - Body.getPosition();
+			offset = Players[i]->GetBody().getPosition() - GetBody().getPosition();
 			distance = MathHelper::Length(offset);
 			if (distance < smallestDistanceToPlayer) {
 				smallestDistanceToPlayer = distance;
@@ -58,7 +58,7 @@ void Enemy::OnUpdate() {
 		if (smallestDistanceToPlayer > maxShootDistance) { return; }
 
 		Vector2f direction = MathHelper::Normalize(offsetToClosestPlayer);
-		Vector2f spawnPosition = Body.getPosition() + (direction * 100.0f);
+		Vector2f spawnPosition = GetBody().getPosition() + (direction * 100.0f);
 
 		new Bullet(spawnPosition, direction, enemyBulletSpeed);
 

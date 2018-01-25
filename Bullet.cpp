@@ -8,10 +8,10 @@
 #include <iostream>
 
 Bullet::Bullet(Vector2f position, Vector2f _direction, float _speed) {
-	Body.setSize(bulletSize);
-	Body.setOrigin(Body.getSize() / 2.0f);
-	Body.setPosition(position);
-	Body.setFillColor(bulletColor);
+	GetBody().setSize(bulletSize);
+	GetBody().setOrigin(GetBody().getSize() / 2.0f);
+	GetBody().setPosition(position);
+	GetBody().setFillColor(bulletColor);
 
 	Tag = Tags::Tag::Bullet;
 	
@@ -20,20 +20,21 @@ Bullet::Bullet(Vector2f position, Vector2f _direction, float _speed) {
 
 	UpdateEvent[Id] = [this]() { OnUpdate(); };
 
-	AddDrawable(Body, 1);
+	AddDrawable(GetBody(), 1);
 	AddCollider(collider, 0);
 
 	collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnCollisionEnterEvent(collider, push); });
+	//collider.CollisionEvent.push_back([this](auto collider, auto push) { OnCollisionEvent(collider, push); });
 }
 
 Bullet::~Bullet() {
 	RemoveCollider(collider, 0);
-	RemoveDrawable(Body, 1);
+	RemoveDrawable(GetBody(), 1);
 	UpdateEvent.erase(Id);
 }
 
 void Bullet::OnUpdate() {
-	Body.move(direction * speed * TimeHelper::DeltaTime);
+	GetBody().move(direction * speed * TimeHelper::DeltaTime);
 
 	lifeTime += TimeHelper::DeltaTime;
 	if (lifeTime > maxLifeTime) {
@@ -44,3 +45,9 @@ void Bullet::OnUpdate() {
 void Bullet::OnCollisionEnterEvent(Collider& collider, Vector2f push) {
 	Destroy();
 }
+
+/*
+void Bullet::OnCollisionEvent(Collider& collider, Vector2f push) {
+	lifeTime += maxLifeTime / 60;
+}
+*/

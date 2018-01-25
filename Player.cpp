@@ -17,10 +17,10 @@ map<string, function<void(Player*)>> PlayerSpawnedEvent;
 map<string, function<void()>> PlayerKilledEvent;
 
 Player::Player(Vector2f position) {
-	Body.setSize(playerSize);
-	Body.setOrigin(Body.getSize() / 2.0f);
-	Body.setPosition(position);
-	Body.setFillColor(playerColor);
+	GetBody().setSize(playerSize);
+	GetBody().setOrigin(GetBody().getSize() / 2.0f);
+	GetBody().setPosition(position);
+	GetBody().setFillColor(playerColor);
 
 	Tag = Tags::Tag::Player;
 
@@ -48,12 +48,12 @@ Player::Player(Vector2f position) {
 	PlayerSpawnedEvent[Id] = [this](auto player) { OnOtherPlayerSpawned(player); };
 	PlayerKilledEvent[Id]= [this]() { OnPlayerKilled(); };
 
-	AddDrawable(Body, 0);
+	AddDrawable(GetBody(), 0);
 	AddCollider(collider, 0);
 }
 
 Player::~Player() {
-	RemoveDrawable(Body, 0);
+	RemoveDrawable(GetBody(), 0);
 	RemoveCollider(collider, 0);
 
 	UpdateEvent.erase(Id);
@@ -80,7 +80,7 @@ void Player::OnUpdate() {
 	}
 
 	Vector2f direction = MathHelper::Normalize((float)input.x, (float)input.y);
-	Body.move((direction * playerSpeed) * TimeHelper::DeltaTime);
+	GetBody().move((direction * playerSpeed) * TimeHelper::DeltaTime);
 }
 
 void Player::OnCollisionEnter(Collider& collider, Vector2f push) { 
@@ -104,7 +104,7 @@ void Player::OnCollision(Collider& collider, Vector2f push) {  }
 void Player::OnCollisionExit(Collider& collider) { }
 
 void Player::OnOtherPlayerCollision(Collider& collider, Vector2f push) {
-	Body.move(push);
+	GetBody().move(push);
 }
 
 void Player::OnPlayerKilled() {
@@ -123,9 +123,9 @@ void Player::OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i
 	if (playerShootTimer > 0) { return; }
 	playerShootTimer = playerShootCD;
 
-	Vector2f delta = (Vector2f)mousePosition - Body.getPosition();
+	Vector2f delta = (Vector2f)mousePosition - GetBody().getPosition();
 	Vector2f direction = MathHelper::Normalize(delta);
-	Vector2f spawnPosition = Body.getPosition() + (direction * 100.0f);
+	Vector2f spawnPosition = GetBody().getPosition() + (direction * 100.0f);
 
 	new Bullet(spawnPosition, direction, playerBulletSpeed);
 }

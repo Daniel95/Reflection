@@ -4,11 +4,11 @@
 
 using namespace std;
 
-Collider::Collider(GameObject &gameObject, float mass) : gameObject(gameObject), body(gameObject.Body) {
+Collider::Collider(GameObject &gameObject, float mass) : gameObject(gameObject), body(gameObject.GetBody()) {
 	Mass = mass;
 }
 
-Collider::Collider(GameObject &gameObject) : gameObject(gameObject), body(gameObject.Body) { }
+Collider::Collider(GameObject &gameObject) : gameObject(gameObject), body(gameObject.GetBody()) { }
 
 Collider::~Collider() {
 	CollisionEnterEvent.clear();

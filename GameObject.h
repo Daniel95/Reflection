@@ -8,13 +8,16 @@ using namespace sf;
 class GameObject {
 private:
 	bool destroying = false;
+	RectangleShape body;
 public:
-	RectangleShape Body;
 	std::string Id = "";
 	Tags::Tag Tag;
 
 	GameObject();
 	virtual ~GameObject();
 	void Destroy();
+	RectangleShape& GetBody() {
+		return body;
+	};
 };
 

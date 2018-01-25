@@ -32,8 +32,14 @@ public:
 	void Move(Vector2f move) { body.move(move); }
 	Vector2f GetPosition() { return body.getPosition(); }
 	Vector2f GetHalfSize() { return body.getSize() / 2.0f; }
-	GameObject& GetGameObject() { 
+
+	GameObject GetGameObjectKAPOT() { 
 		return gameObject;
 	}
+
+	GameObject& GetGameObject() {
+		return gameObject;
+	}
+
 };
 
