@@ -76,8 +76,11 @@ void UpdateCollisions() {
 
 void UpdateCollision(Collider &colliderOne, Collider &colliderTwo, Vector2f colliderOnePush, Vector2f colliderTwoPush) {
 	Collision *collision = NULL;
+
+	//Check if this collision already exists
 	for (size_t i = 0; i < collisions.size(); i++) {
-		bool collisionExists = &colliderOne == &collisions[i]->ColliderOne || &colliderOne == &collisions[i]->ColliderTwo && &colliderTwo == &collisions[i]->ColliderOne || &colliderTwo == &collisions[i]->ColliderTwo;
+		bool collisionExists = (&colliderOne == &collisions[i]->ColliderOne || &colliderOne == &collisions[i]->ColliderTwo) && (&colliderTwo == &collisions[i]->ColliderOne || &colliderTwo == &collisions[i]->ColliderTwo);
+
 		if (collisionExists) {
 			collision = collisions[i];
 			break;

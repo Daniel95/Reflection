@@ -85,7 +85,7 @@ void StopLevel() {
 	minScreenHalfSpace = 0;
 
 	//Delay startlevel by 1 frame
-	DelayMethod(2, StartLevel);
+	DelayMethod(200, StartLevel);
 }
 
 void UpdateLevel() {

@@ -22,5 +22,4 @@ Box::Box(Vector2f position, Vector2f size, float mass) {
 Box::~Box() {
 	RemoveDrawable(Body, 1);
 	RemoveCollider(collider, 0);
-	//clear up box.
 }

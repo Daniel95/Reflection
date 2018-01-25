@@ -30,8 +30,6 @@ Bullet::~Bullet() {
 	RemoveCollider(collider, 0);
 	RemoveDrawable(Body, 1);
 	UpdateEvent.erase(Id);
-
-	//delete &collider;
 }
 
 void Bullet::OnUpdate() {
