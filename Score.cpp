@@ -6,6 +6,8 @@
 #include "Window.h"
 #include <iostream>
 #include <string>
+#include <iomanip>
+#include <sstream>
 
 using namespace sf;
 using namespace std;
@@ -17,6 +19,7 @@ const int textFontSize = 30;
 const Color textFillColor = Color::White;
 const Color textOutlineColor = Color::Black;
 const int scoreDrawLayer = 0;
+const int decimalsToDispay = 0;
 
 Text scoreText;
 Font font;
@@ -56,6 +59,11 @@ void StopScore() {
 }
 
 void UpdateScore() {
+	//Add time of the last frame to score
 	score += TimeHelper::DeltaTime;
-	scoreText.setString(to_string(score));
+
+	//reduce to decimals of score to display
+	stringstream stream;
+	stream << fixed << setprecision(decimalsToDispay) << score;
+	scoreText.setString(stream.str());
 }
