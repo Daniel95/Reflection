@@ -5,3 +5,4 @@
 using namespace std;
 
 extern map<string, function<void()>> DestroyAllGameObjectsEvent;
+void OnKeyDown(Keyboard::Key key);

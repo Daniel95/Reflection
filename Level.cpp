@@ -18,7 +18,7 @@ using namespace std;
 
 const string levelId = "Level";
 
-const float spawnScreenOffset = 200.0f;
+const float spawnScreenOffset = 300.0f;
 
 const float boxSpawnInterval = 350.0f;
 const int maxBoxSpawnAmount = 3;
@@ -29,7 +29,6 @@ const int minBoxMass = 1;
 const int maxBoxMass = 4;
 
 const float enemySpawnInterval = 700.0f;
-const int maxEnemySpawnScreenXOffset = 200;
 const int maxEnemySpawnAmount = 3;
 const int minEnemySpawnAmount = 0;
 
@@ -140,7 +139,7 @@ void SpawnEnemies() {
 		int randomEnemyYPos = rand() % (maxYPos - minYPos + 1) + minYPos;
 
 		int minXPos = GameWindowSize.x + halfEnemyWidth;
-		int maxXPos = minXPos + maxEnemySpawnScreenXOffset;
+		int maxXPos = minXPos + spawnScreenOffset;
 		int randomEnemyXPos = rand() % (maxXPos - minXPos) + minXPos;
 
 		new Enemy(Vector2f((float)randomEnemyXPos, (float)randomEnemyYPos));
