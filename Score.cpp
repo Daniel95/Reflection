@@ -16,6 +16,8 @@ const Vector2f textPosition = Vector2f(100, 100);
 const Color textColor = Color::White;
 
 Text scoreText;
+Font font;
+
 float score;
 
 void StartScore(Player* player);
@@ -23,7 +25,6 @@ void StopScore();
 void UpdateScore();
 
 void InitScore() {
-	Font font;
 
 	if (!font.loadFromFile("Resources/Fonts/VCR.ttf")) {
 		cout << "Failed to load font" << endl;
@@ -47,11 +48,10 @@ void StartScore(Player* player) {
 
 void StopScore() {
 	UpdateEvent.erase(scoreId);
-	RemoveDrawable(scoreText, 0);
+	RemoveDrawable(scoreText, 2);
 }
 
 void UpdateScore() {
-
 	score += TimeHelper::DeltaTime;
 	scoreText.setString(to_string(score));
 }
