@@ -6,8 +6,7 @@
 using namespace sf;
 using namespace std;
 
-
-RenderWindow GameWindow(VideoMode(GameWindowSize.x, GameWindowSize.y), "Reflection", Style::Close | Style::Fullscreen);
+RenderWindow GameWindow(VideoMode::getFullscreenModes()[0], "Reflection", Style::Close | Style::Fullscreen);
 map<int, vector<const Drawable*>> DrawablesByLayer;
 vector<const Drawable*> DrawablesInOrder;
 
