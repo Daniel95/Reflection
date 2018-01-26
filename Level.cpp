@@ -49,8 +49,8 @@ void StartLevel() {
 	UpdateEvent[levelId] = UpdateLevel;
 	PlayerKilledEvent[levelId] = StopLevel;
 
-	Vector2f windowCenter = Vector2f((float)GameWindowSize.x / 2, (float)GameWindowSize.y / 2);
-	float quarterWindowHeight = (float)GameWindowSize.y / 4;
+	Vector2f windowCenter = Vector2f((float)GameWindow.getSize().x / 2, (float)GameWindow.getSize().y / 2);
+	float quarterWindowHeight = (float)GameWindow.getSize().y / 4;
 	Vector2f player1Pos = Vector2f(windowCenter.x, windowCenter.y + quarterWindowHeight);
 	Vector2f player2Pos = Vector2f(windowCenter.x, windowCenter.y - quarterWindowHeight);
 
@@ -61,10 +61,10 @@ void StartLevel() {
 
 	float halfBoundaryHeight = boundaryHeight / 2;
 
-	Box *topBoundary = new Box(Vector2f(windowCenter.x, -halfBoundaryHeight), Vector2f((float)GameWindowSize.x, boundaryHeight), 9999);
+	Box *topBoundary = new Box(Vector2f(windowCenter.x, -halfBoundaryHeight), Vector2f((float)GameWindow.getSize().x, boundaryHeight), 9999);
 	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), topBoundary), sideScrollingGameObjects.end());
 
-	Box *bottomBoundary = new Box(Vector2f(windowCenter.x, (float)GameWindowSize.y + halfBoundaryHeight), Vector2f((float)GameWindowSize.x, boundaryHeight), 9999);
+	Box *bottomBoundary = new Box(Vector2f(windowCenter.x, (float)GameWindow.getSize().y + halfBoundaryHeight), Vector2f((float)GameWindow.getSize().x, boundaryHeight), 9999);
 	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), bottomBoundary), sideScrollingGameObjects.end());
 
 	SpawnBoxes();
@@ -134,12 +134,12 @@ void SpawnEnemies() {
 		int halfEnemyWidth = (int)enemySize.x / 2;
 
 		int minYPos = halfEnemyHeight;
-		int maxYPos = GameWindowSize.y - halfEnemyHeight;
+		int maxYPos = GameWindow.getSize().y - halfEnemyHeight;
 
 		int randomEnemyYPos = rand() % (maxYPos - minYPos + 1) + minYPos;
 
-		int minXPos = GameWindowSize.x + halfEnemyWidth;
-		int maxXPos = minXPos + spawnScreenOffset;
+		int minXPos = GameWindow.getSize().x + halfEnemyWidth;
+		int maxXPos = minXPos + (int)spawnScreenOffset;
 		int randomEnemyXPos = rand() % (maxXPos - minXPos) + minXPos;
 
 		new Enemy(Vector2f((float)randomEnemyXPos, (float)randomEnemyYPos));
@@ -154,7 +154,7 @@ void SpawnBoxes() {
 		int halfBoxHeight = randomBoxHeight / 2;
 
 		int minYPos = halfBoxHeight;
-		int maxYPos = GameWindowSize.y - halfBoxHeight;
+		int maxYPos = GameWindow.getSize().y - halfBoxHeight;
 
 		int randomBoxYPos = rand() % (maxYPos - minYPos + 1) + minYPos;
 
@@ -165,7 +165,7 @@ void SpawnBoxes() {
 
 		int biggestTopHalfScreenSpace = 0;
 		int biggestBottomHalfScreenSpace = 0;
-		int halfWindowHeight = GameWindowSize.y / 2;
+		int halfWindowHeight = GameWindow.getSize().y / 2;
 		Range space(0, 0);
 
 		for (size_t i = 0; i <= occupiedYSpaces.size(); i++) {
@@ -182,7 +182,7 @@ void SpawnBoxes() {
 			}
 			if (i == occupiedYSpaces.size()) {
 				space.SetMin(occupiedYSpaces[i - 1]->GetMax());
-				space.SetMax(GameWindowSize.y);
+				space.SetMax(GameWindow.getSize().y);
 			} 
 			if(i != 0 && i != occupiedYSpaces.size()) {
 				space.SetMin(occupiedYSpaces[i - 1]->GetMax());
@@ -218,7 +218,7 @@ void SpawnBoxes() {
 		int randomBoxMass = rand() % (maxBoxMass - minBoxMass + 1) + minBoxMass;
 		int randomBoxWidth = rand() % (maxBoxSize.x - minBoxSize.x + 1) + minBoxSize.x;
 
-		new Box(Vector2f(GameWindowSize.x + (float)randomBoxWidth, (float)randomBoxYPos), Vector2f((float)randomBoxWidth, (float)randomBoxHeight), (float)randomBoxMass);
+		new Box(Vector2f(GameWindow.getSize().x + (float)randomBoxWidth, (float)randomBoxYPos), Vector2f((float)randomBoxWidth, (float)randomBoxHeight), (float)randomBoxMass);
 	}
 
 	for (size_t i = 0; i < occupiedYSpaces.size(); i++) {
