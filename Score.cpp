@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "TimeHelper.h"
 #include "Window.h"
+#include "Score.h"
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -23,7 +24,6 @@ const int decimalsToDispay = 0;
 
 Text scoreText;
 Font font;
-
 float score;
 
 void StartScore(Player* player);
@@ -31,7 +31,6 @@ void StopScore();
 void UpdateScore();
 
 void InitScore() {
-
 	if (!font.loadFromFile("Resources/Fonts/VCR.ttf")) {
 		cout << "Failed to load font" << endl;
 	}
@@ -42,10 +41,19 @@ void InitScore() {
 	scoreText.setScale(textSize);
 	scoreText.setCharacterSize(textFontSize);
 	scoreText.setFont(font);
-	scoreText.setString("hallo");
 
 	PlayerSpawnedEvent[scoreId] = StartScore;
 	PlayerKilledEvent[scoreId] = StopScore;
+}
+
+float GetScore() {
+	return score;
+}
+
+string GetScoreString() {
+	stringstream stream;
+	stream << fixed << setprecision(decimalsToDispay) << score;
+	return stream.str();
 }
 
 void StartScore(Player* player) {
@@ -54,6 +62,7 @@ void StartScore(Player* player) {
 }
 
 void StopScore() {
+	score = 0;
 	UpdateEvent.erase(scoreId);
 	RemoveDrawable(scoreText, scoreDrawLayer);
 }
