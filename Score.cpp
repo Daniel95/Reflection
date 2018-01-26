@@ -11,8 +11,9 @@ using namespace sf;
 using namespace std;
 
 const string scoreId = "scoreId";
-const Vector2f textSize = Vector2f(100, 100);
-const Vector2f textPosition = Vector2f(100, 100);
+const Vector2f textSize = Vector2f(1, 1);
+const Vector2f textPosition = Vector2f(10, 10);
+const int textFontSize = 30;
 const Color textColor = Color::White;
 
 Text scoreText;
@@ -33,7 +34,7 @@ void InitScore() {
 	scoreText.setPosition(textPosition);
 	scoreText.setFillColor(textColor);
 	scoreText.setScale(textSize);
-	scoreText.setCharacterSize(30);	
+	scoreText.setCharacterSize(textFontSize);
 	scoreText.setFont(font);
 	scoreText.setString("hallo");
 
