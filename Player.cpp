@@ -48,12 +48,12 @@ Player::Player(Vector2f position) {
 	PlayerSpawnedEvent[Id] = [this](auto player) { OnOtherPlayerSpawned(player); };
 	PlayerKilledEvent[Id]= [this]() { OnPlayerKilled(); };
 
-	AddDrawable(GetBody(), 0);
+	AddDrawable(GetBody(), playerDrawLayer);
 	AddCollider(collider, 0);
 }
 
 Player::~Player() {
-	RemoveDrawable(GetBody(), 0);
+	RemoveDrawable(GetBody(), playerDrawLayer);
 	RemoveCollider(collider, 0);
 
 	UpdateEvent.erase(Id);

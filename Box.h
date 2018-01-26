@@ -5,6 +5,8 @@
 
 using namespace sf;
 
+const int boxDrawLayer = 5;
+
 class Box : public GameObject {
 private:
 	Collider collider = Collider(*this);

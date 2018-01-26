@@ -26,12 +26,12 @@ Enemy::Enemy(Vector2f position) {
 
 	UpdateEvent[Id] = [this]() { OnUpdate(); };
 
-	AddDrawable(GetBody(), 1);
+	AddDrawable(GetBody(), enemyDrawLayer);
 	AddCollider(collider, 0);
 }
 
 Enemy::~Enemy() {
-	RemoveDrawable(GetBody(), 1);
+	RemoveDrawable(GetBody(), enemyDrawLayer);
 	RemoveCollider(collider, 0);
 	UpdateEvent.erase(Id);
 }

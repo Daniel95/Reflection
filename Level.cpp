@@ -37,7 +37,7 @@ const float boundaryHeight = 50;
 const float scrollSpeed = -100.0f;
 
 vector<GameObject*> sideScrollingGameObjects;
-float blockSpawnTimer = 0;
+float boxSpawnTimer = 0;
 float enemySpawnTimer = 0;
 float minScreenHalfSpace = 0;
 
@@ -80,7 +80,7 @@ void StopLevel() {
 	}
 
 	sideScrollingGameObjects.clear();
-	blockSpawnTimer = 0;
+	boxSpawnTimer = 0;
 	enemySpawnTimer = 0;
 	minScreenHalfSpace = 0;
 
@@ -91,9 +91,9 @@ void StopLevel() {
 void UpdateLevel() {
 	float fixedScollSpeed = scrollSpeed * TimeHelper::DeltaTime;
 
-	blockSpawnTimer += abs(fixedScollSpeed);
-	if(blockSpawnTimer >= boxSpawnInterval) {
-		blockSpawnTimer = 0;
+	boxSpawnTimer += abs(fixedScollSpeed);
+	if(boxSpawnTimer >= boxSpawnInterval) {
+		boxSpawnTimer = 0;
 		SpawnBoxes();
 	}
 

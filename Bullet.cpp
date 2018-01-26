@@ -20,7 +20,7 @@ Bullet::Bullet(Vector2f position, Vector2f _direction, float _speed) {
 
 	UpdateEvent[Id] = [this]() { OnUpdate(); };
 
-	AddDrawable(GetBody(), 1);
+	AddDrawable(GetBody(), bulletDrawLayer);
 	AddCollider(collider, 0);
 
 	collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnCollisionEnterEvent(collider, push); });
@@ -29,7 +29,7 @@ Bullet::Bullet(Vector2f position, Vector2f _direction, float _speed) {
 
 Bullet::~Bullet() {
 	RemoveCollider(collider, 0);
-	RemoveDrawable(GetBody(), 1);
+	RemoveDrawable(GetBody(), bulletDrawLayer);
 	UpdateEvent.erase(Id);
 }
 

@@ -11,6 +11,7 @@ const float enemyMass = 0.5f;
 const Color enemyColor = Color::Red;
 const float enemyShootCD = 0.9f;
 const float maxShootDistance = 650.0f;
+const int enemyDrawLayer = 5;
 
 class Enemy : public GameObject {
 	Collider collider = Collider(*this, enemyMass);

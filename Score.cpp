@@ -14,7 +14,9 @@ const string scoreId = "scoreId";
 const Vector2f textSize = Vector2f(1, 1);
 const Vector2f textPosition = Vector2f(10, 10);
 const int textFontSize = 30;
-const Color textColor = Color::White;
+const Color textFillColor = Color::White;
+const Color textOutlineColor = Color::Black;
+const int scoreDrawLayer = 0;
 
 Text scoreText;
 Font font;
@@ -32,7 +34,8 @@ void InitScore() {
 	}
 
 	scoreText.setPosition(textPosition);
-	scoreText.setFillColor(textColor);
+	scoreText.setFillColor(textFillColor);
+	scoreText.setOutlineColor(textOutlineColor);
 	scoreText.setScale(textSize);
 	scoreText.setCharacterSize(textFontSize);
 	scoreText.setFont(font);
@@ -44,12 +47,12 @@ void InitScore() {
 
 void StartScore(Player* player) {
 	UpdateEvent[scoreId] = UpdateScore;
-	AddDrawable(scoreText, 2);
+	AddDrawable(scoreText, scoreDrawLayer);
 }
 
 void StopScore() {
 	UpdateEvent.erase(scoreId);
-	RemoveDrawable(scoreText, 2);
+	RemoveDrawable(scoreText, scoreDrawLayer);
 }
 
 void UpdateScore() {

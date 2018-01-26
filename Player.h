@@ -12,6 +12,7 @@ const Vector2f playerSize = Vector2f(60.0f, 100.0f);
 const float playerMass = 0.5f;
 const Color playerColor = Color::Green;
 const float playerShootCD = 0.3f;
+const int playerDrawLayer = 1;
 
 class Player : public GameObject {
 private:

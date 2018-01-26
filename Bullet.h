@@ -10,6 +10,7 @@ const float bulletMass = 0.0f;
 //const float bulletMass = 0.1f;
 const Color bulletColor = Color::Red;
 const float maxLifeTime = 30;
+const int bulletDrawLayer = 5;
 
 class Bullet : GameObject {
 	Vector2f direction;
