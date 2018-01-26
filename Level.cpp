@@ -30,7 +30,7 @@ const int maxBoxMass = 4;
 
 const float enemySpawnInterval = 700.0f;
 const int maxEnemySpawnAmount = 3;
-const int minEnemySpawnAmount = 0;
+const int minEnemySpawnAmount = 1;
 
 const float boundaryHeight = 50;
 const float scrollSpeed = -100.0f;

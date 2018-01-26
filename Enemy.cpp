@@ -38,7 +38,7 @@ Enemy::~Enemy() {
 
 void Enemy::OnUpdate() {
 	if (Players.size() == 0) { return; }
-	if (GetBody().getPosition().x > GameWindow.getSize().x) { return; }
+	if (GetBody().getPosition().x > GameWindow.getSize().x - GetBody().getSize().x) { return; }
 
 	enemyShootTimer += TimeHelper::DeltaTime;
 	if (enemyShootTimer >= enemyShootCD) {
