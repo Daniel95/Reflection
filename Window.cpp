@@ -21,7 +21,6 @@ void AddDrawable(const Drawable &drawable, int renderLayer) {
 	SortDrawablesInOrder();
 }
 
-
 void RemoveDrawable(const Drawable &drawable, int renderLayer) {
 	if (DrawablesByLayer.find(renderLayer) == DrawablesByLayer.end()) {
 		cout << "Drawable to remove not found!" << endl;

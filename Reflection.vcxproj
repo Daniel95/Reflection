@@ -164,6 +164,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="Reflection.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="Tags.h" />
     <ClInclude Include="Range.h" />
     <ClInclude Include="TimeHelper.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Range.cpp" />
     <ClCompile Include="Reflection.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
