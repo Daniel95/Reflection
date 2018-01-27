@@ -47,6 +47,7 @@ void Enemy::OnUpdate() {
 		float distance;
 		Vector2f offset;
 
+		//Find the closest player
 		for (size_t i = 0; i < Players.size(); i++) {
 			offset = Players[i]->GetBody().getPosition() - GetBody().getPosition();
 			distance = MathHelper::Length(offset);
@@ -56,7 +57,7 @@ void Enemy::OnUpdate() {
 			}
 		}
 
-		if (smallestDistanceToPlayer > maxShootDistance) { return; }
+		//if (smallestDistanceToPlayer > maxShootDistance) { return; }
 
 		Vector2f direction = MathHelper::Normalize(offsetToClosestPlayer);
 		Vector2f spawnPosition = GetBody().getPosition() + (direction * 100.0f);
