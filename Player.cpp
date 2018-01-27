@@ -11,6 +11,7 @@
 #include "GameEvents.h"
 #include "Tags.h"
 #include "Bullet.h"
+#include <memory>
 
 vector<Player*> Players;
 map<string, function<void(Player*)>> PlayerSpawnedEvent;
@@ -97,7 +98,16 @@ void Player::OnUpdate() {
 }
 
 void Player::OnCollisionEnter(Collider& collider, Vector2f push) { 
-	if (collider.GetGameObject().Tag == Tags::Tag::Bullet || collider.GetGameObject().Tag == Tags::Tag::Enemy) {
+	GameObject* colliderGameObject = &collider.GetGameObject();
+
+	if (colliderGameObject->Tag == Tags::Tag::Bullet) {
+		//Only get killed by a bullet if it wasn't shot by another player
+		if (Bullet* c = dynamic_cast<Bullet*>(colliderGameObject)) {
+			if (c->ShooterTag != Tags::Tag::Player) {
+				Destroy();
+			}
+		}
+	} else if(colliderGameObject->Tag == Tags::Tag::Enemy) {
 		Destroy();
 	}
 }
@@ -130,5 +140,5 @@ void Player::OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i
 	Vector2f direction = MathHelper::Normalize(delta);
 	Vector2f spawnPosition = GetBody().getPosition() + (direction * 100.0f);
 
-	new Bullet(spawnPosition, direction, playerBulletSpeed);
+	new Bullet(spawnPosition, direction, playerBulletSpeed, Tag);
 }

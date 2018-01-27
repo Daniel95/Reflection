@@ -7,14 +7,15 @@
 #include "TimeHelper.h"
 #include <iostream>
 
-Bullet::Bullet(Vector2f position, Vector2f _direction, float _speed) {
+Bullet::Bullet(Vector2f position, Vector2f _direction, float _speed, Tags::Tag shooterTag) {
 	GetBody().setSize(bulletSize);
 	GetBody().setOrigin(GetBody().getSize() / 2.0f);
 	GetBody().setPosition(position);
 	GetBody().setFillColor(bulletColor);
 
 	Tag = Tags::Tag::Bullet;
-	
+	ShooterTag = shooterTag;
+
 	direction = _direction;
 	speed = _speed;
 

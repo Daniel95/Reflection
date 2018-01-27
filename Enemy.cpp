@@ -62,14 +62,21 @@ void Enemy::OnUpdate() {
 		Vector2f direction = MathHelper::Normalize(offsetToClosestPlayer);
 		Vector2f spawnPosition = GetBody().getPosition() + (direction * 100.0f);
 
-		new Bullet(spawnPosition, direction, enemyBulletSpeed);
+		new Bullet(spawnPosition, direction, enemyBulletSpeed, Tag);
 
 		enemyShootTimer = 0;
 	}
 }
 
 void Enemy::OnCollisionEnter(Collider& collider, Vector2f push) {
-	if (collider.GetGameObject().Tag == Tags::Tag::Bullet) {
-		Destroy();
+	GameObject* colliderGameObject = &collider.GetGameObject();
+
+	if (colliderGameObject->Tag == Tags::Tag::Bullet) {
+		//Only get killed by a bullet if it wasn't shot by another enemy
+		if (Bullet* c = dynamic_cast<Bullet*>(colliderGameObject)) {
+			if (c->ShooterTag != Tags::Tag::Enemy) {
+				Destroy();
+			}
+		}
 	}
 }

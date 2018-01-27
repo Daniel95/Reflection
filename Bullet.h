@@ -2,6 +2,7 @@
 #include <SFML\Graphics.hpp>
 #include "Collider.h"
 #include "GameObject.h"
+#include "Tags.h"
 
 using namespace sf;
 
@@ -12,7 +13,7 @@ const Color bulletColor = Color::Red;
 const float maxLifeTime = 30;
 const int bulletDrawLayer = 5;
 
-class Bullet : GameObject {
+class Bullet : public GameObject {
 	Vector2f direction;
 	float speed;
 	float lifeTime;
@@ -23,7 +24,9 @@ class Bullet : GameObject {
 	void OnCollisionEnterEvent(Collider&, Vector2f);
 	//void OnCollisionEvent(Collider&, Vector2f);
 public:
-	Bullet(Vector2f position, Vector2f direction, float speed);
+	Tags::Tag ShooterTag;
+
+	Bullet(Vector2f position, Vector2f direction, float speed, Tags::Tag shooterTag);
 	~Bullet();
 };
 
