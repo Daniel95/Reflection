@@ -7,6 +7,7 @@
 #include "InputEvents.h"
 #include "GameObject.h"
 #include "Window.h"
+#include "UIHelper.h"
 
 using namespace std;
 using namespace sf;
@@ -16,6 +17,12 @@ UIButton::UIButton(Vector2f position, Vector2f size, string _text, Color color) 
 	GetBody().setOrigin(GetBody().getSize() / 2.0f);
 	GetBody().setPosition(position);
 	GetBody().setFillColor(color);
+
+	text.setPosition(GetBody().getOrigin());
+	text.setFillColor(Color::White);
+	text.setScale(size);
+	text.setCharacterSize(32);
+	text.setFont(GetFont());
 
 	MouseDownEvent[Id] = [this](auto mouseButton, auto mousePosition) { OnMouseDown(mouseButton, mousePosition); };
 

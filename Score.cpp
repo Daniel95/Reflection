@@ -3,6 +3,7 @@
 #include "GameEvents.h"
 #include "Player.h"
 #include "TimeHelper.h"
+#include "UIHelper.h"
 #include "Window.h"
 #include "Score.h"
 #include <iostream>
@@ -23,7 +24,6 @@ const int scoreDrawLayer = 0;
 const int decimalsToDispay = 0;
 
 Text scoreText;
-Font font;
 float score;
 
 void StartScore(Player* player);
@@ -31,16 +31,12 @@ void StopScore();
 void UpdateScore();
 
 void InitScore() {
-	if (!font.loadFromFile("Resources/Fonts/VCR.ttf")) {
-		cout << "Failed to load font" << endl;
-	}
-
 	scoreText.setPosition(textPosition);
 	scoreText.setFillColor(textFillColor);
 	scoreText.setOutlineColor(textOutlineColor);
 	scoreText.setScale(textSize);
 	scoreText.setCharacterSize(textFontSize);
-	scoreText.setFont(font);
+	scoreText.setFont(GetFont());
 
 	PlayerSpawnedEvent[scoreId] = StartScore;
 	PlayerKilledEvent[scoreId] = StopScore;

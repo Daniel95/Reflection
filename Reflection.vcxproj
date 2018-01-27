@@ -170,6 +170,7 @@
     <ClInclude Include="Range.h" />
     <ClInclude Include="TimeHelper.h" />
     <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UIHelper.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="GameEvents.h" />
     <ClInclude Include="InputEvents.h" />
@@ -203,6 +204,7 @@
     </ClCompile>
     <ClCompile Include="TimeHelper.cpp" />
     <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UIHelper.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
