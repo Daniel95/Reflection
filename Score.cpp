@@ -62,6 +62,7 @@ void StartScore(Player* player) {
 }
 
 void StopScore() {
+	if (Players.size() != 0) { return; }
 	score = 0;
 	UpdateEvent.erase(scoreId);
 	RemoveDrawable(scoreText, scoreDrawLayer);

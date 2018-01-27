@@ -13,6 +13,7 @@ const float playerMass = 0.5f;
 const Color playerColor = Color::Green;
 const float playerShootCD = 0.3f;
 const int playerDrawLayer = 1;
+const int maxPlayers = 2;
 
 class Player : public GameObject {
 private:
@@ -25,7 +26,7 @@ private:
 	void OnCollisionExit(Collider& collider);
 	void OnOtherPlayerCollision(Collider& collider, Vector2f push);
 	void OnOtherPlayerSpawned(Player* otherPlayer);
-	void OnPlayerKilled();
+	void OnOtherPlayerKilled();
 	void OnMouse(Mouse::Button mouseButton, Vector2i mousePosition, Vector2i mouseDelta);
 public:
 	Player(Vector2f position);

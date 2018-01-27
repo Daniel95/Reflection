@@ -71,6 +71,8 @@ void StartLevel() {
 }
 
 void StopLevel() {
+	if (Players.size() != 0) { return; }
+
 	UpdateEvent.erase(levelId);
 	PlayerKilledEvent.erase(levelId);
 
