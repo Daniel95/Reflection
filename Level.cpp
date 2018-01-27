@@ -16,10 +16,10 @@
 using namespace sf;
 using namespace std;
 
+vector<function<void()>> OnGameOverEvent;
+
 const string levelId = "Level";
-
 const float spawnScreenOffset = 300.0f;
-
 const float boxSpawnInterval = 350.0f;
 const int maxBoxSpawnAmount = 3;
 const int minBoxSpawnAmount = 0;
@@ -27,11 +27,9 @@ const Vector2i minBoxSize = Vector2i(50, 50);
 const Vector2i maxBoxSize = Vector2i(150, 200);
 const int minBoxMass = 1;
 const int maxBoxMass = 4;
-
 const float enemySpawnInterval = 700.0f;
 const int maxEnemySpawnAmount = 3;
 const int minEnemySpawnAmount = 1;
-
 const float boundaryHeight = 50;
 const float scrollSpeed = -100.0f;
 
@@ -42,12 +40,13 @@ float minScreenHalfSpace = 0;
 
 void SpawnBoxes();
 void SpawnEnemies();
+void OnPlayerKilled();
 
 void StartLevel() {
 	srand(time(NULL));
 
 	UpdateEvent[levelId] = UpdateLevel;
-	PlayerKilledEvent[levelId] = StopLevel;
+	PlayerKilledEvent[levelId] = OnPlayerKilled;
 
 	Vector2f windowCenter = Vector2f((float)GameWindow.getSize().x / 2, (float)GameWindow.getSize().y / 2);
 	float quarterWindowHeight = (float)GameWindow.getSize().y / 4;
@@ -70,6 +69,14 @@ void StartLevel() {
 	SpawnBoxes();
 }
 
+void OnPlayerKilled() {
+	if (Players.size() == 0) { 
+		for (size_t i = 0; i < OnGameOverEvent.size(); i++) {
+			OnGameOverEvent[i]();
+		}
+	}
+}
+
 void StopLevel() {
 	if (Players.size() != 0) { return; }
 
@@ -85,8 +92,6 @@ void StopLevel() {
 	enemySpawnTimer = 0;
 	minScreenHalfSpace = 0;
 
-	//Delay startlevel by 2 frames
-	DelayMethod(2, StartLevel);
 }
 
 void UpdateLevel() {
