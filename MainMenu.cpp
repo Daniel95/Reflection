@@ -11,25 +11,31 @@ using namespace sf;
 vector<function<void()>> OnStartClickedEvent;
 
 UIButton* startButton;
-UIButton* exitButton;
+UIButton* quitButton;
 Text howToPlayText;
 string mainMenuID = "MainMenuID";
 
-void OnKeyDown(Keyboard::Key key);
+const Vector2f buttonSize = Vector2f(150, 75);
+
+void Quit();
 void DispatchOnStartClickedEvent();
 
 void StartMainMenu() {
-	KeyDownEvent[mainMenuID] = OnKeyDown;
+	Vector2f startButtonPosition = Vector2f((float)GameWindow.getSize().x / 6, (float)GameWindow.getSize().y / 6);
 
-	Vector2f windowCenter = Vector2f((float)GameWindow.getSize().x / 2, (float)GameWindow.getSize().y / 2);
-
-	startButton = new UIButton(windowCenter, Vector2f(200, 100), "Start", Color::Blue);
+	startButton = new UIButton(startButtonPosition, buttonSize, "Start", Color::Blue);
 	startButton->OnClickedEvent[mainMenuID] = DispatchOnStartClickedEvent;
+
+	Vector2f quitButtonPosition = startButtonPosition + Vector2f(0, buttonSize.y * 2);
+
+	quitButton = new UIButton(quitButtonPosition, buttonSize, "Quit", Color::Blue);
+	quitButton->OnClickedEvent[mainMenuID] = Quit;
 }
 
 void StopMainMenu() {
 	KeyDownEvent.erase(mainMenuID);
 	startButton->Destroy();
+	quitButton->Destroy();
 }
 
 void DispatchOnStartClickedEvent() {
@@ -38,7 +44,6 @@ void DispatchOnStartClickedEvent() {
 	}
 }
 
-void OnKeyDown(Keyboard::Key key) {
-	if (key != Keyboard::Key::Escape) { return; }
+void Quit() {
 	GameWindow.close();
 }
