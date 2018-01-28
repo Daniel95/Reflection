@@ -1,10 +1,15 @@
-﻿  Bullet.cpp
-  Collider.cpp
-  Collisions.cpp
-  DelayMethods.cpp
-  Generating code
-  3 of 2917 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  Reflection.vcxproj -> C:\Users\idani\Documents\GitHub\NHTV\Reflection\Release\Reflection.exe
+﻿  Collisions.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include\algorithm(1406): error C2446: '==': no conversion from 'Collision **const ' to 'Collision *'
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include\algorithm(1406): note: Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include\algorithm(1423): note: see reference to function template instantiation '_FwdIt std::_Remove_unchecked<Collision**,_Ty>(_FwdIt,_FwdIt,const _Ty &)' being compiled
+          with
+          [
+              _FwdIt=Collision **,
+              _Ty=Collision **
+          ]
+  Collisions.cpp(121): note: see reference to function template instantiation '_FwdIt std::remove<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,Collision**>(_FwdIt,_FwdIt,Collision **const &)' being compiled
+          with
+          [
+              _FwdIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<Collision *>>>,
+              _Ty=Collision *
+          ]

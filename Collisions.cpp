@@ -55,9 +55,15 @@ void RemoveCollider(Collider &collider, int layer) {
 //Check which collions are new, need to be updated or are outdated
 void UpdateCollisions() {
 	outdatedCollisions = collisions;
+
+	vector<Collider*> colliders;
+	int otherCollidersIndex;
+	Vector2f colliderOnePush;
+	Vector2f colliderTwoPush;
+
 	for (auto const& x : collidersByLayer) {
-		vector<Collider*> colliders = x.second;
-		int otherCollidersIndex = 0;
+		colliders = x.second;
+		otherCollidersIndex = 0;
 
 		for (size_t c = 0; c < colliders.size(); c++) {
 			Collider &colliderOne = *colliders[c];
@@ -66,8 +72,8 @@ void UpdateCollisions() {
 			//Loop through all other colliders
 			for (size_t oc = otherCollidersIndex; oc < colliders.size(); oc++) {
 				Collider &colliderTwo = *colliders[oc];
-				Vector2f colliderOnePush;
-				Vector2f colliderTwoPush;
+				colliderOnePush;
+				colliderTwoPush;
 
 				//Check if there is a collision between these two colliders, if so update the collision
 				if (colliderOne.CheckCollision(colliderTwo, colliderOnePush, colliderTwoPush)) {
@@ -84,9 +90,10 @@ void UpdateCollisions() {
 void UpdateCollision(Collider &colliderOne, Collider &colliderTwo, Vector2f colliderOnePush, Vector2f colliderTwoPush) {
 	Collision *collision = NULL;
 
+	bool collisionExists;
 	//Check if this collision already exists
 	for (size_t i = 0; i < collisions.size(); i++) {
-		bool collisionExists = (&colliderOne == &collisions[i]->ColliderOne || &colliderOne == &collisions[i]->ColliderTwo) && (&colliderTwo == &collisions[i]->ColliderOne || &colliderTwo == &collisions[i]->ColliderTwo);
+		collisionExists = (&colliderOne == &collisions[i]->ColliderOne || &colliderOne == &collisions[i]->ColliderTwo) && (&colliderTwo == &collisions[i]->ColliderOne || &colliderTwo == &collisions[i]->ColliderTwo);
 
 		if (collisionExists) {
 			collision = collisions[i];
