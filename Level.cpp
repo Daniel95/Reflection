@@ -21,18 +21,18 @@ vector<function<void()>> OnGameOverEvent;
 
 const string levelId = "LevelId";
 const float spawnScreenOffset = 300.0f;
-const float boxSpawnInterval = 350.0f;
+const float boxSpawnInterval = 325.0f;
 const int maxBoxSpawnAmount = 3;
 const int minBoxSpawnAmount = 0;
-const Vector2i minBoxSize = Vector2i(50, 50);
-const Vector2i maxBoxSize = Vector2i(150, 200);
+const Vector2i minBoxSize = Vector2i(60, 60);
+const Vector2i maxBoxSize = Vector2i(160, 220);
 const int minBoxMass = 1;
 const int maxBoxMass = 4;
-const float enemySpawnInterval = 700.0f;
+const float enemySpawnInterval = 550.0f;
 const int maxEnemySpawnAmount = 3;
 const int minEnemySpawnAmount = 1;
 const float boundaryHeight = 50;
-const float scrollSpeed = -100.0f;
+const float scrollSpeed = -115.0f;
 
 vector<GameObject*> sideScrollingGameObjects;
 float boxSpawnTimer = 0;
