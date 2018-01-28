@@ -19,7 +19,7 @@ using namespace std;
 
 vector<function<void()>> OnGameOverEvent;
 
-const string levelId = "Level";
+const string levelId = "LevelId";
 const float spawnScreenOffset = 300.0f;
 const float boxSpawnInterval = 350.0f;
 const int maxBoxSpawnAmount = 3;
