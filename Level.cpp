@@ -43,7 +43,7 @@ void SpawnBoxes();
 void SpawnEnemies();
 void OnPlayerKilled();
 
-//Init the level, spawn 
+//Init the level, spawn the players and top and bottom boundaries
 void StartLevel() {
 	srand(time(NULL));
 
@@ -98,6 +98,7 @@ void StopLevel() {
 	minScreenHalfSpace = 0;
 }
 
+//Move every gameobject in sideScrollingGameObjects to the left
 void UpdateLevel() {
 	float fixedScollSpeed = scrollSpeed * TimeHelper::DeltaTime;
 
@@ -179,6 +180,7 @@ void SpawnBoxes() {
 		int halfWindowHeight = GameWindow.getSize().y / 2;
 		Range space(0, 0);
 
+		//After a box is spawned, loop through all occupied spaces and the biggest spaces between these occupied spaces
 		for (size_t i = 0; i <= occupiedYSpaces.size(); i++) {
 			space.SetMin(0);
 			space.SetMax(0);
@@ -188,6 +190,7 @@ void SpawnBoxes() {
 				break;
 			}
 
+			//Get the current space between the occupiedspaces
 			if (i == 0) {
 				space.SetMax(occupiedYSpaces[i]->GetMin());
 			}
@@ -200,6 +203,8 @@ void SpawnBoxes() {
 				space.SetMax(occupiedYSpaces[i]->GetMin());
 			}
 
+			//Check if this space is above or below windowheight (it can also be inbetween, in this case it will be split in two)
+			//Save the biggest spaces that are above and below the windowheight
 			if (space.GetMin() < halfWindowHeight) {
 				if (space.GetMax() > halfWindowHeight) {
 					int sizeInTopHalfScreen = halfWindowHeight - space.GetMin();
@@ -222,6 +227,7 @@ void SpawnBoxes() {
 			}
 		}
 
+		//Check if the biggest two spaces (One on top and one below) are bigger then minScreenHalfSpace
 		if (biggestBottomHalfScreenSpace < minScreenHalfSpace || biggestTopHalfScreenSpace < minScreenHalfSpace) {
 			break;
 		}
