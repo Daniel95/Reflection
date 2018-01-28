@@ -81,6 +81,7 @@ Player::~Player() {
 void Player::OnUpdate() {
 	Vector2i input;
 
+	//Movement of the player
 	if (Keyboard::isKeyPressed(Keyboard::Key::A) || Keyboard::isKeyPressed(Keyboard::Key::Left)) {
 		input.x = -1;
 	} else if (Keyboard::isKeyPressed(Keyboard::Key::D) || Keyboard::isKeyPressed(Keyboard::Key::Right)) {
@@ -95,6 +96,10 @@ void Player::OnUpdate() {
 
 	Vector2f direction = MathHelper::Normalize((float)input.x, (float)input.y);
 	GetBody().move((direction * playerSpeed) * TimeHelper::DeltaTime);
+
+	if (GetBody().getPosition().x - GetBody().getSize().x > GameWindow.getSize().x) {
+		Destroy();
+	}
 }
 
 void Player::OnCollisionEnter(Collider& collider, Vector2f push) { 

@@ -43,6 +43,7 @@ void SpawnBoxes();
 void SpawnEnemies();
 void OnPlayerKilled();
 
+//Init the level, spawn 
 void StartLevel() {
 	srand(time(NULL));
 
@@ -63,10 +64,10 @@ void StartLevel() {
 
 	float halfBoundaryHeight = boundaryHeight / 2;
 
-	Box *topBoundary = new Box(Vector2f(windowCenter.x, -halfBoundaryHeight), Vector2f((float)GameWindow.getSize().x, boundaryHeight), 9999);
+	Box *topBoundary = new Box(Vector2f(windowCenter.x, -halfBoundaryHeight), Vector2f((float)GameWindow.getSize().x, boundaryHeight), INFINITY);
 	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), topBoundary), sideScrollingGameObjects.end());
 
-	Box *bottomBoundary = new Box(Vector2f(windowCenter.x, (float)GameWindow.getSize().y + halfBoundaryHeight), Vector2f((float)GameWindow.getSize().x, boundaryHeight), 9999);
+	Box *bottomBoundary = new Box(Vector2f(windowCenter.x, (float)GameWindow.getSize().y + halfBoundaryHeight), Vector2f((float)GameWindow.getSize().x, boundaryHeight), INFINITY);
 	sideScrollingGameObjects.erase(remove(sideScrollingGameObjects.begin(), sideScrollingGameObjects.end(), bottomBoundary), sideScrollingGameObjects.end());
 
 	SpawnBoxes();
