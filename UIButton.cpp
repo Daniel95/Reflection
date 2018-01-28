@@ -36,7 +36,7 @@ UIButton::UIButton(Vector2f position, Vector2f size, string string, Color color)
 
 UIButton::~UIButton() {
 	OnClickedEvent.clear();
-	MouseDownEvent.erase(Id);
+	MouseUpEvent.erase(Id);
 
 	RemoveDrawable(GetBody(), 1);
 	RemoveDrawable(text, 0);
