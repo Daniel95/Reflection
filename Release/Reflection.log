@@ -1,16 +1,6 @@
-﻿  stdafx.cpp
-  Box.cpp
-  Collider.cpp
-  Collision.cpp
-  Collisions.cpp
-  GameEvents.cpp
-  InputEvents.cpp
-  MathHelper.cpp
-  Player.cpp
-  Reflection.cpp
-  TimeHelper.cpp
-  Window.cpp
-  Generating code
-  All 1670 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+﻿  Generating code
+  0 of 2846 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Reflection.vcxproj -> C:\Users\idani\Documents\GitHub\NHTV\Reflection\Release\Reflection.exe
