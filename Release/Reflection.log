@@ -1,7 +1,10 @@
-﻿  Window.cpp
+﻿  Bullet.cpp
+  Collider.cpp
+  Collisions.cpp
+  DelayMethods.cpp
   Generating code
-  104 of 2850 functions ( 3.6%) were compiled, the rest were copied from previous compilation.
-    4 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  3 of 2917 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Reflection.vcxproj -> C:\Users\idani\Documents\GitHub\NHTV\Reflection\Release\Reflection.exe

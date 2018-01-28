@@ -10,6 +10,7 @@ using namespace std;
 vector<function<void()>> delayedMethods;
 vector<int> framesToDelay;
 
+//Delay a method by a certain amount of frames
 void DelayMethod(int _framesToDelay, function<void()> _delayedMethod) {
 	delayedMethods.push_back(_delayedMethod);
 	framesToDelay.push_back(_framesToDelay);

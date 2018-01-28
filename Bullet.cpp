@@ -24,6 +24,7 @@ Bullet::Bullet(Vector2f position, Vector2f _direction, float _speed, Tags::Tag s
 	AddDrawable(GetBody(), bulletDrawLayer);
 	AddCollider(collider, 0);
 
+	//Subscribe to the CollisionEnterEvent
 	collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnCollisionEnterEvent(collider, push); });
 }
 
@@ -33,6 +34,7 @@ Bullet::~Bullet() {
 	UpdateEvent.erase(Id);
 }
 
+//Move the bullet, and when it's lifetime is over, destroy it
 void Bullet::OnUpdate() {
 	GetBody().move(direction * speed * TimeHelper::DeltaTime);
 

@@ -15,7 +15,7 @@ vector<function<void()>> OnStartClickedEvent;
 
 const Vector2f buttonSize = Vector2f(170, 90);
 const string titleString = "Hardlink";
-const string howToPlayString = " In this game you control two players at the same time. \n These players are a reflection of each other and are physically linked. \n Survive as long as possible in this sidescroller by moving with WASD \n and shooting by aiming and holding down the left mouse button. \n Your score can be seen in the top left corner and will be accumulated over time. \n When you get hit by an enemy, it's game over. \n You can press Escape at all times to quit the game.";
+const string howToPlayString = " In this game you control two players at the same time. \n These players are a reflection of each other and are physically linked. \n Survive as long as possible in this sidescroller by moving with WASD \n and shooting by aiming and holding down the LEFT MOUSE button. \n Your score can be seen in the top left corner and will be accumulated over time. \n When you get hit by an enemy, it's game over. \n You can press Escape at all times to quit the game.";
 const string lastScoreString = "Your last score was ";
 const int mainMenuCharacterText = 26;
 const int mainMenuCharacterTitleText = 50;
