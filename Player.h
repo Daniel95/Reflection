@@ -15,6 +15,8 @@ const float playerShootCD = 0.3f;
 const int playerDrawLayer = 1;
 const int maxPlayers = 2;
 
+//The player is able to move and shoot, players will also react to the collision of other players and will die when another player dies
+//When all players are dead, it's game over
 class Player : public GameObject {
 private:
 	Collider collider = Collider(*this, playerMass);

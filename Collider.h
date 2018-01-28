@@ -9,6 +9,9 @@
 using namespace std;
 using namespace sf;
 
+//A collider is used to collide with other colliders
+//It must be added to the collision loop using AddCollider in Collisions.h.
+//When the object that used the collider gets destroyed, remove the collider using RemoveCollider in Collisions.h.
 class Collider {
 private:
 	GameObject& gameObject;
@@ -32,14 +35,7 @@ public:
 	void Move(Vector2f move) { body.move(move); }
 	Vector2f GetPosition() { return body.getPosition(); }
 	Vector2f GetHalfSize() { return body.getSize() / 2.0f; }
-
-	GameObject GetGameObjectKAPOT() { 
-		return gameObject;
-	}
-
-	GameObject& GetGameObject() {
-		return gameObject;
-	}
+	GameObject& GetGameObject() { return gameObject; }
 
 };
 

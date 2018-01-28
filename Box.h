@@ -7,6 +7,7 @@ using namespace sf;
 
 const int boxDrawLayer = 5;
 
+//This box is used as an for the player obstacle and cover
 class Box : public GameObject {
 private:
 	Collider collider = Collider(*this);

@@ -7,6 +7,8 @@
 using namespace sf;
 using namespace std;
 
+//The collision loop, colliders can be added and removed, the UpdateCollisions is called by the main loop of the game.
+
 void AddCollider(Collider &collider, int layer);
 void RemoveCollider(Collider &collider, int layer);
 void UpdateCollisions();

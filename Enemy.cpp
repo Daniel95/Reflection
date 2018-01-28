@@ -37,6 +37,7 @@ Enemy::~Enemy() {
 }
 
 void Enemy::OnUpdate() {
+	//Only shoot at the player when there is one, and when i am completely inside the screen
 	if (Players.size() == 0) { return; }
 	if (GetBody().getPosition().x > GameWindow.getSize().x - GetBody().getSize().x) { return; }
 
@@ -56,8 +57,6 @@ void Enemy::OnUpdate() {
 				offsetToClosestPlayer = offset;
 			}
 		}
-
-		//if (smallestDistanceToPlayer > maxShootDistance) { return; }
 
 		Vector2f direction = MathHelper::Normalize(offsetToClosestPlayer);
 		Vector2f spawnPosition = GetBody().getPosition() + (direction * 100.0f);

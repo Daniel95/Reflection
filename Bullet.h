@@ -12,6 +12,7 @@ const Color bulletColor = Color::Red;
 const float maxLifeTime = 30;
 const int bulletDrawLayer = 5;
 
+//A bullet moves toward a direction and gets automaticly destroyed when hitting an collider
 class Bullet : public GameObject {
 	Vector2f direction;
 	float speed;

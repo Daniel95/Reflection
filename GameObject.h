@@ -5,6 +5,9 @@
 
 using namespace sf;
 
+//GameObjects are used by all visible elements in the game
+//They have an Body, and Id and a tag
+//Each Id is unique, tags are used to categorize different types of GameObjects (See Tags.h)
 class GameObject {
 private:
 	bool destroying = false;
