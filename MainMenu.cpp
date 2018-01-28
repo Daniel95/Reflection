@@ -83,6 +83,7 @@ void StopMainMenu() {
 	quitButton->Destroy();
 
 	RemoveDrawable(howToPlayText, 0);
+	RemoveDrawable(titleText, 0);
 
 	if (GetScore() == 0) { return; }
 	RemoveDrawable(lastScoreText, 0);
