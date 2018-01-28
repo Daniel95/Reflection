@@ -81,15 +81,15 @@ Player::~Player() {
 void Player::OnUpdate() {
 	Vector2i input;
 
-	if (Keyboard::isKeyPressed(Keyboard::Key::A)) {
+	if (Keyboard::isKeyPressed(Keyboard::Key::A) || Keyboard::isKeyPressed(Keyboard::Key::Left)) {
 		input.x = -1;
-	} else if (Keyboard::isKeyPressed(Keyboard::Key::D)) {
+	} else if (Keyboard::isKeyPressed(Keyboard::Key::D) || Keyboard::isKeyPressed(Keyboard::Key::Right)) {
 		input.x = 1;
 	}
 
-	if (Keyboard::isKeyPressed(Keyboard::Key::W)) {
+	if (Keyboard::isKeyPressed(Keyboard::Key::W) || Keyboard::isKeyPressed(Keyboard::Key::Up)) {
 		input.y = -1;
-	} else if (Keyboard::isKeyPressed(Keyboard::Key::S)) {
+	} else if (Keyboard::isKeyPressed(Keyboard::Key::S) || Keyboard::isKeyPressed(Keyboard::Key::Down)) {
 		input.y = 1;
 	}
 

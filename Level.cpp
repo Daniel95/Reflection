@@ -28,11 +28,11 @@ const Vector2i minBoxSize = Vector2i(60, 60);
 const Vector2i maxBoxSize = Vector2i(160, 220);
 const int minBoxMass = 1;
 const int maxBoxMass = 4;
-const float enemySpawnInterval = 550.0f;
+const float enemySpawnInterval = 700.0f;
 const int maxEnemySpawnAmount = 3;
 const int minEnemySpawnAmount = 1;
 const float boundaryHeight = 50;
-const float scrollSpeed = -115.0f;
+const float scrollSpeed = -135.0f;
 
 vector<GameObject*> sideScrollingGameObjects;
 float boxSpawnTimer = 0;
