@@ -12,21 +12,24 @@
 using namespace std;
 using namespace sf;
 
-UIButton::UIButton(Vector2f position, Vector2f size, string _text, Color color) {
+UIButton::UIButton(Vector2f position, Vector2f size, string string, Color color) {
 	GetBody().setSize(size);
 	GetBody().setOrigin(GetBody().getSize() / 2.0f);
 	GetBody().setPosition(position);
 	GetBody().setFillColor(color);
 
-	text.setPosition(GetBody().getOrigin());
+	text.setPosition(GetBody().getPosition());
 	text.setFillColor(Color::White);
-	text.setScale(size);
 	text.setCharacterSize(32);
+	text.setScale(Vector2f(1, 1));
 	text.setFont(GetFont());
+	text.setString(string);
+	text.setOrigin(text.getLocalBounds().left + text.getLocalBounds().width / 2.0f,
+		text.getLocalBounds().top + text.getLocalBounds().height / 2.0f);
 
 	MouseDownEvent[Id] = [this](auto mouseButton, auto mousePosition) { OnMouseDown(mouseButton, mousePosition); };
 
-	AddDrawable(GetBody(), 0);
+	AddDrawable(GetBody(), 1);
 	AddDrawable(text, 0);
 }
 
@@ -34,7 +37,7 @@ UIButton::~UIButton() {
 	OnClickedEvent.clear();
 	MouseDownEvent.erase(Id);
 
-	RemoveDrawable(GetBody(), 0);
+	RemoveDrawable(GetBody(), 1);
 	RemoveDrawable(text, 0);
 }
 

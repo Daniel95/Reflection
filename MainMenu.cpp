@@ -23,7 +23,7 @@ void StartMainMenu() {
 
 	Vector2f windowCenter = Vector2f((float)GameWindow.getSize().x / 2, (float)GameWindow.getSize().y / 2);
 
-	startButton = new UIButton(windowCenter, Vector2f(100, 100), "Start", Color::Blue);
+	startButton = new UIButton(windowCenter, Vector2f(200, 100), "Start", Color::Blue);
 	startButton->OnClickedEvent[mainMenuID] = DispatchOnStartClickedEvent;
 }
 
