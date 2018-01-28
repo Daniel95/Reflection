@@ -39,6 +39,8 @@ string GetScoreString() {
 }
 
 void StartScore() {
+	score = 0;
+
 	scoreText.setPosition(textPosition);
 	scoreText.setFillColor(textFillColor);
 	scoreText.setOutlineColor(textOutlineColor);
@@ -52,8 +54,6 @@ void StartScore() {
 }
 
 void StopScore() {
-	score = 0;
-
 	UpdateEvent.erase(scoreId);
 	RemoveDrawable(scoreText, scoreDrawLayer);
 }
