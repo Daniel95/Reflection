@@ -13,10 +13,10 @@ using namespace sf;
 
 vector<function<void()>> OnStartClickedEvent;
 
-const Vector2f buttonSize = Vector2f(150, 75);
+const Vector2f buttonSize = Vector2f(170, 90);
 const string howToPlayString = " In this game you control two players at the same time. \n These players are a reflection of each other and are physically linked. \n Survive as long as possible in this sidescroller by moving with WASD \n and shooting by aiming and holding down the left mouse button. \n Your score can be seen in the top left corner and will be accumulated over time. \n When you get hit by an enemy, it's game over.";
 const string lastScoreString = "Your last score was ";
-const int mainMenuCharacterText = 21;
+const int mainMenuCharacterText = 26;
 
 UIButton* startButton;
 UIButton* quitButton;
@@ -43,7 +43,7 @@ void StartMainMenu() {
 	howToPlayText.setFont(GetFont());
 	howToPlayText.setOrigin(howToPlayText.getLocalBounds().left + howToPlayText.getLocalBounds().width / 2.0f, howToPlayText.getLocalBounds().top + howToPlayText.getLocalBounds().height / 2.0f);
 
-	Vector2f howToPlayTextPosition = quitButtonPosition + Vector2f(howToPlayText.getGlobalBounds().width / 2 - quitButton->GetBody().getSize().x / 2, howToPlayText.getGlobalBounds().height / 2.0f + 150);
+	Vector2f howToPlayTextPosition = quitButtonPosition + Vector2f(howToPlayText.getGlobalBounds().width / 2 - quitButton->GetBody().getSize().x / 2, howToPlayText.getGlobalBounds().height / 2.0f + 250);
 	howToPlayText.setPosition(howToPlayTextPosition);
 
 	AddDrawable(howToPlayText, 0);
