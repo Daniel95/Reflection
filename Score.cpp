@@ -26,21 +26,7 @@ const int decimalsToDispay = 0;
 Text scoreText;
 float score;
 
-void StartScore(Player* player);
-void StopScore();
 void UpdateScore();
-
-void InitScore() {
-	scoreText.setPosition(textPosition);
-	scoreText.setFillColor(textFillColor);
-	scoreText.setOutlineColor(textOutlineColor);
-	scoreText.setScale(textSize);
-	scoreText.setCharacterSize(textFontSize);
-	scoreText.setFont(GetFont());
-
-	PlayerSpawnedEvent[scoreId] = StartScore;
-	PlayerKilledEvent[scoreId] = StopScore;
-}
 
 float GetScore() {
 	return score;
@@ -52,14 +38,21 @@ string GetScoreString() {
 	return stream.str();
 }
 
-void StartScore(Player* player) {
+void StartScore() {
+	scoreText.setPosition(textPosition);
+	scoreText.setFillColor(textFillColor);
+	scoreText.setOutlineColor(textOutlineColor);
+	scoreText.setScale(textSize);
+	scoreText.setCharacterSize(textFontSize);
+	scoreText.setFont(GetFont());
+
 	UpdateEvent[scoreId] = UpdateScore;
 	AddDrawable(scoreText, scoreDrawLayer);
 }
 
 void StopScore() {
-	if (Players.size() != 0) { return; }
 	score = 0;
+
 	UpdateEvent.erase(scoreId);
 	RemoveDrawable(scoreText, scoreDrawLayer);
 }

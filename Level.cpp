@@ -8,6 +8,7 @@
 #include "TimeHelper.h"
 #include "DelayMethods.h"
 #include "Window.h"
+#include "Score.h"
 #include "Player.h"
 #include "Box.h"
 #include "Enemy.h"
@@ -45,6 +46,8 @@ void OnPlayerKilled();
 void StartLevel() {
 	srand(time(NULL));
 
+	StartScore();
+
 	UpdateEvent[levelId] = UpdateLevel;
 	PlayerKilledEvent[levelId] = OnPlayerKilled;
 
@@ -69,6 +72,7 @@ void StartLevel() {
 	SpawnBoxes();
 }
 
+//When there are no players left, OnGameOverEvent event will be called
 void OnPlayerKilled() {
 	if (Players.size() == 0) { 
 		for (size_t i = 0; i < OnGameOverEvent.size(); i++) {
@@ -78,7 +82,7 @@ void OnPlayerKilled() {
 }
 
 void StopLevel() {
-	if (Players.size() != 0) { return; }
+	StopScore();
 
 	UpdateEvent.erase(levelId);
 	PlayerKilledEvent.erase(levelId);
@@ -91,7 +95,6 @@ void StopLevel() {
 	boxSpawnTimer = 0;
 	enemySpawnTimer = 0;
 	minScreenHalfSpace = 0;
-
 }
 
 void UpdateLevel() {

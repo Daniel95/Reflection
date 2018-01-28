@@ -24,8 +24,7 @@ UIButton::UIButton(Vector2f position, Vector2f size, string string, Color color)
 	text.setScale(Vector2f(1, 1));
 	text.setFont(GetFont());
 	text.setString(string);
-	text.setOrigin(text.getLocalBounds().left + text.getLocalBounds().width / 2.0f,
-		text.getLocalBounds().top + text.getLocalBounds().height / 2.0f);
+	text.setOrigin(text.getLocalBounds().left + text.getLocalBounds().width / 2.0f, text.getLocalBounds().top + text.getLocalBounds().height / 2.0f);
 
 	MouseDownEvent[Id] = [this](auto mouseButton, auto mousePosition) { OnMouseDown(mouseButton, mousePosition); };
 

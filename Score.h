@@ -1,5 +1,7 @@
 #pragma once
 
-void InitScore();
 string GetScoreString();
 float GetScore();
+
+void StartScore();
+void StopScore();
