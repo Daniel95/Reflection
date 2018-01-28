@@ -13,11 +13,13 @@ using namespace std;
 using namespace sf;
 
 UIButton::UIButton(Vector2f position, Vector2f size, string string, Color color) {
+	//The button background
 	GetBody().setSize(size);
 	GetBody().setOrigin(GetBody().getSize() / 2.0f);
 	GetBody().setPosition(position);
 	GetBody().setFillColor(color);
 
+	//The button text
 	text.setPosition(GetBody().getPosition());
 	text.setFillColor(Color::White);
 	text.setCharacterSize(32);
@@ -40,6 +42,7 @@ UIButton::~UIButton() {
 	RemoveDrawable(text, 0);
 }
 
+//Dispatch OnClickedEvent when we are clicked
 void UIButton::OnMouseDown(Mouse::Button mouseButton, Vector2i mousePosition) {
 	if (mouseButton != Mouse::Button::Left) { return; }
 	if (!GetBody().getGlobalBounds().contains((Vector2f)mousePosition)) { return; }

@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include <SFML/Graphics.hpp>
 #include <functional> 
+#include <string> 
 #include "UIButton.h"
+#include "UIHelper.h"
 #include "InputEvents.h"
 #include "Window.h"
 
@@ -10,12 +12,14 @@ using namespace sf;
 
 vector<function<void()>> OnStartClickedEvent;
 
+const Vector2f buttonSize = Vector2f(150, 75);
+const string howToPlayString = " In this game you control two players at the same time. \n These players are a reflection of each other and are physically linked. \n Survive as long as possible in this sidescroller by moving with WASD \n and shooting by aiming and holding down the left mouse button. \n Your score can be seen in the top left corner and will be accumulated over time. \n When you get hit by an enemy, it's game over.";
+const int howToPlayCharacterSize = 21;
+
 UIButton* startButton;
 UIButton* quitButton;
 Text howToPlayText;
 string mainMenuID = "MainMenuID";
-
-const Vector2f buttonSize = Vector2f(150, 75);
 
 void Quit();
 void DispatchOnStartClickedEvent();
@@ -30,12 +34,24 @@ void StartMainMenu() {
 
 	quitButton = new UIButton(quitButtonPosition, buttonSize, "Quit", Color::Blue);
 	quitButton->OnClickedEvent[mainMenuID] = Quit;
+
+	howToPlayText.setString(howToPlayString);
+	howToPlayText.setCharacterSize(howToPlayCharacterSize);
+	howToPlayText.setFont(GetFont());
+	howToPlayText.setOrigin(howToPlayText.getLocalBounds().left + howToPlayText.getLocalBounds().width / 2.0f, howToPlayText.getLocalBounds().top + howToPlayText.getLocalBounds().height / 2.0f);
+
+	Vector2f howToPlayTextPosition = quitButtonPosition + Vector2f(howToPlayText.getGlobalBounds().width / 2 - quitButton->GetBody().getSize().x / 2, howToPlayText.getGlobalBounds().height / 2.0f + 150);
+	howToPlayText.setPosition(howToPlayTextPosition);
+
+	AddDrawable(howToPlayText, 0);
 }
 
 void StopMainMenu() {
 	KeyDownEvent.erase(mainMenuID);
 	startButton->Destroy();
 	quitButton->Destroy();
+
+	RemoveDrawable(howToPlayText, 0);
 }
 
 void DispatchOnStartClickedEvent() {
