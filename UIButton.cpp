@@ -22,8 +22,7 @@ UIButton::UIButton(Vector2f position, Vector2f size, string string, Color color)
 	//The button text
 	text.setPosition(GetBody().getPosition());
 	text.setFillColor(Color::White);
-	text.setCharacterSize(32);
-	text.setScale(Vector2f(1, 1));
+	text.setCharacterSize(buttonCharacterSize);
 	text.setFont(GetFont());
 	text.setString(string);
 	text.setOrigin(text.getLocalBounds().left + text.getLocalBounds().width / 2.0f, text.getLocalBounds().top + text.getLocalBounds().height / 2.0f);

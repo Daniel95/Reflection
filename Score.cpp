@@ -16,7 +16,7 @@ using namespace std;
 
 const string scoreId = "scoreId";
 const Vector2f textSize = Vector2f(1.3f, 1.3f);
-const Vector2f textPosition = Vector2f(25, 25);
+const Vector2f textPosition = Vector2f(40, 25);
 const int textFontSize = 35;
 const Color textFillColor = Color::White;
 const Color textOutlineColor = Color::Black;
@@ -47,7 +47,6 @@ void StartScore() {
 	scoreText.setScale(textSize);
 	scoreText.setCharacterSize(textFontSize);
 	scoreText.setFont(GetFont());
-	scoreText.setOrigin(scoreText.getLocalBounds().left + scoreText.getLocalBounds().width / 2.0f, scoreText.getLocalBounds().top + scoreText.getLocalBounds().height / 2.0f);
 
 	UpdateEvent[scoreId] = UpdateScore;
 	AddDrawable(scoreText, scoreDrawLayer);

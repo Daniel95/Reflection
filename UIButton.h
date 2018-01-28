@@ -9,6 +9,8 @@
 using namespace std;
 using namespace sf;
 
+const int buttonCharacterSize = 32;
+
 //UIButton can be used to easily create a button, and listen to when it is clicked
 class UIButton : public GameObject {
 	Text text;
