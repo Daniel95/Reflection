@@ -25,7 +25,6 @@ Bullet::Bullet(Vector2f position, Vector2f _direction, float _speed, Tags::Tag s
 	AddCollider(collider, 0);
 
 	collider.CollisionEnterEvent.push_back([this](auto collider, auto push) { OnCollisionEnterEvent(collider, push); });
-	//collider.CollisionEvent.push_back([this](auto collider, auto push) { OnCollisionEvent(collider, push); });
 }
 
 Bullet::~Bullet() {
@@ -46,9 +45,3 @@ void Bullet::OnUpdate() {
 void Bullet::OnCollisionEnterEvent(Collider& collider, Vector2f push) {
 	Destroy();
 }
-
-/*
-void Bullet::OnCollisionEvent(Collider& collider, Vector2f push) {
-	lifeTime += maxLifeTime / 60;
-}
-*/
