@@ -28,7 +28,7 @@ UIButton::UIButton(Vector2f position, Vector2f size, string string, Color color)
 	text.setString(string);
 	text.setOrigin(text.getLocalBounds().left + text.getLocalBounds().width / 2.0f, text.getLocalBounds().top + text.getLocalBounds().height / 2.0f);
 
-	MouseDownEvent[Id] = [this](auto mouseButton, auto mousePosition) { OnMouseDown(mouseButton, mousePosition); };
+	MouseUpEvent[Id] = [this](auto mouseButton, auto mousePosition) { OnMouseUp(mouseButton, mousePosition); };
 
 	AddDrawable(GetBody(), 1);
 	AddDrawable(text, 0);
@@ -43,7 +43,7 @@ UIButton::~UIButton() {
 }
 
 //Dispatch OnClickedEvent when we are clicked
-void UIButton::OnMouseDown(Mouse::Button mouseButton, Vector2i mousePosition) {
+void UIButton::OnMouseUp(Mouse::Button mouseButton, Vector2i mousePosition) {
 	if (mouseButton != Mouse::Button::Left) { return; }
 	if (!GetBody().getGlobalBounds().contains((Vector2f)mousePosition)) { return; }
 

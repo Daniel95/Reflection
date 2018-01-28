@@ -23,6 +23,6 @@ public:
 
 	UIButton(Vector2f position, Vector2f size, string string, Color color);
 	~UIButton();
-	void OnMouseDown(Mouse::Button mouseButton, Vector2i mousePosition);
+	void OnMouseUp(Mouse::Button mouseButton, Vector2i mousePosition);
 };
 
